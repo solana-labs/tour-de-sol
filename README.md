@@ -1,7 +1,9 @@
 # Tour de SOL
 
 ## Validator Public Key Registration
-In order to obtain your allotment of lamports at the start of a Tour de SOL stage, you need to publish your validator's identity public key under your keybase.io account.
+In order to obtain your allotment of lamports at the start of a Tour de SOL
+stage, you need to publish your validator's identity public key under your
+keybase.io account.
 
 **If this registration is not completed by the cut-off time you will not be able to participate.**
 
@@ -23,6 +25,48 @@ In order to obtain your allotment of lamports at the start of a Tour de SOL stag
      $ touch /keybase/public/<KEYBASE_ID>/solana/validator-<BASE58_PUBKEY>
      ```
 5. To check your public key was published, ensure you can successfully browse to     `https://keybase.pub/<KEYBASE_ID>/solana/validator-<BASE58_PUBKEY>`
+
+
+## Connecting Your Validator
+
+Before attempting to connect your validator to the Tour de SOL cluster, be
+familiar with connecting a validator to the Public Testnet as described
+[here](https://solana-labs.github.io/book/testnet-participation.html).
+
+Ensure that Solana release [v0.16.4](https://github.com/solana-labs/solana/releases/tag/v0.16.4) or later is installed.
+
+Your validator identiy keypair will receive an allotment of lamports
+in the genesis block that can be used to start your validator node.
+*Note that airdrops have been disabled so the `solana-wallet airdrop` command will fail.*
+
+To view your current lamport balance:
+```
+solana-wallet -k ~/validator-keypair.json -u http://tds.solana.com:8899 balance
+```
+
+You can view the other nodes in the cluster using:
+```
+$ solana-gossip --entrypoint tds.solana.com:8001 spy
+```
+
+The easiest way to connect to the Tour de SOL cluster is by running:
+```
+$ clear-config.sh
+$ validator.sh --identity ~/validator-keypair.json --no-airdrop --stake 42 tds.solana.com
+```
+however this will result in running a validator with a very low stake (42 lamports) and it will likely never be selected as leader.
+
+Increasing your stake can be done by adding the `--stake` argument to
+validator.sh followed by the desired stake amount.  *Be mindful that the
+validator itself requires lamports to operate, so if you assign your entire
+allotment of lamports as stake then your validator will not be able to operate.*
+
+## Monitoring Your Validator
+* Use the `solana-wallet balance` command to monitor the earnings as your
+  validator is selected as leader and collects transaction fees
+* Use the ancillary [Validator
+  Metrics](https://solana-labs.github.io/book-edge/testnet-participation.html#validator-metrics)
+  distribution to monitor metrics from your validator
 
 ## Useful links
 * [Solana Online Book](https://solana-labs.github.io/book/)
