@@ -72,3 +72,7 @@ The number of nodes, GPUs, and the zones cannot be changed from this pipeline bu
 ## Validator Keybase Id Registration
 As new stage participants are registered for a given stage, their keybase id should be added to
 the file `/stageN/keybase-ids`.  One keybase id per line.
+
+Then prior to the start of the stage, run `./import-keybase-ids.sh` to import
+all public keys each validator has published and commit the modifications to
+`validator.yml`
