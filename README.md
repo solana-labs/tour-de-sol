@@ -24,3 +24,7 @@ In order to obtain your allotment of lamports at the start of a Tour de SOL stag
      ```
 5. To check your public key was published, ensure you can successfully browse to     `https://keybase.pub/<KEYBASE_ID>/solana/validator-<BASE58_PUBKEY>`
 
+## Useful links
+* [Solana Online Book](https://solana-labs.github.io/book/)
+* [Network explorer](http://explorer.solana.com/)
+* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-beta/testnet-monitor-beta?refresh=1m&from=now-15m&to=now&var-testnet=tds)
