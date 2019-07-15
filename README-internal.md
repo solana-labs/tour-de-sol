@@ -76,3 +76,14 @@ the file `/stageN/keybase-ids`.  One keybase id per line.
 Then prior to the start of the stage, run `./import-keybase-ids.sh` to import
 all public keys each validator has published and commit the modifications to
 `validator.yml`
+
+## Ledger Rollback Procedure
+**Work in progress**
+
+The following steps can be used to perform a ledger rollback if needed:
+1. Identity the desired slot height to roll back to
+2. Announce to all participants that a rollback is occuring, and request that everybody shut down their validators
+3. On the tds.solana.com node, run `solana-ledger-tool ....`
+4. Bring the tds.solana.com node back up
+5. Bring the other Solana TdS nodes back up
+2. Announce to all participants that a rollback has been completed, they should now delete their ledger and restart their validator from a new snapshot
