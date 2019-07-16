@@ -21,17 +21,6 @@ The pipeline will pull the tip of the v0.16 branch of code for scripts and binar
 All of the default configuration settings for the cluster can be found in the pipeline settings:
 
 https://buildkite.com/solana-labs/tds-create-and-start/settings
-```bash
-  TDS_ZONES: "us-west1-a,us-central1-a,europe-west4-a"
-  TDS_NODE_COUNT: "3"
-  TDS_CLIENT_COUNT: "1"
-  ENABLE_GPU: "--machine-type n1-standard-16 --accelerator count=2,type=nvidia-tesla-v100"
-  HASHES_PER_TICK: "auto"
-  STAKE_INTERNAL_NODES: "424243"
-  EXTERNAL_ACCOUNTS_FILE_URL: "https://raw.githubusercontent.com/solana-labs/tour-de-sol/master/stage1/validator.yml"
-  LAMPORTS: "8589934592000000000"
-  ADDITIONAL_DISK_SIZE_GB: "32000"
-```
 
 Any of the above values can be overwritten for a particular build, by using `[key]=[value]` syntax (do not use double quotes for the value here) under Environment Variables when you click 'New Build'.
 
