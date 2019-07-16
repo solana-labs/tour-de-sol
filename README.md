@@ -77,4 +77,6 @@ allotment of lamports as stake then your validator will not be able to operate.*
 * [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-beta/testnet-monitor-beta?refresh=1m&from=now-15m&to=now&var-testnet=tds)
 
 ## Common Problems
-...TODO...
+
+###  Out of disk space in your home directory
+By default the ledger will be written into `~/.local/share/solana`.  If you prefer or need to use a different filesystem location run `solana-install init --data-dir /new/data/dir/location/`.  
