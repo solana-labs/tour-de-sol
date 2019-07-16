@@ -27,7 +27,7 @@ https://buildkite.com/solana-labs/tds-create-and-start/settings
   TDS_CLIENT_COUNT: "1"
   ENABLE_GPU: "--machine-type n1-standard-16 --accelerator count=2,type=nvidia-tesla-v100"
   HASHES_PER_TICK: "auto"
-  STAKE_INTERNAL_NODES: "1000000000000"
+  STAKE_INTERNAL_NODES: "424243"
   EXTERNAL_ACCOUNTS_FILE_URL: "https://raw.githubusercontent.com/solana-labs/tour-de-sol/master/stage1/validator.yml"
   LAMPORTS: "8589934592000000000"
   ADDITIONAL_DISK_SIZE_GB: "32000"
