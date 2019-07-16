@@ -72,7 +72,7 @@ allotment of lamports as stake then your validator will not be able to operate.*
   distribution to monitor metrics from your validator
 
 ## Useful links
-* [Solana Online Book](https://solana-labs.github.io/book/)
+* [Solana Book](https://solana-labs.github.io/book/)
 * [Network explorer](http://explorer.solana.com/)
 * [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-beta/testnet-monitor-beta?refresh=1m&from=now-15m&to=now&var-testnet=tds)
 
