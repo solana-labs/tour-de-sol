@@ -44,7 +44,7 @@ in the genesis block that can be used to start your validator node.
 
 To view your current lamport balance:
 ```
-solana-wallet -k ~/validator-keypair.json -u http://tds.solana.com:8899 balance
+$ solana-wallet -k ~/validator-keypair.json -u http://tds.solana.com:8899 balance
 ```
 
 You can view the other nodes in the cluster using:
