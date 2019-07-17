@@ -66,6 +66,25 @@ Then prior to the start of the stage, run `./import-keybase-ids.sh` to import
 all public keys each validator has published and commit the modifications to
 `validator.yml`
 
+### Running bench-tps on the cluster
+First obtain the mint keypair to gain access to a font of tokens:
+```bash
+$ scp solana@tds.solana.com:solana/config-local/mint-keypair.json .
+```
+
+Then create a keypair for use by bench-tps:
+```bash
+$ solana-wallet -u http://tds.solana.com:8899 -k mint-keypair.json balance
+$ solana-keygen pubkey client.json 
+$ solana-wallet -u http://tds.solana.com:8899 -k mint-keypair.json pay $(solana-keygen pubkey client.json) 100000000
+$ solana-wallet -u http://tds.solana.com:8899 -k client.json balance
+```
+
+Finally run bench-tps:
+```bash
+$ solana-bench-tps -n tds.solana.com:8001 -i client.json -N 2 --tx_count=2 --thread-batch-sleep-ms=1000
+```
+
 ## Ledger Rollback Procedure
 **Work in progress**
 
