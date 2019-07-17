@@ -85,6 +85,13 @@ Finally run bench-tps:
 $ solana-bench-tps -n tds.solana.com:8001 -i client.json -N 2 --tx_count=2 --thread-batch-sleep-ms=1000
 ```
 
+## Attaching to the TdS cluster
+Fetching the TdS cluster configuration can be accomplished with:
+```bash
+$ net/gce.sh config -p tds-solana-com -z us-west1-a -z us-central1-a -z europe-west4-a
+```
+at which point all the normal `net/` functionality becomes available (such as `net/ssh.sh`)
+
 ## Ledger Rollback Procedure
 **Work in progress**
 
