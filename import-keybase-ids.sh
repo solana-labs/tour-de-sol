@@ -2,7 +2,7 @@
 set -e
 
 # Number of lamports to allocate to each validator
-lamports=1234567890000000000
+lamports=17179869184
 
 stage=$1
 [[ -n $stage ]] || {
