@@ -20,11 +20,11 @@ cd stage"$stage"/
 
 echo > validator.yml
 shopt -s nullglob
-for id in $(cat keybase-ids); do
-  echo "Processing $id..."
-  declare pubkeyDir=/keybase/public/"$id"/solana/
+for username in $(cat keybase-usernames); do
+  echo "Processing $username..."
+  declare pubkeyDir=/keybase/public/"$username"/solana/
   if [[ ! -d "$pubkeyDir" ]]; then
-    echo "Warn: $id: $pubkeyDir does not exist"
+    echo "Warn: $username: $pubkeyDir does not exist"
     continue
   fi
 
@@ -35,7 +35,7 @@ for id in $(cat keybase-ids); do
   done
 
   if [[ -z $validatorPubkey ]]; then
-    echo "Warn: $id: no validator pubkey found"
+    echo "Warn: $username: no validator pubkey found"
     continue
   fi
 
@@ -44,7 +44,7 @@ for id in $(cat keybase-ids); do
     echo "$pubkey registered"
     echo "$pubkey: $lamports" >> validator.yml
   else
-    echo "Warn: $id: invalid validator pubkey: $validatorPubkey"
+    echo "Warn: $username: invalid validator pubkey: $validatorPubkey"
   fi
 done
 
