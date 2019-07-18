@@ -18,13 +18,13 @@ keybase.io account.
      <BASE58_PUBKEY>
      ```
 3. Install [Keybase](https://keybase.io/download) on your machine.
-3. Create a Solana directory in your public file folder: `mkdir /keybase/public/<keybase id>/solana`
-4. Publish your validator's identity public key by creating an empty file in your Keybase public file folder in the following format: `/keybase/public/<KEYBASE_ID>/solana/validator-<BASE58_PUBKEY>`.   For example:
+3. Create a Solana directory in your public file folder: `mkdir /keybase/public/<KEYBASE_USERNAME>/solana`
+4. Publish your validator's identity public key by creating an empty file in your Keybase public file folder in the following format: `/keybase/public/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>`.   For example:
      ```bash
-     $ mkdir -p /keybase/public/<KEYBASE_ID>/solana
-     $ touch /keybase/public/<KEYBASE_ID>/solana/validator-<BASE58_PUBKEY>
+     $ mkdir -p /keybase/public/<KEYBASE_USERNAME>/solana
+     $ touch /keybase/public/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>
      ```
-5. To check your public key was published, ensure you can successfully browse to     `https://keybase.pub/<KEYBASE_ID>/solana/validator-<BASE58_PUBKEY>`
+5. To check your public key was published, ensure you can successfully browse to     `https://keybase.pub/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>`
 
 
 ## Connecting Your Validator
