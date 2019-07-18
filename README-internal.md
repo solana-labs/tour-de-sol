@@ -98,13 +98,13 @@ at which point all the normal `net/` functionality becomes available (such as `n
 The following steps can be used to perform a ledger rollback if needed:
 1. Identify the desired slot height to roll back to
 2. Announce to all participants that a rollback is occuring, and request that everybody shut down their validators
-3. On the tds.solana.com node, run the following steps to generate a rollback list
+3. Stop the Solana TdS nodes: `./net stop`
+3. On the tds.solana.com bootstrap-leader node, run the following steps to generate a rollback list
 ```bash
 $ solana-ledger-tool --ledger ${path_to_ledger} list-roots --max-height ${rollback_slot_height} --slot-list ./rollback.txt
 $ solana-ledger-tool --ledger ${path_to_ledger} prune --slot-list rollback.txt
 # The output should look something like this
 Prune at slot 5000 hash "HRQnaDnSoaeM5xQKxjKYbU53ZFhTYtjBS7HWyG3Q1JUq"
 ```
-4. Bring the tds.solana.com node back up
-5. Bring the other Solana TdS nodes back up
+4. Bring the Solana TdS nodes back up with `./net start --no-deploy --no-snapshot --skip-ledger-verify -r`
 2. Announce to all participants that a rollback has been completed, they should now delete their ledger and restart their validator from a new snapshot
