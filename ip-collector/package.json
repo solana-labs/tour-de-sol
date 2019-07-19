@@ -1,0 +1,12 @@
+{
+  "name": "ip-collector",
+  "version": "1.0.0",
+  "description": "Collects Validator IP addresses",
+  "scripts": {
+    "main": "node index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@solana/web3.js": "^0.17.2"
+  }
+}
