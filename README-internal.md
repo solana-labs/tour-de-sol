@@ -60,11 +60,14 @@ The number of nodes, GPUs, and the zones cannot be changed from this pipeline bu
 
 ## Validator Keybase Username Registration
 As new stage participants are registered for a given stage, their keybase username should be added to
-the file `/stageN/keybase-usernames`.  One keybase username per line.
+one of the keybase-username files, one keybase username per line:
+* `validators/keybase-usernames.internal` - Solana internal
+* `validators/keybase-usernames.us` - us-based validators
+* `validators/keybase-usernames.earth` - earth-based validators, excluding us.
 
 Then prior to the start of the stage, run `./import-keybase-usernames.sh` to import
 all public keys each validator has published and commit the modifications to
-`validator.yml`
+`validators/*.yml`
 
 ### Running bench-tps on the cluster
 First obtain the mint keypair to gain access to a font of tokens:
@@ -75,7 +78,7 @@ $ scp solana@tds.solana.com:solana/config-local/mint-keypair.json .
 Then create a keypair for use by bench-tps:
 ```bash
 $ solana-wallet -u http://tds.solana.com:8899 -k mint-keypair.json balance
-$ solana-keygen pubkey client.json 
+$ solana-keygen pubkey client.json
 $ solana-wallet -u http://tds.solana.com:8899 -k mint-keypair.json pay $(solana-keygen pubkey client.json) 100000000
 $ solana-wallet -u http://tds.solana.com:8899 -k client.json balance
 ```
