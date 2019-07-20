@@ -6,12 +6,15 @@ lamports=17179869184
 
 cd "$(dirname "$0")"
 
+rm -f validators/all.md
 shopt -s nullglob
-for file in validators/keybase-usernames.*; do
-  yml=${file/keybase-usernames./}.yml
+for keybase_file in validators/keybase-usernames.*; do
+  section=${keybase_file##*.}
+  echo "## $section" >> validators/all.md
+  yml=${keybase_file/keybase-usernames./}.yml
   rm -f $yml
   touch $yml
-  for username in $(cat "$file"); do
+  for username in $(cat "$keybase_file"); do
     echo "Processing $username..."
     declare pubkeyDir=/keybase/public/"$username"/solana/
     if [[ ! -d "$pubkeyDir" ]]; then
@@ -34,6 +37,7 @@ for file in validators/keybase-usernames.*; do
       declare pubkey="${BASH_REMATCH[1]}"
       echo "$pubkey registered"
       echo "$pubkey: $lamports" >> $yml
+      echo "* [$username](https://keybase.io/$username): \`$pubkey\`" >> validators/all.md
     else
       echo "Warn: $username: invalid validator pubkey: $validatorPubkey"
     fi
