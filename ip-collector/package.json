@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Collects Validator IP addresses",
   "scripts": {
-    "main": "node index.js"
+    "audit": "node audit.js",
+    "collect": "node collect.js"
   },
   "license": "MIT",
   "dependencies": {
-    "@solana/web3.js": "^0.17.2"
+    "@solana/web3.js": "^0.17.2",
+    "ip-geolocation-api-javascript-sdk": "^1.0.7",
+    "yaml": "^1.6.0"
   }
 }
