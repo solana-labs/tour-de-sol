@@ -15,7 +15,7 @@ This file will persist across restarts of the program.
 
 
 ## Audit
-Loads `observed-ip-addresses.json` and audits the observations for USA IP addresses usage
+Loads `observed-ip-addresses.json` and audits the observations for USA IP address usage
 
 Usage:
 ```bash
