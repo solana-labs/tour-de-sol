@@ -85,7 +85,7 @@ $ solana-wallet -u http://tds.solana.com:8899 -k client.json balance
 
 Finally run bench-tps:
 ```bash
-$ solana-bench-tps -n tds.solana.com:8001 -i client.json -N 2 --tx_count=2 --thread-batch-sleep-ms=1000
+$ solana-bench-tps -n tds.solana.com:8001 -i client.json -N 2 --tx_count=1000 --thread-batch-sleep-ms=1000
 ```
 
 ## Attaching to the TdS cluster
