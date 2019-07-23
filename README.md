@@ -33,9 +33,9 @@ Before attempting to connect your validator to the Tour de SOL cluster, be
 familiar with connecting a validator to the Public Testnet as described
 [here](https://solana-labs.github.io/book/testnet-participation.html).
 
-Ensure the Solana release [v0.16.5](https://github.com/solana-labs/solana/releases/tag/v0.16.5) is installed by running:
+Ensure the Solana release [v0.16.6](https://github.com/solana-labs/solana/releases/tag/v0.16.6) is installed by running:
 ```bash
-$ SOLANA_RELEASE=v0.16.5 curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.5/install/solana-install-init.sh | sh -s
+$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.5/install/solana-install-init.sh | sh -s - 0.16.6
 ```
 
 Your validator identiy keypair will receive an allotment of lamports
