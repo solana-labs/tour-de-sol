@@ -37,7 +37,7 @@ for keybase_file in validators/keybase-usernames.*; do
       declare pubkey="${BASH_REMATCH[1]}"
       echo "$pubkey registered"
       echo "$pubkey: $lamports" >> $yml
-      echo "* [$username](https://keybase.io/$username): \`$pubkey\`" >> validators/all.md
+      echo "1. [$username](https://keybase.io/$username): \`$pubkey\`" >> validators/all.md
     else
       echo "Warn: $username: invalid validator pubkey: $validatorPubkey"
     fi
