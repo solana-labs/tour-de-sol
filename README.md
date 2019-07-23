@@ -53,9 +53,9 @@ $ solana-gossip --entrypoint tds.solana.com:8001 spy
 ```
 
 The easiest way to connect to the Tour de SOL cluster is by running:
-```
-$ clear-config.sh
-$ validator.sh --identity ~/validator-keypair.json --no-airdrop --stake 42 tds.solana.com
+```bash
+$ export SOLANA_METRICS_CONFIG=<...configuration string supplied by the Solana team...>
+$ validator.sh --identity ~/validator-keypair.json --config-dir=~/validator-config --no-airdrop --rpc-port 8899 --stake 42 tds.solana.com
 ```
 however this will result in running a validator with a very low stake (42 lamports) and it will likely never be selected as leader.
 
@@ -67,9 +67,10 @@ allotment of lamports as stake then your validator will not be able to operate.*
 ## Monitoring Your Validator
 * Use the `solana-wallet balance` command to monitor the earnings as your
   validator is selected as leader and collects transaction fees
+* Run [rpc-check.sh](https://github.com/solana-labs/tour-de-sol/blob/master/rpc-check.sh) periodically
 * Use the ancillary [Validator
   Metrics](https://solana-labs.github.io/book-edge/testnet-participation.html#validator-metrics)
-  distribution to monitor metrics from your validator
+  distribution to monitor metrics from your validator (_alpha_)
 
 ## Useful links
 * [Solana Book](https://solana-labs.github.io/book/)
@@ -78,5 +79,4 @@ allotment of lamports as stake then your validator will not be able to operate.*
 
 ## Common Problems
 
-###  Out of disk space in your home directory
-By default the ledger will be written into `~/.local/share/solana`.  If you prefer or need to use a different filesystem location run `solana-install init --data-dir /new/data/dir/location/`.  
+### ...
