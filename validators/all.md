@@ -28,7 +28,7 @@
 1. [mabalaru](https://keybase.io/mabalaru): `F7FgS6rrWckgC5X4cP5WtRRp3U1u12nnuTRXbWYaKn1u`
 1. [mattharrop](https://keybase.io/mattharrop): `47UuTGPAQZX2HnVcfxKk8b1BtA4rRTduVaHnvxzQe6AJ`
 1. [mcalavera](https://keybase.io/mcalavera): `5MGfrpdVsyifhn2x62j6PnBWQk2c5xTUK1o8KFrwPLWG`
-1. [mintonium](https://keybase.io/mintonium): `GmQohNC3jzEXizaxHw6fW3A8PkHQjyJh2NZtHUcZnfKz`
+1. [mintonium](https://keybase.io/mintonium): `2yDwZer11v2TTj86WeHzRDpE4HJVbyJ3fJ8H4AkUtWTc`
 1. [p2p_org_](https://keybase.io/p2p_org_): `D52Q6Ap8RVMw1EvJYTdEABP6M5SPg98aToMcqw7KVLD9`
 1. [pkrasam](https://keybase.io/pkrasam): `9RCwtdmqJ5gCR67DmgEyJxQn8c24uoTQdurY8dXvvjNH`
 1. [ponchik69](https://keybase.io/ponchik69): `DJvMQcb3ZtXC49LsaMvAo4x1rzCxjNfBfZtvkUeR4mAx`
