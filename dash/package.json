@@ -1,0 +1,44 @@
+{
+  "name": "tds-dash",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "babel-node main.js",
+    "lint": "npm run pretty && eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "flow": "flow",
+    "flow:watch": "watch 'flow' . --wait=1 --ignoreDirectoryPattern=/doc/",
+    "lint:watch": "watch 'npm run lint:fix' . --wait=1",
+    "test": "npm run lint && echo TODO enable: npm run flow",
+    "pretty": "prettier --write '{,src/**/}*.js'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "@solana/web3.js": "0.18.1",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-function-bind": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "buffer-layout": "^1.2.0",
+    "eslint": "^5.3.0",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-import": "^2.18.1",
+    "eslint-plugin-react": "^7.14.3",
+    "flow-bin": "0.103.0",
+    "flow-typed": "^2.6.0",
+    "superstruct": "^0.6.1",
+    "watch": "^1.0.2"
+  }
+}
