@@ -11,6 +11,7 @@
 1. [coinwww](https://keybase.io/coinwww): `FQigEZ2cSQZPLNjK5NMbt7oquyg17Q27cqQBMEJr4dQf`
 1. [consortium_fund](https://keybase.io/consortium_fund): `BV8sS1jn1AvGAptY5TxNZdcm7aa49MZCXSpXQjzjdnYG`
 1. [costy](https://keybase.io/costy): `9fMqL641B7nQZ1xktU35qXuFESxMB7pkqmqVANtovzmE`
+1. [cyberili](https://keybase.io/cyberili): `AicKhNhJmkdqafRDjKLPgVqLzXLzJ8pS6aVrYrRkq1iq`
 1. [eduardoagut](https://keybase.io/eduardoagut): `CYWaefZRfsxTDoWJfKuyu6vt2brY2B3r3DeUM3ANhQu8`
 1. [everstake](https://keybase.io/everstake): `4Bx5bzjmPrU1g74AHfYpTMXvspBt8GnvZVQW3ba9z4Af`
 1. [forbole](https://keybase.io/forbole): `AkVMbJq8pqKEe87uFaxjmt35tX2cNhUJTJwv13iioHu7`
