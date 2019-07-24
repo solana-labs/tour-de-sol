@@ -64,6 +64,22 @@ validator.sh followed by the desired stake amount.  *Be mindful that the
 validator itself requires lamports to operate, so if you assign your entire
 allotment of lamports as stake then your validator will not be able to operate.*
 
+## Publishing Information About Your Validator
+See https://solana-labs.github.io/book/testnet-participation.html#publishing-validator-info for background, to operate `solana-validator-info` on the TdS cluster you need to include the `-u http://tds.solana.com:8899` argument:
+
+Example publish command:
+```bash
+$ solana-validator-info publish -u http://tds.solana.com:8899 ~/validator-keypair.json ...
+```
+
+Example query command:
+```bash
+$ solana-validator-info get -u http://tds.solana.com:8899 
+Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
+  Validator pubkey: 6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo
+  Info: {"keybaseUsername":"mvines","name":"mvines","website":"https://solana.com"}
+```
+
 ## Monitoring Your Validator
 * Use the `solana-wallet balance` command to monitor the earnings as your
   validator is selected as leader and collects transaction fees
