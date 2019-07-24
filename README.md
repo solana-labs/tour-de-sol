@@ -54,7 +54,7 @@ $ solana-gossip --entrypoint tds.solana.com:8001 spy
 
 The easiest way to connect to the Tour de SOL cluster is by running:
 ```bash
-$ export SOLANA_METRICS_CONFIG=<...configuration string supplied by the Solana team...>
+$ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
 $ validator.sh --identity ~/validator-keypair.json --config-dir=~/validator-config --no-airdrop --rpc-port 8899 --stake 42 tds.solana.com
 ```
 however this will result in running a validator with a very low stake (42 lamports) and it will likely never be selected as leader.
