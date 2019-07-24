@@ -35,7 +35,7 @@ familiar with connecting a validator to the Public Testnet as described
 
 Ensure the Solana release [v0.16.6](https://github.com/solana-labs/solana/releases/tag/v0.16.6) is installed by running:
 ```bash
-$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.5/install/solana-install-init.sh | sh -s - 0.16.6
+$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.6/install/solana-install-init.sh | sh -s - 0.16.6
 ```
 
 Your validator identiy keypair will receive an allotment of lamports
