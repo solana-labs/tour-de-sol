@@ -68,9 +68,6 @@ allotment of lamports as stake then your validator will not be able to operate.*
 * Use the `solana-wallet balance` command to monitor the earnings as your
   validator is selected as leader and collects transaction fees
 * Run [rpc-check.sh](https://github.com/solana-labs/tour-de-sol/blob/master/rpc-check.sh) periodically
-* Use the ancillary [Validator
-  Metrics](https://solana-labs.github.io/book-edge/testnet-participation.html#validator-metrics)
-  distribution to monitor metrics from your validator (_alpha_)
 
 ## Useful links
 * [Solana Book](https://solana-labs.github.io/book/)
