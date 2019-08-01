@@ -33,9 +33,9 @@ Before attempting to connect your validator to the Tour de SOL cluster, be
 familiar with connecting a validator to the Public Testnet as described
 [here](https://solana-labs.github.io/book/testnet-participation.html).
 
-Ensure the Solana release [v0.16.6](https://github.com/solana-labs/solana/releases/tag/v0.16.6) is installed by running:
+Ensure the Solana release [v0.18.0-pre0](https://github.com/solana-labs/solana/releases/tag/v0.18.0-pre0) is installed by running:
 ```bash
-$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.6/install/solana-install-init.sh | sh -s - 0.16.6
+$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.6/install/solana-install-init.sh | sh -s - 0.18.0-pre0
 ```
 
 Your validator identiy keypair will receive an allotment of lamports
@@ -52,17 +52,23 @@ You can view the other nodes in the cluster using:
 $ solana-gossip --entrypoint tds.solana.com:8001 spy
 ```
 
-The easiest way to connect to the Tour de SOL cluster is by running:
+Connect to the Tour de SOL cluster by running:
 ```bash
 $ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
-$ validator.sh --identity ~/validator-keypair.json --config-dir ~/validator-config --no-airdrop --rpc-port 8899 --stake 8589934592 tds.solana.com
+$ validator.sh --identity ~/validator-keypair.json --config-dir ~/validator-config \
+    --no-airdrop --rpc-port 8899 tds.solana.com
+    --stake 8589934592 
 ```
-however this will result in running a validator with a very low stake (42 lamports) and it will likely never be selected as leader.
 
-Increasing your stake can be done by adding the `--stake` argument to
-validator.sh followed by the desired stake amount.  *Be mindful that the
-validator itself requires lamports to operate, so if you assign your entire
-allotment of lamports as stake then your validator will not be able to operate.*
+**By default your validator will have no stake.**  
+Once your validator is caught up to the tip of the cluster, you can add stake by running:
+```bash
+$ VOTE_PUBKEY=$(solana-keygen pubkey ~/validator-config/vote-keypair.json)
+$ solana-keygen new -o ~/validator-config/stake-keypair.json
+$ solana-wallet delegate-stake ~/validator-config/stake-keypair.json $VOTE_PUBKEY 8589934592
+```
+
+More information about staking can be found at https://solana-labs.github.io/book-edge/testnet-participation.html#staking
 
 ## Publishing Information About Your Validator
 See https://solana-labs.github.io/book/testnet-participation.html#publishing-validator-info for background, to operate `solana-validator-info` on the TdS cluster you need to include the `-u http://tds.solana.com:8899` argument:
