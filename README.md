@@ -35,7 +35,7 @@ familiar with connecting a validator to the Public Testnet as described
 
 Ensure the Solana release [v0.18.0-pre0](https://github.com/solana-labs/solana/releases/tag/v0.18.0-pre0) is installed by running:
 ```bash
-$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.16.6/install/solana-install-init.sh | sh -s - 0.18.0-pre0
+$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - edge #0.18.0-pre0
 ```
 
 Your validator identiy keypair will receive an allotment of lamports
