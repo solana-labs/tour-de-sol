@@ -94,7 +94,7 @@ Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
 ## Useful links
 * [Solana Book](https://solana-labs.github.io/book/)
 * [Network explorer](http://explorer.solana.com/)
-* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-beta/testnet-monitor-beta?refresh=1m&from=now-15m&to=now&var-testnet=tds)
+* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-edge/testnet-monitor-edge?refresh=1m&from=now-15m&to=now&var-testnet=tds&orgId=2)
 
 ## Common Problems
 
