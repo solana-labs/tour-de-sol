@@ -10,6 +10,7 @@ export function sleep(ms: number): Promise<void> {
 }
 
 const connection = new Connection('http://tds.solana.com:8899');
+const nodeConnectionCache = {};
 
 async function dashboard() {
   console.log(`--- ${new Date()} ---`);
@@ -59,9 +60,15 @@ async function dashboard() {
     const lamports = await connection.getBalance(new PublicKey(node));
     let currentSlot = null;
     if (rpc) {
-      // TODO: Cache the connection...
-      const nodeConnection = new Connection(rpc);
-      currentSlot = await nodeConnection.getSlot();
+      try {
+        let nodeConnection = nodeConnectionCache[rpc];
+        if (nodeConnection === undefined) {
+          nodeConnectionCache[rpc] = nodeConnection = new Connection(`http://${rpc}`);
+        }
+        currentSlot = await nodeConnection.getSlot();
+      } catch (err) {
+        currentSlot = 'error';
+      }
     }
 
     let what;
@@ -69,8 +76,6 @@ async function dashboard() {
       what = 'Leader';
     } else if (!tpu && online) {
       what = 'Spy';
-    } else if (!votePubkey) {
-      what = 'Blockstreamer';
     } else {
       what = 'Validator';
     }
@@ -78,13 +83,13 @@ async function dashboard() {
       what = `OFFLINE! ${what}`;
     }
     let log = `${what}`.padEnd(19);
-    log += `${node.padEnd(44)} | `;
-    log += (voteAccount ? `root slot=${voteAccount.rootSlot}` : '').padEnd(17);
-    log += `balance=${lamports}`.padEnd(20);
-    log += (stake ? `stake=${stake}` : '').padEnd(18);
-    log += (currentSlot !== null ? 'current slot=${currentSlot}').padEnd(24);
+    log += node.padEnd(44);
+    log += `| ` + (currentSlot !== null ? `current slot=${currentSlot}` : '').padEnd(24);
+    log += `| ` + (voteAccount ? `root slot=${voteAccount.rootSlot}` : '(no vote account)').padEnd(18);
+    log += `| balance=${lamports}`.padEnd(21);
+    log += `| ` + (stake ? `stake=${stake}` : '(no stake)').padEnd(18);
     if (rpc) {
-      log += `rpc=http://${rpc}`;
+      log += `| rpc=http://${rpc}`;
     }
 
     console.log(log);
