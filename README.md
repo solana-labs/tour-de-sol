@@ -44,7 +44,7 @@ in the genesis block that can be used to start your validator node.
 
 To view your current lamport balance:
 ```
-$ solana-wallet -k ~/validator-keypair.json -u http://tds.solana.com:8899 balance
+$ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8899 balance
 ```
 
 You can view the other nodes in the cluster using:
@@ -64,7 +64,7 @@ Once your validator is caught up to the tip of the cluster, you can add stake by
 ```bash
 $ VOTE_PUBKEY=$(solana-keygen pubkey ~/validator-config/vote-keypair.json)
 $ solana-keygen new -o ~/validator-config/stake-keypair.json
-$ solana-wallet delegate-stake ~/validator-config/stake-keypair.json $VOTE_PUBKEY 8589934592
+$ solana-wallet --url http://tds.solana.com:8899 delegate-stake  ~/validator-config/stake-keypair.json $VOTE_PUBKEY 8589934592
 ```
 
 More information about staking can be found at https://solana-labs.github.io/book-edge/testnet-participation.html#staking
