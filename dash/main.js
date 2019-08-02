@@ -55,7 +55,14 @@ async function dashboard() {
 
   for (const node in nodes) {
     const {stake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
+
     const lamports = await connection.getBalance(new PublicKey(node));
+    let currentSlot = null;
+    if (rpc) {
+      // TODO: Cache the connection...
+      const nodeConnection = new Connection(rpc);
+      currentSlot = await nodeConnection.getSlot();
+    }
 
     let what;
     if (node === leader) {
@@ -75,6 +82,7 @@ async function dashboard() {
     log += (voteAccount ? `root slot=${voteAccount.rootSlot}` : '').padEnd(17);
     log += `balance=${lamports}`.padEnd(20);
     log += (stake ? `stake=${stake}` : '').padEnd(18);
+    log += (currentSlot !== null ? 'current slot=${currentSlot}').padEnd(24);
     if (rpc) {
       log += `rpc=http://${rpc}`;
     }

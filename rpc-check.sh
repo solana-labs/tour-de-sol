@@ -9,12 +9,8 @@
 # Requires: https://stedolan.github.io/jq/
 #
 
-url=http://tds.solana.com:8899
-if [[ $1 = local ]]; then
-  url=http://localhost:8899
-elif [[ -n $1 ]]; then
-  url=$1
-fi
+here=$(dirname "$0")
+source $here/get-url.sh
 
 set -x
 curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1, "method":"getLeaderSchedule"}' $url | jq
