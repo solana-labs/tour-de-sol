@@ -31,7 +31,7 @@ keybase.io account.
 
 Before attempting to connect your validator to the Tour de SOL cluster, be
 familiar with connecting a validator to the Public Testnet as described
-[here](https://solana-labs.github.io/book/testnet-participation.html).
+[here](https://solana-labs.github.io/book-edge/testnet-participation.html).
 
 Ensure the Solana release [v0.18.0-pre0](https://github.com/solana-labs/solana/releases/tag/v0.18.0-pre0) is installed by running:
 ```bash
@@ -71,7 +71,7 @@ $ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8
 More information about staking can be found at https://solana-labs.github.io/book-edge/testnet-participation.html#staking
 
 ## Publishing Information About Your Validator
-See https://solana-labs.github.io/book/testnet-participation.html#publishing-validator-info for background, to operate `solana-validator-info` on the TdS cluster you need to include the `-u http://tds.solana.com:8899` argument:
+See https://solana-labs.github.io/book-edge/testnet-participation.html#publishing-validator-info for background, to operate `solana-validator-info` on the TdS cluster you need to include the `-u http://tds.solana.com:8899` argument:
 
 Example publish command:
 ```bash
@@ -92,7 +92,7 @@ Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
 * Run [rpc-check.sh](https://github.com/solana-labs/tour-de-sol/blob/master/rpc-check.sh) periodically
 
 ## Useful links
-* [Solana Book](https://solana-labs.github.io/book/)
+* [Solana Book](https://solana-labs.github.io/book-edge/)
 * [Network explorer](http://explorer.solana.com/)
 * [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-edge/testnet-monitor-edge?refresh=1m&from=now-15m&to=now&var-testnet=tds&orgId=2)
 
