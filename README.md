@@ -55,7 +55,7 @@ $ solana-gossip --entrypoint tds.solana.com:8001 spy
 Connect to the Tour de SOL cluster by running:
 ```bash
 $ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
-$ validator.sh --identity ~/validator-keypair.json --config-dir ~/validator-config \
+$ validator.sh --identity ~/validator-keypair.json --ledger ~/validator-config \
     --no-airdrop --rpc-port 8899 tds.solana.com
 ```
 
