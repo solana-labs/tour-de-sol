@@ -49,6 +49,13 @@
 1. [y3v63n](https://keybase.io/y3v63n): `9J8WcnXxo3ArgEwktfk9tsrf4Rp8h5uPUgnQbQHLvtkd`
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF`
+1. [codonyat](https://keybase.io/codonyat): `7JYVN6QpMBnfjiiE4owyjJzxtJfXKdBzPGs6tuYB9sVB`
+1. [lmblmb](https://keybase.io/lmblmb): `CtxU5HwVbgspJVtWxwjuP8wXUMdkjYJ4EJwJ3jvZh4zu`
+1. [dkuwh](https://keybase.io/dkuwh): `7FnrBgjPb1y8PNjzRLihQWUvky37F7wkvRb7MUL89Q8P`
+1. [mishawagon](https://keybase.io/mishawagon): `ES5G93qiEu5hCyMZMpFUhnbK4YZKhrZMN86Xfkub9YJL`
+1. [gnossienli](https://keybase.io/gnossienli): `33LfdA2yKS6m7E8pSanrKTKYMhpYHEGaSWtNNB5s7xnm`
+1. [kcbev](https://keybase.io/kcbev): `75yzn7njq32yY1ieCZxFNVFZQWtEbQHpaaG6dSZFfmX5`
+1. [dk808](https://keybase.io/dk808): `9mbQ9mrRjBGiUVnz9Tdf7PuAkWomw3GLZ6Sup3R93Gw8`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
