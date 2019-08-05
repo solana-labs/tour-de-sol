@@ -35,7 +35,7 @@ familiar with connecting a validator to the Public Testnet as described
 
 Ensure the Solana release [v0.18.0-pre0](https://github.com/solana-labs/solana/releases/tag/v0.18.0-pre0) is installed by running:
 ```bash
-$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - edge #0.18.0-pre0
+$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.18.0-pre0
 ```
 
 Your validator identiy keypair will receive an allotment of lamports
@@ -56,7 +56,7 @@ Connect to the Tour de SOL cluster by running:
 ```bash
 $ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
 $ validator.sh --identity ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json --ledger ~/validator-config \
-    --no-airdrop --rpc-port 8899 tds.solana.com
+    --no-airdrop --rpc-port 8899 --entrypoint tds.solana.com:8001
 ```
 
 **By default your validator will have no stake.**  
