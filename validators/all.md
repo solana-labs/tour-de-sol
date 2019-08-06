@@ -60,6 +60,7 @@
 1. [samzeb](https://keybase.io/samzeb): `3pzTi41c6NAbZyTiyPEAQtmi2K5MyWZJMxx6nDvWPgnQ`
 1. [AFLSVC_Solana](https://keybase.io/AFLSVC_Solana): `8ASvX43WvDF4LHe2ioNUbn3A4ZRD9iC6rsxyjo5sVGLp`
 1. [stakingfund](https://keybase.io/stakingfund): `123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY`
+1. [chrisremus](https://keybase.io/chrisremus): `2jrM8c8ZhpX9CovseJ2sRsrU9yzsFrP7d3gCi5ESU5Rs`
 1. [cyphercore](https://keybase.io/cyphercore): `9waRyqWAoP68etU17DdWamgpTnPb3skY7Er9kRZMzCfS`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
