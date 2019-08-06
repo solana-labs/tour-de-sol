@@ -58,6 +58,9 @@
 1. [dk808](https://keybase.io/dk808): `9mbQ9mrRjBGiUVnz9Tdf7PuAkWomw3GLZ6Sup3R93Gw8`
 1. [justinsolana](https://keybase.io/justinsolana): `55ofKaF1xdfgC9mB4zUhrffdx7CVoxTbNo7GeQLyj3YL`
 1. [samzeb](https://keybase.io/samzeb): `3pzTi41c6NAbZyTiyPEAQtmi2K5MyWZJMxx6nDvWPgnQ`
+1. [AFLSVC_Solana](https://keybase.io/AFLSVC_Solana): `8ASvX43WvDF4LHe2ioNUbn3A4ZRD9iC6rsxyjo5sVGLp`
+1. [stakingfund](https://keybase.io/stakingfund): `123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY`
+1. [cyphercore](https://keybase.io/cyphercore): `9waRyqWAoP68etU17DdWamgpTnPb3skY7Er9kRZMzCfS`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
