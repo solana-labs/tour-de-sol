@@ -56,6 +56,8 @@
 1. [gnossienli](https://keybase.io/gnossienli): `33LfdA2yKS6m7E8pSanrKTKYMhpYHEGaSWtNNB5s7xnm`
 1. [kcbev](https://keybase.io/kcbev): `75yzn7njq32yY1ieCZxFNVFZQWtEbQHpaaG6dSZFfmX5`
 1. [dk808](https://keybase.io/dk808): `9mbQ9mrRjBGiUVnz9Tdf7PuAkWomw3GLZ6Sup3R93Gw8`
+1. [justinsolana](https://keybase.io/justinsolana): `55ofKaF1xdfgC9mB4zUhrffdx7CVoxTbNo7GeQLyj3YL`
+1. [samzeb](https://keybase.io/samzeb): `3pzTi41c6NAbZyTiyPEAQtmi2K5MyWZJMxx6nDvWPgnQ`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
