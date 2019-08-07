@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 if [[ ! -f mint-keypair.json ]]; then
   scp -o "ConnectTimeout=20" -o "BatchMode=yes" \
     -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" \
-    solana@tds.solana.com:solana/config-local/mint-keypair.json .
+    solana@tds.solana.com:solana/config/mint-keypair.json .
 fi
 
 solana-wallet -u http://tds.solana.com:8899 -k mint-keypair.json balance
