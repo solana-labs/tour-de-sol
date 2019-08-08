@@ -2,7 +2,7 @@
 set -e
 
 # Number of lamports to allocate to each validator
-lamports=17179869184
+lamports=17179869184000
 
 cd "$(dirname "$0")"
 
