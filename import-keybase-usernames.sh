@@ -11,9 +11,12 @@ shopt -s nullglob
 for keybase_file in validators/keybase-usernames.*; do
   section=${keybase_file##*.}
   echo "## $section" >> validators/all.md
-  yml=${keybase_file/keybase-usernames./}.yml
-  rm -f $yml
-  touch $yml
+  pubkey_yml=${keybase_file/keybase-usernames./}-pubkey.yml
+  rm -f $pubkey_yml
+  touch $pubkey_yml
+  username_yml=${keybase_file/keybase-usernames./}-username.yml
+  rm -f $username_yml
+  touch $username_yml
   for username in $(cat "$keybase_file"); do
     echo "Processing $username..."
     declare pubkeyDir=/keybase/public/"$username"/solana/
@@ -36,17 +39,23 @@ for keybase_file in validators/keybase-usernames.*; do
     if [[ $validatorPubkey =~ .*validator-([1-9A-HJ-NP-Za-km-z]+)$ ]]; then
       declare pubkey="${BASH_REMATCH[1]}"
       echo "$pubkey registered"
-      echo "$pubkey: $lamports" >> $yml
+      echo "$pubkey: $lamports" >> $pubkey_yml
+      echo "$pubkey: $username" >> $username_yml
       echo "1. [$username](https://keybase.io/$username): \`$pubkey\`" >> validators/all.md
     else
       echo "Warn: $username: invalid validator pubkey: $validatorPubkey"
     fi
   done
-  echo Wrote $yml
+  echo Wrote $pubkey_yml $username_yml
 done
 
 echo
-yml=validators/all.yml
-rm -f $yml
-cat validators/*.yml > $yml
-echo Wrote $yml
+pubkey_yml=validators/all-pubkey.yml
+rm -f $pubkey_yml
+cat validators/*-pubkey.yml > $pubkey_yml
+echo Wrote $pubkey_yml
+
+username_yml=validators/all-username.yml
+rm -f $username_yml
+cat validators/*-username.yml > $username_yml
+echo Wrote $username_yml

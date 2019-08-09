@@ -28,14 +28,32 @@ let earthValidators = [];
 try {
   earthValidators = Object.keys(
     yaml.parse(
-      fs.readFileSync(path.join(__dirname, '..', 'validators', 'earth.yml'), 'utf8')
+      fs.readFileSync(path.join(__dirname, '..', 'validators', 'earth-pubkey.yml'), 'utf8')
     ) || []
   )
 } catch (err) {
   logError(err);
 }
 
+let usernames = [];
+try {
+  usernames = yaml.parse(
+    fs.readFileSync(path.join(__dirname, '..', 'validators', 'all-username.yml'), 'utf8')
+  ) || []
+} catch (err) {
+  logError(err);
+}
+
+
+let validatorCount = 0;
 for (const pubkey in observed) {
+  const username = usernames[pubkey];
+  if (username === undefined) {
+    // Ignore spy nodes
+    continue;
+  }
+  validatorCount += 1;
+  console.log(`- ${username}`);
   if (earthValidators.includes(pubkey)) {
     for (const ip of observed[pubkey]) {
       const geolocationParams = new GeolocationParams();
@@ -44,7 +62,7 @@ for (const pubkey in observed) {
       ipgeolocationApi.getGeolocation(
         json => {
             if (json.country_name === 'United States') {
-              console.log(`Error: Validator ${pubkey} observed with US address ${ip}`);
+              console.log(`Notice: Validator ${username} observed with US address ${ip}`);
             }
         },
         geolocationParams
@@ -52,5 +70,6 @@ for (const pubkey in observed) {
     }
   }
 }
+console.log(`Total validators: ${validatorCount}\n`);
 
 
