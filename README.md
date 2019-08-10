@@ -62,10 +62,9 @@ $ validator.sh --identity ~/validator-keypair.json --voting-keypair ~/validator-
 **By default your validator will have no stake.**  
 Once your validator is caught up to the tip of the cluster, you can add stake by running:
 ```bash
-$ VOTE_PUBKEY=$(solana-keygen pubkey ~/validator-vote-keypair.json)
 $ solana-keygen new -o ~/validator-stake-keypair.json
 $ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8899 delegate-stake \
-     ~/validator-stake-keypair.json $VOTE_PUBKEY 8589934592
+     ~/validator-stake-keypair.json ~/validator-vote-keypair.json 8589934592
 ```
 
 More information about staking can be found at https://solana-labs.github.io/book-edge/testnet-participation.html#staking
