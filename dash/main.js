@@ -54,7 +54,7 @@ async function dashboard() {
     node.votePubkey = votePubkey;
   }
 
-  for (const node in nodes) {
+  for (const node of Object.keys(nodes).sort()) {
     const {stake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
 
     const lamports = await connection.getBalance(new PublicKey(node));
@@ -85,6 +85,7 @@ async function dashboard() {
     let log = `${what}`.padEnd(19);
     log += node.padEnd(44);
     log += `| ` + (currentSlot !== null ? `current slot=${currentSlot}` : '').padEnd(24);
+    log += `| ` + (voteAccount ? `v=${votePubkey}` : '(no vote account)').padEnd(46);
     log += `| ` + (voteAccount ? `root slot=${voteAccount.rootSlot}` : '(no vote account)').padEnd(18);
     log += `| balance=${lamports}`.padEnd(21);
     log += `| ` + (stake ? `stake=${stake}` : '(no stake)').padEnd(18);
