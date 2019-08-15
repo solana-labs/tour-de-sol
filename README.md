@@ -52,11 +52,16 @@ You can view the other nodes in the cluster using:
 $ solana-gossip --entrypoint tds.solana.com:8001 spy
 ```
 
+The wallet `ping` commmand can be used to check that the cluster is able to process transactions:
+```
+$ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8899 ping
+```
+
 Connect to the Tour de SOL cluster by running:
 ```bash
 $ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
-$ validator.sh --identity ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json --ledger ~/validator-config \
-    --no-airdrop --rpc-port 8899 --entrypoint tds.solana.com:8001
+$ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json \
+    --ledger ~/validator-ledger --rpc-port 8899 --entrypoint tds.solana.com:8001
 ```
 
 **By default your validator will have no stake.**  
