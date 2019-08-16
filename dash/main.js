@@ -54,7 +54,7 @@ async function dashboard() {
     node.votePubkey = votePubkey;
   }
 
-  const SEP = "  ";
+  const SEP = '  ';
   const ROLE_PAD = 9;
   const ACCOUNT_PAD = 44;
   const CUR_SLOT_PAD = 9;
@@ -64,14 +64,14 @@ async function dashboard() {
   const STAKE_PAD = 14;
   const RPC_PAD = 20;
 
-  let log = "Role".padEnd(ROLE_PAD);
-  log += SEP + "Account".padEnd(ACCOUNT_PAD);
-  log += SEP + "Cur. Slot".padEnd(CUR_SLOT_PAD);
-  log += SEP + "Vote Account".padEnd(VOTE_ACCOUNT_PAD);
-  log += SEP + "Root Slot".padEnd(ROOT_SLOT_PAD);
-  log += SEP + "Balance".padEnd(BALANCE_PAD);
-  log += SEP + "Stake".padEnd(STAKE_PAD);
-  log += SEP + "RPC Endpoint".padEnd(RPC_PAD)
+  let log = 'Role'.padEnd(ROLE_PAD);
+  log += SEP + 'Account'.padEnd(ACCOUNT_PAD);
+  log += SEP + 'Cur. Slot'.padEnd(CUR_SLOT_PAD);
+  log += SEP + 'Vote Account'.padEnd(VOTE_ACCOUNT_PAD);
+  log += SEP + 'Root Slot'.padEnd(ROOT_SLOT_PAD);
+  log += SEP + 'Balance'.padEnd(BALANCE_PAD);
+  log += SEP + 'Stake'.padEnd(STAKE_PAD);
+  log += SEP + 'RPC Endpoint'.padEnd(RPC_PAD)
   console.log(log);
 
   for (const node of Object.keys(nodes).sort()) {
