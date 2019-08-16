@@ -54,6 +54,18 @@ async function dashboard() {
     node.votePubkey = votePubkey;
   }
 
+  const SEP = "  ";
+
+  let log = "Role".padEnd(9);
+  log += SEP + "Account".padEnd(44);
+  log += SEP + "Cur. Slot".padEnd(9);
+  log += SEP + "Vote Account".padEnd(44);
+  log += SEP + "Root Slot".padEnd(9);
+  log += SEP + "Balance".padEnd(14);
+  log += SEP + "Stake".padEnd(14);
+  log += SEP + "RPC Endpoint".padEnd(18)
+  console.log(log);
+
   for (const node of Object.keys(nodes).sort()) {
     const {stake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
 
@@ -82,17 +94,14 @@ async function dashboard() {
     if (!online) {
       what = `OFFLINE! ${what}`;
     }
-    let log = `${what}`.padEnd(19);
-    log += node.padEnd(44);
-    log += `| ` + (currentSlot !== null ? `current slot=${currentSlot}` : '').padEnd(24);
-    log += `| ` + (voteAccount ? `v=${votePubkey}` : '(no vote account)').padEnd(46);
-    log += `| ` + (voteAccount ? `root slot=${voteAccount.rootSlot}` : '(no vote account)').padEnd(18);
-    log += `| balance=${lamports}`.padEnd(21);
-    log += `| ` + (stake ? `stake=${stake}` : '(no stake)').padEnd(18);
-    if (rpc) {
-      log += `| rpc=http://${rpc}`;
-    }
-
+    let log = `${what}`.padStart(9);
+    log += SEP + `${node}`.padStart(44);
+    log += SEP + (currentSlot !== null ? `${currentSlot}` : '').padStart(9);
+    log += SEP + (voteAccount ? `${votePubkey}` : 'None').padStart(44);
+    log += SEP + (voteAccount ? `${voteAccount.rootSlot}` : 'N/A').padStart(9);
+    log += SEP + `${lamports}`.padStart(14);
+    log += SEP + (stake ? `${stake}` : 'None').padStart(14);
+    log += SEP + (rpc ? `http://${rpc}` : '').padStart(18);
     console.log(log);
   }
 }
