@@ -31,20 +31,25 @@ keybase.io account.
 
 Before attempting to connect your validator to the Tour de SOL cluster, be
 familiar with connecting a validator to the Public Testnet as described
-[here](https://solana-labs.github.io/book-edge/testnet-participation.html).
+[here](https://solana-labs.github.io/book-edge/running-validator.html).
 
 Ensure the Solana release [v0.18.0-pre1](https://github.com/solana-labs/solana/releases/tag/v0.18.0-pre1) is installed by running:
 ```bash
 $ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.18.0-pre1
 ```
 
-Your validator identiy keypair will receive an allotment of lamports
+Configure solana-wallet for your validator identity and Tour de SOL:
+```bash
+$ solana-wallet set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
+```
+
+Your validator identity keypair will receive an allotment of lamports
 in the genesis block that can be used to start your validator node.
 *Note that airdrops have been disabled so the `solana-wallet airdrop` command will fail.*
 
 To view your current lamport balance:
 ```
-$ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8899 balance
+$ solana-wallet balance
 ```
 
 You can view the other nodes in the cluster using:
@@ -54,7 +59,14 @@ $ solana-gossip --entrypoint tds.solana.com:8001 spy
 
 The wallet `ping` commmand can be used to check that the cluster is able to process transactions:
 ```
-$ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8899 ping
+$ solana-wallet ping
+```
+
+Create your vote account:
+```bash
+$ solana-keygen new -o ~/validator-vote-keypair.json
+$ solana-wallet create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json 1
+
 ```
 
 Connect to the Tour de SOL cluster by running:
@@ -68,14 +80,15 @@ $ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/valida
 Once your validator is caught up to the tip of the cluster, you can add stake by running:
 ```bash
 $ solana-keygen new -o ~/validator-stake-keypair.json
-$ solana-wallet --keypair ~/validator-keypair.json --url http://tds.solana.com:8899 delegate-stake \
-     ~/validator-stake-keypair.json ~/validator-vote-keypair.json 8589934592
+$ solana-wallet delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 8589934592
 ```
 
-More information about staking can be found at https://solana-labs.github.io/book-edge/testnet-participation.html#staking
+More information about staking can be found at https://solana-labs.github.io/book-edge/validator-stake.html
 
 ## Publishing Information About Your Validator
-See https://solana-labs.github.io/book-edge/testnet-participation.html#publishing-validator-info for background, to operate `solana-validator-info` on the TdS cluster you need to include the `-u http://tds.solana.com:8899` argument:
+See https://solana-labs.github.io/book-edge/validator-info.html for background,
+to operate `solana-validator-info` on the TdS cluster you need to include the
+`-u http://tds.solana.com:8899` argument:
 
 Example publish command:
 ```bash
@@ -84,7 +97,7 @@ $ solana-validator-info publish -u http://tds.solana.com:8899 ~/validator-keypai
 
 Example query command:
 ```bash
-$ solana-validator-info get -u http://tds.solana.com:8899 
+$ solana-validator-info get -u http://tds.solana.com:8899
 Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
   Validator pubkey: 6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo
   Info: {"keybaseUsername":"mvines","name":"mvines","website":"https://solana.com"}
