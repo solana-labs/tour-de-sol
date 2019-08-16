@@ -54,6 +54,26 @@ async function dashboard() {
     node.votePubkey = votePubkey;
   }
 
+  const SEP = '  ';
+  const ROLE_PAD = 9;
+  const ACCOUNT_PAD = 44;
+  const CUR_SLOT_PAD = 9;
+  const VOTE_ACCOUNT_PAD = 44;
+  const ROOT_SLOT_PAD = 9;
+  const BALANCE_PAD = 14;
+  const STAKE_PAD = 14;
+  const RPC_PAD = 20;
+
+  let log = 'Role'.padEnd(ROLE_PAD);
+  log += SEP + 'Account'.padEnd(ACCOUNT_PAD);
+  log += SEP + 'Cur. Slot'.padEnd(CUR_SLOT_PAD);
+  log += SEP + 'Vote Account'.padEnd(VOTE_ACCOUNT_PAD);
+  log += SEP + 'Root Slot'.padEnd(ROOT_SLOT_PAD);
+  log += SEP + 'Balance'.padEnd(BALANCE_PAD);
+  log += SEP + 'Stake'.padEnd(STAKE_PAD);
+  log += SEP + 'RPC Endpoint'.padEnd(RPC_PAD)
+  console.log(log);
+
   for (const node of Object.keys(nodes).sort()) {
     const {stake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
 
@@ -82,17 +102,14 @@ async function dashboard() {
     if (!online) {
       what = `OFFLINE! ${what}`;
     }
-    let log = `${what}`.padEnd(19);
-    log += node.padEnd(44);
-    log += `| ` + (currentSlot !== null ? `current slot=${currentSlot}` : '').padEnd(24);
-    log += `| ` + (voteAccount ? `v=${votePubkey}` : '(no vote account)').padEnd(46);
-    log += `| ` + (voteAccount ? `root slot=${voteAccount.rootSlot}` : '(no vote account)').padEnd(18);
-    log += `| balance=${lamports}`.padEnd(21);
-    log += `| ` + (stake ? `stake=${stake}` : '(no stake)').padEnd(18);
-    if (rpc) {
-      log += `| rpc=http://${rpc}`;
-    }
-
+    let log = `${what}`.padStart(ROLE_PAD);
+    log += SEP + `${node}`.padStart(ACCOUNT_PAD);
+    log += SEP + (currentSlot !== null ? `${currentSlot}` : '').padStart(CUR_SLOT_PAD);
+    log += SEP + (voteAccount ? `${votePubkey}` : 'None').padStart(VOTE_ACCOUNT_PAD);
+    log += SEP + (voteAccount ? `${voteAccount.rootSlot}` : 'N/A').padStart(ROOT_SLOT_PAD);
+    log += SEP + `${lamports}`.padStart(BALANCE_PAD);
+    log += SEP + (stake ? `${stake}` : 'None').padStart(STAKE_PAD);
+    log += SEP + (rpc ? `http://${rpc}` : '').padStart(RPC_PAD);
     console.log(log);
   }
 }
