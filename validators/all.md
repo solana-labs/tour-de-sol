@@ -61,6 +61,11 @@
 1. [y3v63n](https://keybase.io/y3v63n): `9J8WcnXxo3ArgEwktfk9tsrf4Rp8h5uPUgnQbQHLvtkd`
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF`
+1. [viduka](https://keybase.io/viduka): `3ckQZncmgmS1aZCC7Eot659hoBQ8k85ExddD7fu9qJ2c`
+1. [cyphercore](https://keybase.io/cyphercore): `9waRyqWAoP68etU17DdWamgpTnPb3skY7Er9kRZMzCfS`
+1. [heda](https://keybase.io/heda): `592eDka2qrXWcszC3NNvViKfEyxvuoAbBgohVt75dWq1`
+1. [iscr34ms](https://keybase.io/iscr34ms): `7yzVecfpWupdJwVQby3inMggGSotFSnSrhvPGPp6JGdU`
+1. [smartya](https://keybase.io/smartya): `Fv4zJ7RvV8gEYxEtLjnGZAX1qxjqRh56DzBgqvFEVjjM`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
