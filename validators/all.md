@@ -65,9 +65,11 @@
 1. [cyphercore](https://keybase.io/cyphercore): `9waRyqWAoP68etU17DdWamgpTnPb3skY7Er9kRZMzCfS`
 1. [heda](https://keybase.io/heda): `592eDka2qrXWcszC3NNvViKfEyxvuoAbBgohVt75dWq1`
 1. [iscr34ms](https://keybase.io/iscr34ms): `7yzVecfpWupdJwVQby3inMggGSotFSnSrhvPGPp6JGdU`
+1. [bharvest](https://keybase.io/bharvest): `2RYnM1C5XuzWzZu4sD7TyJTgxQTKzFVHG6jNtbK65q2y`
 1. [smartya](https://keybase.io/smartya): `Fv4zJ7RvV8gEYxEtLjnGZAX1qxjqRh56DzBgqvFEVjjM`
 1. [yongjoo](https://keybase.io/yongjoo): `2XAHomUvH3LFjYSxzSfcbwS73JgynpQHfapMNMJ8isL9`
 1. [udon_crypto](https://keybase.io/udon_crypto): `7yiFPLeyH2B2p3xGrr2Y5nmk8B52nEaa6j55Nk3u6648`
+1. [dxiri](https://keybase.io/dxiri): `HS9Kg3kHiyNCgDLHLv62DThvqaqQUiptWkbW3PmTXxLk`
 1. [anoane](https://keybase.io/anoane): `FRgKM5ZXu9e3U7RrPqKiksm4v7MWcy14EixGQKufd8oG`
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 ## internal
