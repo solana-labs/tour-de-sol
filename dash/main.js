@@ -10,6 +10,7 @@ export function sleep(ms: number): Promise<void> {
 }
 
 const connection = new Connection('http://tds.solana.com:8899');
+//const connection = new Connection('http://edge.testnet.solana.com:8899');
 const nodeConnectionCache = {};
 
 async function dashboard() {
@@ -55,7 +56,7 @@ async function dashboard() {
   }
 
   const SEP = '  ';
-  const ROLE_PAD = 9;
+  const ROLE_PAD = 11;
   const ACCOUNT_PAD = 44;
   const CUR_SLOT_PAD = 9;
   const VOTE_ACCOUNT_PAD = 44;
@@ -85,7 +86,10 @@ async function dashboard() {
         if (nodeConnection === undefined) {
           nodeConnectionCache[rpc] = nodeConnection = new Connection(`http://${rpc}`);
         }
-        currentSlot = await nodeConnection.getSlot();
+        currentSlot = await Promise.race([nodeConnection.getSlot(),sleep(1000)]);
+        if (currentSlot === undefined) {
+          currentSlot = 'timeout';
+        }
       } catch (err) {
         currentSlot = 'error';
       }
@@ -100,7 +104,7 @@ async function dashboard() {
       what = 'Validator';
     }
     if (!online) {
-      what = `OFFLINE! ${what}`;
+      what = `?${what}?`;
     }
     let log = `${what}`.padStart(ROLE_PAD);
     log += SEP + `${node}`.padStart(ACCOUNT_PAD);
