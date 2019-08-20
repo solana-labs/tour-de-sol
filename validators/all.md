@@ -66,6 +66,10 @@
 1. [heda](https://keybase.io/heda): `592eDka2qrXWcszC3NNvViKfEyxvuoAbBgohVt75dWq1`
 1. [iscr34ms](https://keybase.io/iscr34ms): `7yzVecfpWupdJwVQby3inMggGSotFSnSrhvPGPp6JGdU`
 1. [smartya](https://keybase.io/smartya): `Fv4zJ7RvV8gEYxEtLjnGZAX1qxjqRh56DzBgqvFEVjjM`
+1. [yongjoo](https://keybase.io/yongjoo): `2XAHomUvH3LFjYSxzSfcbwS73JgynpQHfapMNMJ8isL9`
+1. [udon_crypto](https://keybase.io/udon_crypto): `7yiFPLeyH2B2p3xGrr2Y5nmk8B52nEaa6j55Nk3u6648`
+1. [anoane](https://keybase.io/anoane): `FRgKM5ZXu9e3U7RrPqKiksm4v7MWcy14EixGQKufd8oG`
+1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
