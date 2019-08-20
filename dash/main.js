@@ -18,14 +18,14 @@ async function dashboard() {
 
   const leader = await connection.getSlotLeader();
   const clusterNodes = await connection.getClusterNodes();
-  const epochVoteAccounts = await connection.getEpochVoteAccounts();
+  const voteAccounts = await connection.getVoteAccounts();
   const allVoteAccounts = await connection.getProgramAccounts(VOTE_ACCOUNT_KEY);
 
   const nodes = {};
-  for (const epochVoteAccount of epochVoteAccounts) {
-    const {nodePubkey, stake, votePubkey} = epochVoteAccount;
+  for (const voteAccount in voteAccounts) {
+    const {nodePubkey, activatedStake, votePubkey} = voteAccount;
     nodes[nodePubkey] = {
-      stake,
+      activatedStake,
       votePubkey,
     };
   }
@@ -76,7 +76,7 @@ async function dashboard() {
   console.log(log);
 
   for (const node of Object.keys(nodes).sort()) {
-    const {stake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
+    const {activatedStake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
 
     const lamports = await connection.getBalance(new PublicKey(node));
     let currentSlot = null;
@@ -112,7 +112,7 @@ async function dashboard() {
     log += SEP + (voteAccount ? `${votePubkey}` : 'None').padStart(VOTE_ACCOUNT_PAD);
     log += SEP + (voteAccount ? `${voteAccount.rootSlot}` : 'N/A').padStart(ROOT_SLOT_PAD);
     log += SEP + `${lamports}`.padStart(BALANCE_PAD);
-    log += SEP + (stake ? `${stake}` : 'None').padStart(STAKE_PAD);
+    log += SEP + (activatedStake ? `${activatedStake}` : 'None').padStart(STAKE_PAD);
     log += SEP + (rpc ? `http://${rpc}` : '').padStart(RPC_PAD);
     console.log(log);
   }
