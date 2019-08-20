@@ -22,13 +22,23 @@ async function dashboard() {
   const allVoteAccounts = await connection.getProgramAccounts(VOTE_ACCOUNT_KEY);
 
   const nodes = {};
-  for (const voteAccount in voteAccounts) {
+  for (const voteAccount of voteAccounts.current) {
+    const {nodePubkey, activatedStake, votePubkey} = voteAccount;
+    nodes[nodePubkey] = {
+      activatedStake,
+      votePubkey,
+      voteAccountActive: true
+    };
+  }
+
+  for (const voteAccount of voteAccounts.delinquent) {
     const {nodePubkey, activatedStake, votePubkey} = voteAccount;
     nodes[nodePubkey] = {
       activatedStake,
       votePubkey,
     };
   }
+
 
   for (const clusterNode of clusterNodes) {
     const {pubkey, rpc, tpu} = clusterNode;
@@ -69,14 +79,14 @@ async function dashboard() {
   log += SEP + 'Account'.padEnd(ACCOUNT_PAD);
   log += SEP + 'Cur. Slot'.padEnd(CUR_SLOT_PAD);
   log += SEP + 'Vote Account'.padEnd(VOTE_ACCOUNT_PAD);
-  log += SEP + 'Root Slot'.padEnd(ROOT_SLOT_PAD);
+  log += SEP + 'Root Slot'.padEnd(ROOT_SLOT_PAD) + ' ';
   log += SEP + 'Balance'.padEnd(BALANCE_PAD);
   log += SEP + 'Stake'.padEnd(STAKE_PAD);
   log += SEP + 'RPC Endpoint'.padEnd(RPC_PAD)
   console.log(log);
 
   for (const node of Object.keys(nodes).sort()) {
-    const {activatedStake, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
+    const {activatedStake, voteAccountActive, votePubkey, voteAccount, online, rpc, tpu} = nodes[node];
 
     const lamports = await connection.getBalance(new PublicKey(node));
     let currentSlot = null;
@@ -111,6 +121,7 @@ async function dashboard() {
     log += SEP + (currentSlot !== null ? `${currentSlot}` : '').padStart(CUR_SLOT_PAD);
     log += SEP + (voteAccount ? `${votePubkey}` : 'None').padStart(VOTE_ACCOUNT_PAD);
     log += SEP + (voteAccount ? `${voteAccount.rootSlot}` : 'N/A').padStart(ROOT_SLOT_PAD);
+    log += (voteAccount && voteAccountActive ? '*' : ' ');
     log += SEP + `${lamports}`.padStart(BALANCE_PAD);
     log += SEP + (activatedStake ? `${activatedStake}` : 'None').padStart(STAKE_PAD);
     log += SEP + (rpc ? `http://${rpc}` : '').padStart(RPC_PAD);
