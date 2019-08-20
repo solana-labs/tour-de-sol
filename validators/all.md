@@ -62,7 +62,6 @@
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF`
 1. [viduka](https://keybase.io/viduka): `3ckQZncmgmS1aZCC7Eot659hoBQ8k85ExddD7fu9qJ2c`
-1. [cyphercore](https://keybase.io/cyphercore): `9waRyqWAoP68etU17DdWamgpTnPb3skY7Er9kRZMzCfS`
 1. [heda](https://keybase.io/heda): `592eDka2qrXWcszC3NNvViKfEyxvuoAbBgohVt75dWq1`
 1. [iscr34ms](https://keybase.io/iscr34ms): `7yzVecfpWupdJwVQby3inMggGSotFSnSrhvPGPp6JGdU`
 1. [bharvest](https://keybase.io/bharvest): `2RYnM1C5XuzWzZu4sD7TyJTgxQTKzFVHG6jNtbK65q2y`
