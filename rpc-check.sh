@@ -19,5 +19,5 @@ curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1, "m
 curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1, "method":"getEpochInfo"}' $url | jq
 curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","id":1, "method":"getSlot"}' $url | jq
 if [[ -f ~/validator-keypair.json ]]; then
-  solana-wallet --keypair ~/validator-keypair.json --url $url balance
+  solana --keypair ~/validator-keypair.json --url $url balance
 fi

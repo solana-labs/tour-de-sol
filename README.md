@@ -38,18 +38,18 @@ Ensure the Solana release [v0.18.0-pre1](https://github.com/solana-labs/solana/r
 $ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.18.0-pre1
 ```
 
-Configure solana-wallet for your validator identity and Tour de SOL:
+Configure solana for your validator identity and Tour de SOL:
 ```bash
-$ solana-wallet set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
+$ solana set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
 ```
 
 Your validator identity keypair will receive an allotment of lamports
 in the genesis block that can be used to start your validator node.
-*Note that airdrops have been disabled so the `solana-wallet airdrop` command will fail.*
+*Note that airdrops have been disabled so the `solana airdrop` command will fail.*
 
 To view your current lamport balance:
 ```
-$ solana-wallet balance
+$ solana balance
 ```
 
 You can view the other nodes in the cluster using:
@@ -59,13 +59,13 @@ $ solana-gossip --entrypoint tds.solana.com:8001 spy
 
 The wallet `ping` commmand can be used to check that the cluster is able to process transactions:
 ```
-$ solana-wallet ping
+$ solana ping
 ```
 
 Create your vote account:
 ```bash
 $ solana-keygen new -o ~/validator-vote-keypair.json
-$ solana-wallet create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json 1
+$ solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json 1
 
 ```
 
@@ -80,7 +80,7 @@ $ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/valida
 Once your validator is caught up to the tip of the cluster, you can add stake by running:
 ```bash
 $ solana-keygen new -o ~/validator-stake-keypair.json
-$ solana-wallet delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 8589934592
+$ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 8589934592
 ```
 
 More information about staking can be found at https://solana-labs.github.io/book-edge/validator-stake.html
@@ -104,8 +104,8 @@ Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
 ```
 
 ## Monitoring Your Validator
-* Run `solana-wallet get-slot` to track the progress of your validator as it catches up with the cluster after you first connect.
-* Use the `solana-wallet balance` command to monitor the earnings as your
+* Run `solana get-slot` to track the progress of your validator as it catches up with the cluster after you first connect.
+* Use the `solana balance` command to monitor the earnings as your
   validator is selected as leader and collects transaction fees
 * Run [rpc-check.sh](https://github.com/solana-labs/tour-de-sol/blob/master/rpc-check.sh) periodically
 

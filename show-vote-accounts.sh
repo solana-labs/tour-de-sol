@@ -13,7 +13,7 @@ for pubkey in $(
   ); do
   (
     set -x
-    solana-wallet --url $url show-vote-account ${pubkey//\"}
+    solana --url $url show-vote-account ${pubkey//\"}
   )
 done
 
