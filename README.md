@@ -71,7 +71,7 @@ $ solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.j
 
 Connect to the Tour de SOL cluster by running:
 ```bash
-$ export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
+$ export SOLANA_METRICS_CONFIG="host=https://tds-metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
 $ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json \
     --ledger ~/validator-ledger --rpc-port 8899 --entrypoint tds.solana.com:8001
 ```
@@ -112,7 +112,7 @@ Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
 ## Useful links
 * [Solana Book](https://solana-labs.github.io/book-edge/)
 * [Network explorer](http://explorer.solana.com/)
-* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-edge/testnet-monitor-edge?refresh=1m&from=now-15m&to=now&var-testnet=tds&orgId=2)
+* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-edge/testnet-monitor-edge?refresh=1m&from=now-15m&to=now&var-testnet=tds&orgId=2&var-datasource=TdS%20Metrics%20(read-only))
 
 ## Common Problems
 
