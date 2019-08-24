@@ -57,7 +57,7 @@ You can view the other nodes in the cluster using:
 $ solana-gossip --entrypoint tds.solana.com:8001 spy
 ```
 
-The wallet `ping` commmand can be used to check that the cluster is able to process transactions:
+The `ping` commmand can be used to check that the cluster is able to process transactions:
 ```
 $ solana ping
 ```
