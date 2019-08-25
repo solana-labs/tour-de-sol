@@ -6,6 +6,7 @@
 1. [alexticea](https://keybase.io/alexticea): `B4xFUYq2TDmz6PsiCj29vFyvmYvqTRAtnhQ3uSmxQVFd`
 1. [aurel](https://keybase.io/aurel): `8diJdQj3y4QbkjfnXr95SXoktiJ1ad965ZkeFsmutfyz`
 1. [avaluo](https://keybase.io/avaluo): `7mmRxJNttYcJVNsJmiLjTHYmNDt32EpzUSgLDoBsTKKK`
+1. [bitcat365](https://keybase.io/bitcat365): `BpzjtHCQSbJGWYJFtHnfW5qK38iG4jSQQK2bUr45fuSK`
 1. [caddilackness](https://keybase.io/caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
 1. [chorusoneinc](https://keybase.io/chorusoneinc): `2fb96Xsc9tEMNKT4bL5hKx1qNzVFhvWQkuw5rKCQMfsS`
 1. [chrisremus](https://keybase.io/chrisremus): `2jrM8c8ZhpX9CovseJ2sRsrU9yzsFrP7d3gCi5ESU5Rs`
@@ -70,6 +71,7 @@
 1. [udon_crypto](https://keybase.io/udon_crypto): `7yiFPLeyH2B2p3xGrr2Y5nmk8B52nEaa6j55Nk3u6648`
 1. [dxiri](https://keybase.io/dxiri): `HS9Kg3kHiyNCgDLHLv62DThvqaqQUiptWkbW3PmTXxLk`
 1. [anoane](https://keybase.io/anoane): `FRgKM5ZXu9e3U7RrPqKiksm4v7MWcy14EixGQKufd8oG`
+1. [cosmostation](https://keybase.io/cosmostation): `AmNRXJSSaGJrXaYBahD1PBoBR2ApkfLBAJ7SiRK4772R`
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
