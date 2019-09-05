@@ -73,7 +73,8 @@ Connect to the Tour de SOL cluster by running:
 ```bash
 $ export SOLANA_METRICS_CONFIG="host=https://tds-metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
 $ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json \
-    --ledger ~/validator-ledger --rpc-port 8899 --entrypoint tds.solana.com:8001
+    --ledger ~/validator-ledger --rpc-port 8899 --entrypoint tds.solana.com:8001 \
+    --limit-ledger-size
 ```
 
 **By default your validator will have no stake.**  
