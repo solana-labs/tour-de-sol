@@ -87,21 +87,19 @@ $ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.
 More information about staking can be found at https://solana-labs.github.io/book-edge/validator-stake.html
 
 ## Publishing Information About Your Validator
-See https://solana-labs.github.io/book-edge/validator-info.html for background,
-to operate `solana-validator-info` on the TdS cluster you need to include the
-`-u http://tds.solana.com:8899` argument:
+See https://solana-labs.github.io/book-edge/validator-info.html for background:
 
 Example publish command:
 ```bash
-$ solana-validator-info publish -u http://tds.solana.com:8899 ~/validator-keypair.json ...
+$ solana validator-info publish ~/validator-keypair.json "Elvis Validator" -n elvis -w "https://elvis-validates.com"
 ```
 
 Example query command:
 ```bash
-$ solana-validator-info get -u http://tds.solana.com:8899
+$ solana validator-info get
 Validator info from 8WdJvDz6obhADdxpGCiJKZsDYwTLNEDFizayqziDc9ah
   Validator pubkey: 6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo
-  Info: {"keybaseUsername":"mvines","name":"mvines","website":"https://solana.com"}
+  Info: {"keybaseUsername":"elvis","name":"Elvis Validator","website":"https://elvis-validates.com"}
 ```
 
 ## Monitoring Your Validator
