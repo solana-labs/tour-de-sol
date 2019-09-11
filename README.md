@@ -43,13 +43,18 @@ Configure solana for your validator identity and Tour de SOL:
 $ solana set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
 ```
 
-Your validator identity keypair will receive an allotment of lamports
+Your validator identity keypair will receive an allotment of SOL
 in the genesis block that can be used to start your validator node.
 *Note that airdrops have been disabled so the `solana airdrop` command will fail.*
 
-To view your current lamport balance:
+To view your current balance:
 ```
 $ solana balance
+```
+
+Or to see in finer detail:
+```
+$ solana balance --lamports
 ```
 
 You can view the other nodes in the cluster using:
@@ -81,7 +86,7 @@ $ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/valida
 Once your validator is caught up to the tip of the cluster, you can add stake by running:
 ```bash
 $ solana-keygen new -o ~/validator-stake-keypair.json
-$ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 8589934592
+$ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 0.5
 ```
 
 More information about staking can be found at https://solana-labs.github.io/book-edge/validator-stake.html
