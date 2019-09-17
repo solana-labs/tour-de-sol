@@ -1,3 +1,7 @@
+---
+description: 'https://solana.com/tds/'
+---
+
 # Tour de SOL
 
 ## Validator Public Key Registration
