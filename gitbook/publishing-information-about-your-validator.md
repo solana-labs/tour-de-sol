@@ -1,6 +1,6 @@
 # Publishing Information About Your Validator
 
-See [https://solana-labs.github.io/book-edge/validator-info.html](https://solana-labs.github.io/book-edge/validator-info.html) for background:
+See [https://docs.solana.com/book/running-validator/validator-info](https://docs.solana.com/book/running-validator/validator-info) for background:
 
 Example publish command:
 

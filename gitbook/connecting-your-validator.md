@@ -1,6 +1,6 @@
 # Connecting Your Validator
 
-Before attempting to connect your validator to the Tour de SOL cluster, be familiar with connecting a validator to the Public Testnet as described [here](https://solana-labs.github.io/book-edge/running-validator.html).
+Before attempting to connect your validator to the Tour de SOL cluster, be familiar with connecting a validator to the Public Testnet as described [here](https://docs.solana.com/book/running-validator).
 
 Ensure the Solana release [v0.18.0](https://github.com/solana-labs/solana/releases/tag/v0.18.0) is installed by running:
 
@@ -64,7 +64,7 @@ $ solana-keygen new -o ~/validator-stake-keypair.json
 $ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 0.5
 ```
 
-More information about staking can be found at [https://solana-labs.github.io/book-edge/validator-stake.html](https://solana-labs.github.io/book-edge/validator-stake.html)
+More information about staking can be found at [https://docs.solana.com/book/running-validator](https://docs.solana.com/book/running-validator)
 
 ## 
 
