@@ -1,4 +1,4 @@
-# Validator Registration and Rewards FAQ
+# FAQ
 
 ## How do I register to participate in the Tour de Sol?
 
