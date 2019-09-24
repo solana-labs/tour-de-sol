@@ -39,7 +39,14 @@ for keybase_file in validators/keybase-usernames.*; do
     if [[ $validatorPubkey =~ .*validator-([1-9A-HJ-NP-Za-km-z]+)$ ]]; then
       declare pubkey="${BASH_REMATCH[1]}"
       echo "$pubkey registered"
-      echo "$pubkey: $lamports" >> $pubkey_yml
+      cat >> $pubkey_yml <<EOF
+$pubkey:
+  balance: $lamports
+  owner: 11111111111111111111111111111111
+  data:
+  executable: false
+EOF
+
       echo "$pubkey: $username" >> $username_yml
       echo "1. [$username](https://keybase.io/$username): \`$pubkey\`" >> validators/all.md
     else
