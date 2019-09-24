@@ -1,4 +1,4 @@
-# FAQ
+# Registration FAQ
 
 ## How do I register to participate in the Tour de Sol?
 
@@ -24,8 +24,6 @@ Please see section “2c Tour de Sol Details” of the [TOUR DE SOL PARTICIPATIO
 
 ### How is the “50% of the active Tour event time” responsibility calculated?
 
-\[TBD\]
-
 To be eligible for rewards in a given stage, a validator must submit votes in &gt;= 50% of that stage’s slots. 
 
 If a validator isn’t able to submit &gt;= 50% of votes for a stage and still feels they should receive awards for that stage, they can petition Solana for reconsideration.
@@ -45,12 +43,6 @@ Please also see Section “4 Prohibited Conduct” of the [TOUR DE SOL PARTICIPA
 #### As referenced in section “4 Prohibited Conduct”, what would be an example of providing Tour Services from a jurisdiction other than the jurisdiction of my residence? Does this mean my server has to reside in the jurisdiction of my residence?
 
 No. Servers can be in other jurisdictions that differ from a participant’s residency. By signing the  [TOUR DE SOL PARTICIPATION TERMS](https://drive.google.com/file/d/15ueLG6VJoQ5Hx4rnpjFeuL3pG5DbrBbE/view) the participant has represented that they are delivering their services from the US if they reside there or from outside the US if they are not residing within the US.
-
-\[TBD - “Use our Solana Services other than their intended purpose…” and “Reverse engineer…” may conflict with the concept of an adversarial testnet.\]
-
-\[TBD - “Develop or use any applications…” may discourage third party tool development.\]
-
-\[TBD - The 4\(b\) arbitrariness could cause issues if unfairly applied.\]
 
 ## How are rewards calculated?
 
