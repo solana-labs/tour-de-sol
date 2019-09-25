@@ -1,7 +1,9 @@
 # Table of contents
 
 * [Tour de SOL](README.md)
-* [Registration FAQ](validator-registration-and-rewards-faq.md)
+* [FAQs](faqs/README.md)
+  * [Participation FAQs](faqs/participation-faqs.md)
+  * [Registration FAQ](faqs/validator-registration-and-rewards-faq.md)
 * [Validator Public Key Registration](validator-public-key-registration.md)
 * [Connecting Your Validator](connecting-your-validator.md)
 * [Publishing Information About Your Validator](publishing-information-about-your-validator.md)
