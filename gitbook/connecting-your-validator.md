@@ -2,10 +2,10 @@
 
 Before attempting to connect your validator to the Tour de SOL cluster, be familiar with connecting a validator to the Public Testnet as described [here](https://docs.solana.com/book/running-validator).
 
-Ensure the Solana release [v0.18.0](https://github.com/solana-labs/solana/releases/tag/v0.18.0) is installed by running:
+Ensure the Solana release [v0.19.1](https://github.com/solana-labs/solana/releases/tag/v0.18.1) is installed by running:
 
 ```bash
-$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.18.0
+$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.19.1
 ```
 
 Configure solana for your validator identity and Tour de SOL:
@@ -65,10 +65,4 @@ $ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.
 ```
 
 More information about staking can be found at [https://docs.solana.com/book/running-validator](https://docs.solana.com/book/running-validator)
-
-## 
-
-
-
-## 
 
