@@ -58,7 +58,7 @@ async function dashboard() {
       continue;
     }
     if (node.votePubkey && node.votePubkey != votePubkey) {
-      console.warn(`note: (${nodePubkey} has multiple vote accounts)`);
+      console.warn(`note: (${nodePubkey} has multiple vote accounts, skipping ${votePubkey})`);
       continue;
     }
     node.voteAccount = voteAccount;
