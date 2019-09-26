@@ -5,7 +5,7 @@ See [https://docs.solana.com/book/running-validator/validator-info](https://docs
 Example publish command:
 
 ```bash
-solana validator-info publish ~/validator-keypair.json "Elvis Validator" -n elvis -w "https://elvis-validates.com"
+solana validator-info publish "Elvis Validator" -n elvis -w "https://elvis-validates.com"
 ```
 
 Example query command:
