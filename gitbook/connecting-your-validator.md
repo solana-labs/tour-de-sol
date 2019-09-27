@@ -37,7 +37,7 @@ solana-gossip --entrypoint tds.solana.com:8001 spy
 The `ping` commmand can be used to check that the cluster is able to process transactions:
 
 ```text
-$ solana ping
+solana ping
 ```
 
 Create your vote account:
