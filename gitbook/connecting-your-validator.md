@@ -46,7 +46,7 @@ Create your vote account:
 solana-keygen new -o ~/validator-vote-keypair.json
 ```
 ```bash
-solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json 1
+solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json 1 lamports
 ```
 
 Connect to the Tour de SOL cluster by running:
