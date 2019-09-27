@@ -18,8 +18,8 @@ if [[ ! -f bench-tps.json ]]; then
 fi
 
 solana -u http://$host:8899 -k mint-keypair.json \
-  pay "$(solana-keygen pubkey bench-tps.json)" 100000000 lamports
-solana -u http://$host:8899 -k bench-tps.json balance --lamports
+  pay "$(solana-keygen pubkey bench-tps.json)" 1000 SOL
+solana -u http://$host:8899 -k bench-tps.json balance
 
 export RUST_LOG=solana=info
-solana-bench-tps -n $host:8001 -i bench-tps.json -N 2 --tx_count=1000 --thread-batch-sleep-ms=100
+solana-bench-tps -n $host:8001 -i bench-tps.json -N 2 --tx_count=1000 --thread-batch-sleep-ms=1000
