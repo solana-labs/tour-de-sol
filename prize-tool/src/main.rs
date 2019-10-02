@@ -29,7 +29,7 @@ fn main() {
                 .long("starting_balance")
                 .value_name("SOL")
                 .takes_value(true)
-                .required(true)
+                .default_value("1000")
                 .help("Starting balance of validators at the beginning of TdS"),
         )
         .get_matches();
