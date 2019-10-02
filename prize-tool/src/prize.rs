@@ -2,7 +2,7 @@ use solana_sdk::pubkey::Pubkey;
 
 #[derive(Debug)]
 pub enum Category {
-    // Availability,
+    Availability,
     // ConfirmationLatency,
     RewardsEarned,
 }

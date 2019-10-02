@@ -10,6 +10,7 @@ homepage = "https://solana.com/tds"
 
 [dependencies]
 clap = "2.33.0"
+log = "0.4.8"
 solana-core = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
 solana-logger = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
 solana-runtime = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
