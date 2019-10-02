@@ -1,0 +1,18 @@
+[package]
+authors = ["Solana Maintainers <maintainers@solana.com>"]
+edition = "2018"
+name = "solana-tds-prize-tool"
+description = "Solana Tour de Sol prize tool"
+version = "0.20.0"
+repository = "https://github.com/solana-labs/solana"
+license = "Apache-2.0"
+homepage = "https://solana.com/tds"
+
+[dependencies]
+clap = "2.33.0"
+solana-core = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
+solana-logger = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
+solana-runtime = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
+solana-sdk = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
+solana-stake-api = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
+solana-vote-api = { git = "https://github.com/solana-labs/solana", branch = "v0.19" }
