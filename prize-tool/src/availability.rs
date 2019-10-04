@@ -177,7 +177,7 @@ mod tests {
         validator_leader_stats.insert(
             bottom_validator,
             LeaderStat {
-                missed_slots: 1000,
+                missed_slots: 100,
                 total_slots: 1000,
             },
         );
