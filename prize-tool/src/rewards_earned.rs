@@ -1,4 +1,4 @@
-//! Calculates the winners of the "Most Rewards Earned" category in Tour de Sol by summing the
+//! Calculates the winners of the "Most Rewards Earned" category in Tour de SOL by summing the
 //! balances of all stake and vote accounts attributed to a particular validator.
 //!
 //! The top 3 validators will receive the top prizes and validators will be awarded additional
@@ -106,7 +106,7 @@ fn bucket_winners(results: &[(Pubkey, i64)]) -> Vec<(String, Vec<Winner>)> {
     bucket_winners
 }
 
-fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<(Pubkey, String)> {
+fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<Winner> {
     winners
         .iter()
         .map(|(key, earned)| {
@@ -118,9 +118,10 @@ fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<(Pubkey, String)> {
         .collect()
 }
 
-pub fn compute_winners(bank: &Bank, starting_balance: u64) -> Winners {
+pub fn compute_winners(bank: &Bank, baseline_id: &Pubkey, starting_balance: u64) -> Winners {
     let voter_stake_rewards = voter_stake_rewards(bank.stake_accounts());
-    let validator_reward_map = validator_rewards(voter_stake_rewards, bank.vote_accounts());
+    let mut validator_reward_map = validator_rewards(voter_stake_rewards, bank.vote_accounts());
+    validator_reward_map.remove(baseline_id);
     let results = validator_results(validator_reward_map, starting_balance);
     let num_validators = results.len();
     let num_winners = min(num_validators, 3);
