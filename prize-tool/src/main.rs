@@ -41,12 +41,12 @@ fn main() {
                 .help("Starting balance of validators at the beginning of TdS"),
         )
         .arg(
-            Arg::with_name("solana_baseline")
-                .long("solana_baseline")
+            Arg::with_name("baseline_validator")
+                .long("baseline_validator")
                 .value_name("PUBKEY")
                 .takes_value(true)
                 .required(true)
-                .help("Public key of the Solana baseline validator"),
+                .help("Public key of the baseline validator"),
         )
         .arg(
             Arg::with_name("final_slot")
@@ -59,19 +59,16 @@ fn main() {
 
     let ledger_path = PathBuf::from(value_t_or_exit!(matches, "ledger", String));
     let starting_balance_sol = value_t_or_exit!(matches, "starting_balance", f64);
-    let baseline_id_string = value_t_or_exit!(matches, "solana_baseline", String);
+    let baseline_id_string = value_t_or_exit!(matches, "baseline_validator", String);
     let final_slot = value_t!(matches, "final_slot", u64).ok();
 
-    let baseline_id = match Pubkey::from_str(&baseline_id_string) {
-        Ok(baseline_id) => baseline_id,
-        Err(err) => {
-            eprintln!(
-                "Failed to create a valid pubkey from {}: {}",
-                baseline_id_string, err
-            );
-            exit(1);
-        }
-    };
+    let baseline_id = Pubkey::from_str(&baseline_id_string).unwrap_or_else(|err| {
+        eprintln!(
+            "Failed to create a valid pubkey from {}: {}",
+            baseline_id_string, err
+        );
+        exit(1);
+    });
 
     let genesis_block = GenesisBlock::load(&ledger_path).unwrap_or_else(|err| {
         eprintln!(
