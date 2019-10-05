@@ -1836,7 +1836,7 @@ dependencies = [
 [[package]]
 name = "solana-bpf-loader-api"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1851,7 +1851,7 @@ dependencies = [
 [[package]]
 name = "solana-bpf-loader-program"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-bpf-loader-api 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
@@ -1862,7 +1862,7 @@ dependencies = [
 [[package]]
 name = "solana-budget-api"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "chrono 0.4.9 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1877,7 +1877,7 @@ dependencies = [
 [[package]]
 name = "solana-budget-program"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-budget-api 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
@@ -1888,7 +1888,7 @@ dependencies = [
 [[package]]
 name = "solana-chacha-sys"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "cc 1.0.45 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -1896,7 +1896,7 @@ dependencies = [
 [[package]]
 name = "solana-client"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bs58 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1915,7 +1915,7 @@ dependencies = [
 [[package]]
 name = "solana-config-api"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1927,7 +1927,7 @@ dependencies = [
 [[package]]
 name = "solana-core"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bs58 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1993,7 +1993,7 @@ dependencies = [
 [[package]]
 name = "solana-crate-features"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "backtrace 0.3.38 (registry+https://github.com/rust-lang/crates.io-index)",
  "bytes 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2015,7 +2015,7 @@ dependencies = [
 [[package]]
 name = "solana-drone"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "byteorder 1.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2047,7 +2047,7 @@ dependencies = [
 [[package]]
 name = "solana-logger"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "env_logger 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2057,7 +2057,7 @@ dependencies = [
 [[package]]
 name = "solana-measure"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "solana-sdk 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
 ]
@@ -2065,7 +2065,7 @@ dependencies = [
 [[package]]
 name = "solana-merkle-tree"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "solana-sdk 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
 ]
@@ -2073,7 +2073,7 @@ dependencies = [
 [[package]]
 name = "solana-metrics"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "env_logger 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2086,7 +2086,7 @@ dependencies = [
 [[package]]
 name = "solana-netutil"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bytes 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2105,7 +2105,7 @@ dependencies = [
 [[package]]
 name = "solana-rayon-threadlimit"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "lazy_static 1.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "sys-info 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2124,7 +2124,7 @@ dependencies = [
 [[package]]
 name = "solana-runtime"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bv 0.11.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2161,7 +2161,7 @@ dependencies = [
 [[package]]
 name = "solana-sdk"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "assert_matches 1.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2191,7 +2191,7 @@ dependencies = [
 [[package]]
 name = "solana-stake-api"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2210,7 +2210,7 @@ dependencies = [
 [[package]]
 name = "solana-stake-program"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-logger 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
@@ -2221,7 +2221,7 @@ dependencies = [
 [[package]]
 name = "solana-storage-api"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "assert_matches 1.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2238,7 +2238,7 @@ dependencies = [
 [[package]]
 name = "solana-storage-program"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-logger 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
@@ -2263,7 +2263,7 @@ dependencies = [
 [[package]]
 name = "solana-vote-api"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bincode 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2279,7 +2279,7 @@ dependencies = [
 [[package]]
 name = "solana-vote-program"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-logger 0.20.0 (git+https://github.com/jstarry/solana?branch=blocktree-process-opts)",
@@ -2290,7 +2290,7 @@ dependencies = [
 [[package]]
 name = "solana-vote-signer"
 version = "0.20.0"
-source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#e6e977fc84dc44b129b7a630a38c5a380304ef71"
+source = "git+https://github.com/jstarry/solana?branch=blocktree-process-opts#3acb93d362bf2f80064493300f8f062a1137d083"
 dependencies = [
  "bs58 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",

@@ -5,14 +5,17 @@ mod rewards_earned;
 mod utils;
 
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
+use confirmation_latency::{SlotVoterSegments, VoterRecord};
 use solana_core::blocktree::Blocktree;
 use solana_core::blocktree_processor::{process_blocktree, ProcessOptions};
+use solana_runtime::bank::Bank;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::native_token::sol_to_lamports;
 use solana_sdk::pubkey::Pubkey;
 use std::path::PathBuf;
 use std::process::exit;
 use std::str::FromStr;
+use std::sync::{Arc, RwLock};
 
 fn main() {
     solana_logger::setup();
@@ -86,12 +89,30 @@ fn main() {
         }
     };
 
-    println!("Processing ledger...");
+    // Track voter record after each entry
+    let voter_record: Arc<RwLock<VoterRecord>> = Arc::default();
+    let slot_voter_segments: Arc<RwLock<SlotVoterSegments>> = Arc::default();
+    let entry_callback = {
+        let voter_record = voter_record.clone();
+        let slot_voter_segments = slot_voter_segments.clone();
+        Arc::new(move |bank: &Arc<Bank>| {
+            confirmation_latency::on_entry(
+                bank,
+                &mut voter_record.write().unwrap(),
+                &mut slot_voter_segments.write().unwrap(),
+            );
+        })
+    };
+
     let opts = ProcessOptions {
         verify_ledger: false,
         dev_halt_at_slot: final_slot,
         full_leader_cache: true,
+        entry_callback: Some(entry_callback),
+        override_num_threads: Some(1),
     };
+
+    println!("Processing ledger...");
     match process_blocktree(&genesis_block, &blocktree, None, opts) {
         Ok((bank_forks, _bank_forks_info, leader_schedule_cache)) => {
             let bank = bank_forks.working_bank();
@@ -106,10 +127,9 @@ fn main() {
             );
             let latency_winners = confirmation_latency::compute_winners(
                 &bank,
-                &blocktree,
-                &genesis_block,
-                &leader_schedule_cache,
                 &baseline_id,
+                &mut voter_record.write().unwrap(),
+                &mut slot_voter_segments.write().unwrap(),
             );
             println!(
                 "{:#?}\n{:#?}\n{:#?}",
