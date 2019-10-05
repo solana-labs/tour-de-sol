@@ -34,7 +34,7 @@ pub fn bucket_winners(
     let find_bucket_index = |value: f64| -> usize {
         let mut index = 0;
         while index < results.len() && results[index].1 > value {
-            index = index + 1;
+            index += 1;
         }
         index
     };

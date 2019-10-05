@@ -54,6 +54,7 @@ fn voter_checkpoint(bank: &Bank, voter_record: &mut VoterRecord) -> HashMap<Slot
     slot_voters
 }
 
+// Assign latency scores to voters depending on how early their vote was recorded.
 fn score_voters(voters: &[HashSet<Pubkey>], voter_record: &mut HashMap<Pubkey, VoterEntry>) {
     let total_voters: usize = voters.iter().map(|set| set.len()).sum();
     let mut voters_seen = 0;
@@ -76,9 +77,13 @@ fn normalize_winners(winners: &[(Pubkey, f64)]) -> Vec<Winner> {
         .collect()
 }
 
+/// Snapshot of the voting record of a validator
 pub type VoterRecord = HashMap<Pubkey, VoterEntry>;
+
+/// Ordered record of votes for each slot
 pub type SlotVoterSegments = BTreeMap<u64, Vec<HashSet<Pubkey>>>;
 
+/// Track voter latency by checkpointing the voter record after each entry.
 pub fn on_entry(
     bank: &Bank,
     voter_record: &mut HashMap<Pubkey, VoterEntry>,
@@ -90,10 +95,12 @@ pub fn on_entry(
         slot_entry.push(voters);
     }
     let bank_slot = bank.slot();
+
+    // Clear `slot_voter_segments` map when slot votes are old enough
     let old_slots: Vec<_> = slot_voter_segments
         .iter()
         .map(|(slot, _)| *slot)
-        .take_while(|slot| slot < &bank_slot.saturating_sub(MAX_VOTE_DELAY))
+        .take_while(|slot| *slot < bank_slot.saturating_sub(MAX_VOTE_DELAY))
         .collect();
     for old_slot in old_slots {
         let voter_segments = slot_voter_segments.remove(&old_slot).unwrap();
@@ -107,6 +114,7 @@ pub fn compute_winners(
     voter_record: &mut VoterRecord,
     slot_voter_segments: &mut SlotVoterSegments,
 ) -> Winners {
+    // Score the remaining segments leftover from entry processing
     for (_, voter_segments) in slot_voter_segments.iter() {
         score_voters(voter_segments, voter_record);
     }
