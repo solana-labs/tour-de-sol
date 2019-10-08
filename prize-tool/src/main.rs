@@ -92,7 +92,7 @@ fn main() {
     let entry_callback = {
         let voter_record = voter_record.clone();
         let slot_voter_segments = slot_voter_segments.clone();
-        Arc::new(move |bank: &Arc<Bank>| {
+        Arc::new(move |bank: &Bank| {
             confirmation_latency::on_entry(
                 bank,
                 &mut voter_record.write().unwrap(),

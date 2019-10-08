@@ -11,9 +11,9 @@ homepage = "https://solana.com/tds"
 [dependencies]
 clap = "2.33.0"
 log = "0.4.8"
-solana-core = { git = "https://github.com/jstarry/solana", branch = "blocktree-process-opts" }
-solana-logger = { git = "https://github.com/jstarry/solana", branch = "blocktree-process-opts" }
-solana-runtime = { git = "https://github.com/jstarry/solana", branch = "blocktree-process-opts" }
-solana-sdk = { git = "https://github.com/jstarry/solana", branch = "blocktree-process-opts" }
-solana-stake-api = { git = "https://github.com/jstarry/solana", branch = "blocktree-process-opts" }
-solana-vote-api = { git = "https://github.com/jstarry/solana", branch = "blocktree-process-opts" }
+solana-core = { git = "https://github.com/solana-labs/solana" }
+solana-logger = { git = "https://github.com/solana-labs/solana" }
+solana-runtime = { git = "https://github.com/solana-labs/solana" }
+solana-sdk = { git = "https://github.com/solana-labs/solana" }
+solana-stake-api = { git = "https://github.com/solana-labs/solana" }
+solana-vote-api = { git = "https://github.com/solana-labs/solana" }
