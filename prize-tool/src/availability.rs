@@ -15,7 +15,7 @@ use solana_sdk::clock::Slot;
 use solana_sdk::pubkey::Pubkey;
 use solana_vote_api::vote_state::{VoteState, MAX_LOCKOUT_HISTORY};
 use std::cmp::{max, min};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 // Missed leader slots are weighted heavier than missing a vote
 const MISSED_LEADER_SLOT_WEIGHT: u64 = 10;
@@ -46,11 +46,13 @@ fn validator_credits(vote_accounts: HashMap<Pubkey, (u64, Account)>) -> HashMap<
 
 fn validator_results(
     validator_credits: HashMap<Pubkey, u64>,
+    excluded_set: &HashSet<Pubkey>,
     total_credits: u64,
     validator_leader_stats: HashMap<Pubkey, LeaderStat>,
 ) -> Vec<(Pubkey, f64)> {
     let mut results: Vec<(Pubkey, f64)> = validator_credits
         .iter()
+        .filter(|(key, _)| !excluded_set.contains(key))
         .map(|(key, credits)| {
             let missed_slots = validator_leader_stats
                 .get(key)
@@ -126,6 +128,7 @@ pub fn compute_winners(
     bank: &Bank,
     blocktree: &Blocktree,
     baseline_id: &Pubkey,
+    excluded_set: &HashSet<Pubkey>,
     leader_schedule_cache: &LeaderScheduleCache,
 ) -> Winners {
     let block_chain = utils::block_chain(0, bank.slot(), blocktree);
@@ -142,7 +145,12 @@ pub fn compute_winners(
 
     let total_blocks = bank.block_height();
     let total_credits = total_blocks.saturating_sub(MAX_LOCKOUT_HISTORY as u64);
-    let results = validator_results(validator_credits, total_credits, validator_leader_stats);
+    let results = validator_results(
+        validator_credits,
+        excluded_set,
+        total_credits,
+        validator_leader_stats,
+    );
 
     let num_validators = results.len();
     let num_winners = min(num_validators, 3);
@@ -172,9 +180,17 @@ mod tests {
         let mut credits_map = HashMap::new();
         let top_validator = Pubkey::new_rand();
         let bottom_validator = Pubkey::new_rand();
+        let excluded_validator = Pubkey::new_rand();
         credits_map.insert(top_validator, 1000);
         credits_map.insert(bottom_validator, 100);
+        credits_map.insert(excluded_validator, 10);
         let total_credits = 1000;
+
+        let excluded_set = {
+            let mut set = HashSet::new();
+            set.insert(excluded_validator);
+            set
+        };
 
         let mut validator_leader_stats = HashMap::new();
         validator_leader_stats.insert(
@@ -192,7 +208,13 @@ mod tests {
             },
         );
 
-        let results = validator_results(credits_map, total_credits, validator_leader_stats);
+        let results = validator_results(
+            credits_map,
+            &excluded_set,
+            total_credits,
+            validator_leader_stats,
+        );
+        assert_eq!(results.len(), 2);
         assert_eq!(results[0], (top_validator, 1.0));
         assert_eq!(results[1], (bottom_validator, 0.05));
     }

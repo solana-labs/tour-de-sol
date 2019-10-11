@@ -15,7 +15,7 @@ use solana_sdk::pubkey::Pubkey;
 use solana_stake_api::stake_state::StakeState;
 use solana_vote_api::vote_state::VoteState;
 use std::cmp::{max, min};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 const HIGH_BUCKET: &str = "Top 25% Bucket";
 const MID_BUCKET: &str = "Top 25-50% Bucket";
@@ -36,10 +36,12 @@ fn voter_stake_rewards(stake_accounts: HashMap<Pubkey, Account>) -> HashMap<Pubk
 
 fn validator_results(
     validator_reward_map: HashMap<Pubkey, u64>,
+    excluded_set: &HashSet<Pubkey>,
     starting_balance: u64,
 ) -> Vec<(Pubkey, i64)> {
     let mut validator_rewards: Vec<(Pubkey, u64)> = validator_reward_map
         .iter()
+        .filter(|(key, _)| !excluded_set.contains(key))
         .map(|(key, balance)| (*key, *balance))
         .collect();
 
@@ -120,11 +122,14 @@ fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<Winner> {
         .collect()
 }
 
-pub fn compute_winners(bank: &Bank, baseline_id: &Pubkey, starting_balance: u64) -> Winners {
+pub fn compute_winners(
+    bank: &Bank,
+    excluded_set: &HashSet<Pubkey>,
+    starting_balance: u64,
+) -> Winners {
     let voter_stake_rewards = voter_stake_rewards(bank.stake_accounts());
-    let mut validator_reward_map = validator_rewards(voter_stake_rewards, bank.vote_accounts());
-    validator_reward_map.remove(baseline_id);
-    let results = validator_results(validator_reward_map, starting_balance);
+    let validator_reward_map = validator_rewards(voter_stake_rewards, bank.vote_accounts());
+    let results = validator_results(validator_reward_map, excluded_set, starting_balance);
     let num_validators = results.len();
     let num_winners = min(num_validators, 3);
     assert!(num_winners > 0);
@@ -147,10 +152,18 @@ mod tests {
         let mut rewards_map = HashMap::new();
         let top_validator = Pubkey::new_rand();
         let bottom_validator = Pubkey::new_rand();
+        let excluded_validator = Pubkey::new_rand();
         rewards_map.insert(top_validator, 1000);
         rewards_map.insert(bottom_validator, 10);
+        rewards_map.insert(excluded_validator, 100);
 
-        let results = validator_results(rewards_map, 100);
+        let excluded_set = {
+            let mut set = HashSet::new();
+            set.insert(excluded_validator);
+            set
+        };
+
+        let results = validator_results(rewards_map, &excluded_set, 100);
         assert_eq!(results[0], (top_validator, 900));
         assert_eq!(results[1], (bottom_validator, -90));
     }

@@ -110,6 +110,7 @@ pub fn on_entry(
 pub fn compute_winners(
     bank: &Bank,
     baseline_id: &Pubkey,
+    excluded_set: &HashSet<Pubkey>,
     voter_record: &mut VoterRecord,
     slot_voter_segments: &mut SlotVoterSegments,
 ) -> Winners {
@@ -133,6 +134,7 @@ pub fn compute_winners(
     let baseline = validator_latency.remove(baseline_id).unwrap();
     let mut results: Vec<(Pubkey, f64)> = validator_latency
         .iter()
+        .filter(|(key, _)| !excluded_set.contains(key))
         .map(|(key, latency)| (*key, *latency as f64))
         .collect();
     results.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
