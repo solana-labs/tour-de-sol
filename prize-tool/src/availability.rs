@@ -1,12 +1,12 @@
-//! Calculates the winners of the "Highest Availability" category in Tour de SOL by dividing the
-//! credits of validator vote accounts by (the total number of blocks in the chain) + (the number
-//! of leader slots the validator missed) * `MISSED_LEADER_SLOT_WEIGHT`
+//! Calculates the winners of the "Highest Availability" category in Tour de SOL by determining the
+//! voting effeciency of each validator and incurring a weighted penalty for each leader slot they
+//! missed.
 //!
 //! The top 3 validators will receive the top prizes and validators will be awarded additional
 //! prizes if they perform well enough against the Solana team's validator as a baseline.
 
-use crate::prize::{self, Winner, Winners};
 use crate::utils;
+use crate::winner::{self, Winner, Winners};
 use solana_core::blocktree::Blocktree;
 use solana_core::leader_schedule_cache::LeaderScheduleCache;
 use solana_runtime::bank::Bank;
@@ -35,11 +35,10 @@ fn validator_credits(vote_accounts: HashMap<Pubkey, (u64, Account)>) -> HashMap<
     let mut validator_credits = HashMap::new();
     for (_voter_key, (_stake, account)) in vote_accounts {
         if let Some(vote_state) = VoteState::from(&account) {
-            if let Some(credits) = validator_credits.get_mut(&vote_state.node_pubkey) {
-                *credits = max(*credits, vote_state.credits());
-            } else {
-                validator_credits.insert(vote_state.node_pubkey, vote_state.credits());
-            }
+            validator_credits
+                .entry(vote_state.node_pubkey)
+                .and_modify(|credits| *credits = max(*credits, vote_state.credits()))
+                .or_insert(vote_state.credits());
         }
     }
     validator_credits
@@ -59,12 +58,18 @@ fn validator_results(
                 .unwrap_or_default();
             (
                 *key,
-                *credits as f64 / (MISSED_LEADER_SLOT_WEIGHT * missed_slots + total_credits) as f64,
+                weighted_availability(*credits, missed_slots, total_credits),
             )
         })
         .collect();
     results.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
     results
+}
+
+/// A validator's availability is calculated from the combination of their voting effeciency and
+/// a weighted penalty for missing their leader slot.
+fn weighted_availability(credits: u64, missed_slots: u64, total_credits: u64) -> f64 {
+    credits as f64 / (MISSED_LEADER_SLOT_WEIGHT * missed_slots + total_credits) as f64
 }
 
 #[derive(Debug)]
@@ -84,7 +89,7 @@ impl LeaderStat {
 
 fn validator_leader_stats(
     bank: &Bank,
-    block_slots: Vec<Slot>,
+    block_chain: Vec<Slot>,
     leader_schedule_cache: &LeaderScheduleCache,
 ) -> HashMap<Pubkey, LeaderStat> {
     let mut validator_leader_stats: HashMap<Pubkey, LeaderStat> = HashMap::new();
@@ -92,18 +97,20 @@ fn validator_leader_stats(
         let leader = leader_schedule_cache
             .slot_leader_at(slot, Some(bank))
             .unwrap();
-        if let Some(leader_stat) = validator_leader_stats.get_mut(&leader) {
-            leader_stat.total_slots += 1;
-            if missed {
-                leader_stat.missed_slots += 1;
-            }
-        } else {
-            validator_leader_stats.insert(leader, LeaderStat::new(missed));
-        }
+
+        validator_leader_stats
+            .entry(leader)
+            .and_modify(|leader_stat| {
+                leader_stat.total_slots += 1;
+                if missed {
+                    leader_stat.missed_slots += 1;
+                }
+            })
+            .or_insert(LeaderStat::new(missed));
     };
 
     let mut last_slot = bank.slot();
-    for parent_slot in block_slots.into_iter().rev() {
+    for parent_slot in block_chain.into_iter().rev() {
         if parent_slot > 0 {
             inc_leader_stat(parent_slot, false);
         }
@@ -121,14 +128,14 @@ pub fn compute_winners(
     baseline_id: &Pubkey,
     leader_schedule_cache: &LeaderScheduleCache,
 ) -> Winners {
-    let block_slots = utils::block_slots(0, bank.slot(), blocktree);
+    let block_chain = utils::block_chain(0, bank.slot(), blocktree);
     let mut validator_credits = validator_credits(bank.vote_accounts());
     let baseline_credits = validator_credits
         .remove(baseline_id)
         .expect("Solana baseline validator not found");
 
     let mut validator_leader_stats =
-        validator_leader_stats(bank, block_slots, &leader_schedule_cache);
+        validator_leader_stats(bank, block_chain, &leader_schedule_cache);
     let baseline_leader_stat = validator_leader_stats
         .remove(baseline_id)
         .expect("Solana baseline validator not found");
@@ -139,11 +146,14 @@ pub fn compute_winners(
 
     let num_validators = results.len();
     let num_winners = min(num_validators, 3);
-    let baseline =
-        baseline_credits as f64 / (baseline_leader_stat.missed_slots + total_credits) as f64;
+    let baseline = weighted_availability(
+        baseline_credits,
+        baseline_leader_stat.missed_slots,
+        total_credits,
+    );
 
     Winners {
-        category: prize::Category::Availability(format!(
+        category: winner::Category::Availability(format!(
             "Baseline: {}",
             format_availability(baseline)
         )),

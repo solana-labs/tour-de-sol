@@ -8,7 +8,7 @@
 //! `md` - Top 25-50%
 //! `lo` - Top 50-90%
 
-use crate::prize::{self, Winner, Winners};
+use crate::winner::{self, Winner, Winners};
 use solana_runtime::bank::Bank;
 use solana_sdk::account::Account;
 use solana_sdk::pubkey::Pubkey;
@@ -25,11 +25,10 @@ fn voter_stake_rewards(stake_accounts: HashMap<Pubkey, Account>) -> HashMap<Pubk
     let mut voter_stake_sum: HashMap<Pubkey, u64> = HashMap::new();
     for (_key, account) in stake_accounts {
         if let Some(StakeState::Stake(_authorized, _lockup, stake)) = StakeState::from(&account) {
-            let stake_sum = voter_stake_sum
-                .get(&stake.voter_pubkey)
-                .cloned()
-                .unwrap_or_default();
-            voter_stake_sum.insert(stake.voter_pubkey, stake_sum + account.lamports);
+            voter_stake_sum
+                .entry(stake.voter_pubkey)
+                .and_modify(|stake_sum| *stake_sum += account.lamports)
+                .or_insert(account.lamports);
         }
     }
     voter_stake_sum
@@ -64,11 +63,14 @@ fn validator_rewards(
             let voter_stake_reward = voter_stake_rewards.remove(&voter_key).unwrap_or_default();
 
             let validator_id = vote_state.node_pubkey;
-            if let Some(validator_reward) = validator_reward_map.get_mut(&validator_id) {
-                *validator_reward += voter_commission + voter_stake_reward;
-            } else {
-                validator_reward_map.insert(validator_id, voter_commission + voter_stake_reward);
-            }
+            validator_reward_map
+                .entry(validator_id)
+                .and_modify(|validator_reward| {
+                    // If multiple vote accounts are detected, take the max
+                    *validator_reward =
+                        max(*validator_reward, voter_commission + voter_stake_reward);
+                })
+                .or_insert(voter_commission + voter_stake_reward);
         }
     }
 
@@ -125,9 +127,10 @@ pub fn compute_winners(bank: &Bank, baseline_id: &Pubkey, starting_balance: u64)
     let results = validator_results(validator_reward_map, starting_balance);
     let num_validators = results.len();
     let num_winners = min(num_validators, 3);
+    assert!(num_winners > 0);
 
     Winners {
-        category: prize::Category::RewardsEarned,
+        category: winner::Category::RewardsEarned,
         top_winners: normalize_winners(&results[..num_winners]),
         bucket_winners: bucket_winners(&results),
     }

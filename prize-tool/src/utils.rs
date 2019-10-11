@@ -1,21 +1,21 @@
-use crate::prize::Winner;
+use crate::winner::Winner;
 use solana_core::blocktree::Blocktree;
 use solana_sdk::clock::Slot;
 use solana_sdk::pubkey::Pubkey;
 
 /// Returns an ordered list of slots for the blockchain ending with `last_block` and starting with
 /// `first_block`
-pub fn block_slots(first_block: Slot, last_block: Slot, blocktree: &Blocktree) -> Vec<Slot> {
-    let mut block_slots = Vec::new();
+pub fn block_chain(first_block: Slot, last_block: Slot, blocktree: &Blocktree) -> Vec<Slot> {
+    let mut block_chain = Vec::new();
     let mut block_slot = last_block;
     loop {
-        block_slots.push(block_slot);
+        block_chain.push(block_slot);
         if block_slot == first_block {
             break;
         }
         block_slot = blocktree.meta(block_slot).unwrap().unwrap().parent_slot;
     }
-    block_slots.into_iter().rev().collect()
+    block_chain.into_iter().rev().collect()
 }
 
 /// Transforms a validator score into a formatted score string for display purposes
@@ -32,11 +32,10 @@ pub fn bucket_winners(
     winner_transform: WinnerTransform,
 ) -> Vec<(String, Vec<Winner>)> {
     let find_bucket_index = |value: f64| -> usize {
-        let mut index = 0;
-        while index < results.len() && results[index].1 > value {
-            index += 1;
-        }
-        index
+        results
+            .iter()
+            .position(|&result| result.1 > value)
+            .unwrap_or(results.len())
     };
 
     let mut bucket_winners = Vec::new();

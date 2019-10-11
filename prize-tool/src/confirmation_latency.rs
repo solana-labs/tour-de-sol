@@ -2,8 +2,8 @@
 //! order of incoming validator votes. Validators earn one point for votes received before the
 //! average and lose one point for votes received later than the average.
 
-use crate::prize::{self, Winner, Winners};
 use crate::utils;
+use crate::winner::{self, Winner, Winners};
 use solana_runtime::bank::Bank;
 use solana_sdk::clock::Slot;
 use solana_sdk::hash::Hash;
@@ -62,9 +62,8 @@ fn score_voters(voters: &[HashSet<Pubkey>], voter_record: &mut HashMap<Pubkey, V
         let is_low_latency = voters_seen < total_voters / 2;
         let score_differential = if is_low_latency { 1 } else { -1 };
         for voter in voter_set {
-            if let Some(voter_entry) = voter_record.get_mut(&voter) {
-                voter_entry.latency_score += score_differential;
-            }
+            let voter_entry = voter_record.get_mut(&voter).unwrap();
+            voter_entry.latency_score += score_differential;
         }
         voters_seen += voter_set.len();
     }
@@ -142,7 +141,7 @@ pub fn compute_winners(
     let num_winners = min(num_validators, 3);
 
     Winners {
-        category: prize::Category::ConfirmationLatency(format!("Baseline Score: {}", baseline)),
+        category: winner::Category::ConfirmationLatency(format!("Baseline Score: {}", baseline)),
         top_winners: normalize_winners(&results[..num_winners]),
         bucket_winners: utils::bucket_winners(&results, baseline as f64, normalize_winners),
     }

@@ -1,11 +1,12 @@
 mod availability;
 mod confirmation_latency;
-mod prize;
 mod rewards_earned;
 mod utils;
+mod winner;
 
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
 use confirmation_latency::{SlotVoterSegments, VoterRecord};
+use solana_cli::input_validators::is_pubkey;
 use solana_core::blocktree::Blocktree;
 use solana_core::blocktree_processor::{process_blocktree, ProcessOptions};
 use solana_runtime::bank::Bank;
@@ -34,7 +35,7 @@ fn main() {
         )
         .arg(
             Arg::with_name("starting_balance")
-                .long("starting_balance")
+                .long("starting-balance")
                 .value_name("SOL")
                 .takes_value(true)
                 .default_value("1000")
@@ -42,15 +43,16 @@ fn main() {
         )
         .arg(
             Arg::with_name("baseline_validator")
-                .long("baseline_validator")
+                .long("baseline-validator")
                 .value_name("PUBKEY")
                 .takes_value(true)
                 .required(true)
+                .validator(is_pubkey)
                 .help("Public key of the baseline validator"),
         )
         .arg(
             Arg::with_name("final_slot")
-                .long("final_slot")
+                .long("final-slot")
                 .value_name("SLOT")
                 .takes_value(true)
                 .help("Final slot of TdS ledger"),
