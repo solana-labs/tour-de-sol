@@ -176,7 +176,7 @@ mod tests {
         let voter1 = Pubkey::new_rand();
         vote_accounts.insert(voter1.clone(), (0, new_vote_account(100, &validator1)));
         vote_accounts.insert(Pubkey::new_rand(), (0, new_vote_account(100, &validator2)));
-        vote_accounts.insert(Pubkey::new_rand(), (0, new_vote_account(100, &validator2)));
+        vote_accounts.insert(Pubkey::new_rand(), (0, new_vote_account(200, &validator2)));
 
         let voter_stake_rewards = {
             let mut map = HashMap::new();

@@ -34,8 +34,9 @@ pub fn bucket_winners(
     let find_bucket_index = |value: f64| -> usize {
         results
             .iter()
-            .position(|&result| result.1 > value)
-            .unwrap_or(results.len())
+            .rposition(|&result| result.1 > value)
+            .map(|position| position + 1)
+            .unwrap_or(0)
     };
 
     let mut bucket_winners = Vec::new();
