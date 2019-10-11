@@ -38,7 +38,7 @@ fn validator_credits(vote_accounts: HashMap<Pubkey, (u64, Account)>) -> HashMap<
             validator_credits
                 .entry(vote_state.node_pubkey)
                 .and_modify(|credits| *credits = max(*credits, vote_state.credits()))
-                .or_insert(vote_state.credits());
+                .or_insert_with(|| vote_state.credits());
         }
     }
     validator_credits
@@ -106,7 +106,7 @@ fn validator_leader_stats(
                     leader_stat.missed_slots += 1;
                 }
             })
-            .or_insert(LeaderStat::new(missed));
+            .or_insert_with(|| LeaderStat::new(missed));
     };
 
     let mut last_slot = bank.slot();
