@@ -1,3 +1,8 @@
+//! This tool calculates the quantitative category winners for Tour de SOL.
+//!
+//! NOTE: Ledger processing uses native programs, so this tool must be invoked with `cargo run`.
+//! If installed with `cargo install` the native programs may not be linked properly.
+
 mod availability;
 mod confirmation_latency;
 mod rewards_earned;
@@ -115,7 +120,8 @@ fn main() {
         let slot_voter_segments = slot_voter_segments.clone();
         Arc::new(move |bank: &Bank| {
             confirmation_latency::on_entry(
-                bank,
+                bank.slot(),
+                bank.vote_accounts(),
                 &mut voter_record.write().unwrap(),
                 &mut slot_voter_segments.write().unwrap(),
             );
