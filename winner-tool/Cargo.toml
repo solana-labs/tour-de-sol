@@ -1,0 +1,21 @@
+[package]
+authors = ["Solana Maintainers <maintainers@solana.com>"]
+edition = "2018"
+name = "solana-tds-winner-tool"
+description = "Solana Tour de SOL winner tool"
+version = "1.0.0"
+repository = "https://github.com/solana-labs/solana"
+license = "Apache-2.0"
+homepage = "https://solana.com/tds"
+
+[dependencies]
+clap = "2.33.0"
+log = "0.4.8"
+# Pinning versions until the next solana release (0.20)
+solana-cli = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-core = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-logger = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-runtime = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-stake-api = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-vote-api = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
