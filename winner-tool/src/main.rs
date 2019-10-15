@@ -92,13 +92,10 @@ fn main() {
         exit(1);
     });
 
-    let blocktree = match Blocktree::open(&ledger_path) {
-        Ok(blocktree) => blocktree,
-        Err(err) => {
-            eprintln!("Failed to open ledger at {:?}: {}", ledger_path, err);
-            exit(1);
-        }
-    };
+    let blocktree = Blocktree::open(&ledger_path).unwrap_or_else(|err| {
+        eprintln!("Failed to open ledger at {:?}: {}", ledger_path, err);
+        exit(1);
+    });
 
     // Track voter record after each entry
     let voter_record: Arc<RwLock<VoterRecord>> = Arc::default();
