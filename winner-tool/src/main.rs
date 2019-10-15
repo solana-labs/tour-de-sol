@@ -60,8 +60,8 @@ fn main() {
                 .help("Public key of the baseline validator"),
         )
         .arg(
-            Arg::with_name("exclude_keys")
-                .long("exclude-keys")
+            Arg::with_name("exclude_pubkeys")
+                .long("exclude-pubkeys")
                 .value_name("PUBKEY")
                 .multiple(true)
                 .takes_value(true)
@@ -81,7 +81,7 @@ fn main() {
     let ledger_path = PathBuf::from(value_t_or_exit!(matches, "ledger", String));
     let starting_balance_sol = value_t_or_exit!(matches, "starting_balance", f64);
     let baseline_id = value_t_or_exit!(matches, "baseline_validator", Pubkey);
-    let exclude_keys = values_t_or_exit!(matches, "exclude_keys", Pubkey);
+    let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkeys", Pubkey);
     let final_slot = value_t!(matches, "final_slot", u64).ok();
 
     let genesis_block = GenesisBlock::load(&ledger_path).unwrap_or_else(|err| {
@@ -124,10 +124,10 @@ fn main() {
         override_num_threads: Some(1),
     };
 
-    let excluded_set = exclude_keys
+    let excluded_set = exclude_pubkeys
         .into_iter()
-        .fold(HashSet::new(), |mut hs, key| {
-            hs.insert(key);
+        .fold(HashSet::new(), |mut hs, pubkey| {
+            hs.insert(pubkey);
             hs
         });
 
