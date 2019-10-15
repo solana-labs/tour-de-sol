@@ -9,7 +9,10 @@ mod rewards_earned;
 mod utils;
 mod winner;
 
-use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
+use clap::{
+    crate_description, crate_name, crate_version, value_t, value_t_or_exit, values_t_or_exit, App,
+    Arg,
+};
 use confirmation_latency::{SlotVoterSegments, VoterRecord};
 use solana_cli::input_validators::is_pubkey;
 use solana_core::blocktree::Blocktree;
@@ -21,7 +24,6 @@ use solana_sdk::pubkey::Pubkey;
 use std::collections::HashSet;
 use std::path::PathBuf;
 use std::process::exit;
-use std::str::FromStr;
 use std::sync::{Arc, RwLock};
 
 fn main() {
@@ -57,13 +59,14 @@ fn main() {
                 .help("Public key of the baseline validator"),
         )
         .arg(
-            Arg::with_name("bootstrap_leader")
-                .long("bootstrap-leader")
+            Arg::with_name("exclude_pubkeys")
+                .long("exclude-pubkeys")
                 .value_name("PUBKEY")
+                .multiple(true)
                 .takes_value(true)
                 .required(true)
                 .validator(is_pubkey)
-                .help("Public key of the bootstrap leader"),
+                .help("List of excluded public keys"),
         )
         .arg(
             Arg::with_name("final_slot")
@@ -76,25 +79,10 @@ fn main() {
 
     let ledger_path = PathBuf::from(value_t_or_exit!(matches, "ledger", String));
     let starting_balance_sol = value_t_or_exit!(matches, "starting_balance", f64);
-    let baseline_id_string = value_t_or_exit!(matches, "baseline_validator", String);
-    let bootstrap_id_string = value_t_or_exit!(matches, "bootstrap_leader", String);
+    let baseline_id = value_t_or_exit!(matches, "baseline_validator", Pubkey);
+    let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkeys", Pubkey);
+    let excluded_set: HashSet<Pubkey> = exclude_pubkeys.into_iter().collect();
     let final_slot = value_t!(matches, "final_slot", u64).ok();
-
-    let baseline_id = Pubkey::from_str(&baseline_id_string).unwrap_or_else(|err| {
-        eprintln!(
-            "Failed to create a valid pubkey from {}: {}",
-            baseline_id_string, err
-        );
-        exit(1);
-    });
-
-    let bootstrap_id = Pubkey::from_str(&bootstrap_id_string).unwrap_or_else(|err| {
-        eprintln!(
-            "Failed to create a valid pubkey from {}: {}",
-            bootstrap_id_string, err
-        );
-        exit(1);
-    });
 
     let genesis_block = GenesisBlock::load(&ledger_path).unwrap_or_else(|err| {
         eprintln!(
@@ -134,13 +122,6 @@ fn main() {
         full_leader_cache: true,
         entry_callback: Some(entry_callback),
         override_num_threads: Some(1),
-    };
-
-    let excluded_set = {
-        let mut set = HashSet::new();
-        set.insert(baseline_id);
-        set.insert(bootstrap_id);
-        set
     };
 
     println!("Processing ledger...");
