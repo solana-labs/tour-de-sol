@@ -121,5 +121,4 @@ mod tests {
         assert!(is_pubkey_list(format!("{} invalid", pubkey1)).is_err());
         assert!(is_pubkey_list(format!("invalid {}", pubkey1)).is_err());
     }
-
 }
