@@ -56,22 +56,6 @@ pub fn bucket_winners(
     bucket_winners
 }
 
-/// Return an error if any Pubkey cannot be parsed.
-pub fn is_pubkey_list(string: String) -> Result<(), String> {
-    let first_err = string
-        .split(' ')
-        .filter_map(|string| match string.parse::<Pubkey>() {
-            Ok(_) => None,
-            Err(_) => Some(format!("\"{}\" is not a valid public key", string)),
-        })
-        .nth(0);
-
-    match first_err {
-        Some(err) => Err(err),
-        None => Ok(()),
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -108,17 +92,5 @@ mod tests {
         assert_eq!(bucket_winners[0].1, normalize_winners(&expected_hi_bucket));
         assert_eq!(bucket_winners[1].1, normalize_winners(&expected_md_bucket));
         assert_eq!(bucket_winners[2].1, normalize_winners(&expected_lo_bucket));
-    }
-
-    #[test]
-    fn test_is_pubkey_list() {
-        let pubkey1 = Pubkey::new_rand();
-        let pubkey2 = Pubkey::new_rand();
-
-        assert!(is_pubkey_list(format!("{}", pubkey1)).is_ok());
-        assert!(is_pubkey_list(format!("{} {}", pubkey1, pubkey2)).is_ok());
-        assert!(is_pubkey_list(format!("invalid")).is_err());
-        assert!(is_pubkey_list(format!("{} invalid", pubkey1)).is_err());
-        assert!(is_pubkey_list(format!("invalid {}", pubkey1)).is_err());
     }
 }

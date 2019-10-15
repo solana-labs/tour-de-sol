@@ -25,7 +25,6 @@ use std::collections::HashSet;
 use std::path::PathBuf;
 use std::process::exit;
 use std::sync::{Arc, RwLock};
-use utils::is_pubkey_list;
 
 fn main() {
     solana_logger::setup();
@@ -66,7 +65,7 @@ fn main() {
                 .multiple(true)
                 .takes_value(true)
                 .required(true)
-                .validator(is_pubkey_list)
+                .validator(is_pubkey)
                 .help("List of excluded public keys"),
         )
         .arg(
@@ -82,6 +81,7 @@ fn main() {
     let starting_balance_sol = value_t_or_exit!(matches, "starting_balance", f64);
     let baseline_id = value_t_or_exit!(matches, "baseline_validator", Pubkey);
     let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkeys", Pubkey);
+    let excluded_set: HashSet<Pubkey> = exclude_pubkeys.into_iter().collect();
     let final_slot = value_t!(matches, "final_slot", u64).ok();
 
     let genesis_block = GenesisBlock::load(&ledger_path).unwrap_or_else(|err| {
@@ -123,13 +123,6 @@ fn main() {
         entry_callback: Some(entry_callback),
         override_num_threads: Some(1),
     };
-
-    let excluded_set = exclude_pubkeys
-        .into_iter()
-        .fold(HashSet::new(), |mut hs, pubkey| {
-            hs.insert(pubkey);
-            hs
-        });
 
     println!("Processing ledger...");
     match process_blocktree(&genesis_block, &blocktree, None, opts) {
