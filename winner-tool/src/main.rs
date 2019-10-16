@@ -116,10 +116,25 @@ fn main() {
         })
     };
 
+    // Native loaders do not work when runtime is a git or crates.io dependency
+    let new_bank_callback = {
+        Arc::new(move |bank: &mut Bank| {
+            bank.add_instruction_processor(
+                solana_stake_api::id(),
+                solana_stake_api::stake_instruction::process_instruction,
+            );
+            bank.add_instruction_processor(
+                solana_vote_api::id(),
+                solana_vote_api::vote_instruction::process_instruction,
+            );
+        })
+    };
+
     let opts = ProcessOptions {
         verify_ledger: false,
         dev_halt_at_slot: final_slot,
         full_leader_cache: true,
+        new_bank_callback: Some(new_bank_callback),
         entry_callback: Some(entry_callback),
         override_num_threads: Some(1),
     };
