@@ -4,7 +4,7 @@ edition = "2018"
 name = "solana-tds-winner-tool"
 description = "Solana Tour de SOL winner tool"
 version = "1.0.0"
-repository = "https://github.com/solana-labs/solana"
+repository = "https://github.com/solana-labs/tour-de-sol"
 license = "Apache-2.0"
 homepage = "https://solana.com/tds"
 

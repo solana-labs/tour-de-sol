@@ -1,3 +1,4 @@
 /bench-tps.json
 /mint-keypair.json
 target
+.tmp
