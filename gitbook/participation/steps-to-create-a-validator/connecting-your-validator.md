@@ -7,8 +7,10 @@ The validator identity keypair [you created](validator-public-key-registration.m
 Configure solana for your validator identity and Tour de SOL:
 
 ```bash
-$ solana set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
+solana set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
 ```
+
+
 
 You should see the following output:
 
@@ -21,7 +23,7 @@ Wallet Config Updated: /home/solana/.config/solana/wallet/config.yml
 You can see the wallet configuration at any time by running:
 
 ```text
-$ solana get
+solana get
 ```
 
 ## Check Validator Balance
@@ -29,13 +31,13 @@ $ solana get
 To view your current balance:
 
 ```text
-$ solana balance
+solana balance
 ```
 
 Or to see in finer detail:
 
 ```text
-$ solana balance --lamports
+solana balance --lamports
 ```
 
 If your validator identity keypair is created and the above command shows a non-zero balance, your validator is created and configured for TdS.
