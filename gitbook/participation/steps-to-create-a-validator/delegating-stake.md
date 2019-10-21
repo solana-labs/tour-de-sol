@@ -10,7 +10,7 @@ More information about staking on solana can be found at [https://docs.solana.co
 If you haven’t already done so, create a staking keypair. If you have completed this step, you should see the “validator-stake-keypair.json” in your Solana runtime directory.
 
 ```bash
-$ solana-keygen new -o ~/validator-stake-keypair.json
+solana-keygen new -o ~/validator-stake-keypair.json
 ```
 
 ## Delegate Stake
@@ -18,7 +18,7 @@ $ solana-keygen new -o ~/validator-stake-keypair.json
 Now delegate some stake to your validator. The current recommendation is to delegate 0.5 SOL:
 
 ```bash
-$ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 0.5
+solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 0.5
 ```
 
 You should see this output, that lists the transaction hash:
