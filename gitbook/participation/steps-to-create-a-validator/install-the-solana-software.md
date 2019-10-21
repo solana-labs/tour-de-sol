@@ -9,8 +9,7 @@ Before attempting to connect your validator to the Tour de SOL cluster, be famil
 You can confirm the version running on the cluster entrypoint by running:
 
 ```text
-$ curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0","id":1,"method":"getVersion"}' tds.solana.com:8899
-{"jsonrpc":"2.0","result":{"solana-core":"0.18.0"},"id":1}
+curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0","id":1,"method":"getVersion"}' tds.solana.com:8899
 ```
 
 ## Install Software
@@ -18,7 +17,7 @@ $ curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0","id":1,
 Install the Solana release [v0.19.1](https://github.com/solana-labs/solana/releases/tag/v0.18.1) on your machine by running:
 
 ```bash
-$ curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.19.1
+curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.17.1/install/solana-install-init.sh | sh -s - 0.19.1
 ```
 
 The following output indicates a successful update:
