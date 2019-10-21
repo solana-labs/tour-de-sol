@@ -10,6 +10,8 @@ use std::time::Duration;
 use std::time::Instant;
 use tar::Archive;
 
+const GENESIS_ARCHIVE_NAME: &str = "genesis.tar.bz2";
+
 /// Inspired by solana_local_cluster::cluster_tests
 pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
     let poh_config = &genesis_block.poh_config;
@@ -22,11 +24,8 @@ pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
 }
 
 /// Inspired by solana_validator::download_tar_bz2
-pub fn download_tar_bz2(
-    rpc_addr: &SocketAddr,
-    archive_name: &str,
-    download_path: &Path,
-) -> Result<(), String> {
+pub fn download_genesis(rpc_addr: &SocketAddr, download_path: &Path) -> Result<(), String> {
+    let archive_name = GENESIS_ARCHIVE_NAME;
     let archive_path = download_path.join(archive_name);
     let url = format!("http://{}/{}", rpc_addr, archive_name);
     let download_start = Instant::now();
