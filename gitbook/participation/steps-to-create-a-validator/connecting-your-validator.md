@@ -42,5 +42,5 @@ solana balance --lamports
 
 If your validator identity keypair is created and the above command shows a non-zero balance, your validator is created and configured for TdS.
 
-Your starting balance for both dry-runs and Stage 1 will be 1000 SOL. It will be displayed as 17179869184000 lamports. Read more about the [difference between SOL and lamports here](https://solana-labs.github.io/book/introduction.html?highlight=lamport#what-are-sols).
+Your starting balance will be 500 SOL.  Read more about the [difference between SOL and lamports here](https://solana-labs.github.io/book/introduction.html?highlight=lamport#what-are-sols).
 
