@@ -9,6 +9,7 @@ solana-gossip --entrypoint tds.solana.com:8001 spy
 If you see more than 1 node listed in the output of the above command, the network is running.
 
 To view the current active stake of all validators, run:
+
 ```bash
 solana show-validators
 ```

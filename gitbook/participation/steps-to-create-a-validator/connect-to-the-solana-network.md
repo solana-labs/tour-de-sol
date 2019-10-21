@@ -13,7 +13,7 @@ solana-keygen new -o ~/validator-vote-keypair.json
 Create your vote account on the blockchain:
 
 ```bash
-solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json 1 lamports
+solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.json
 ```
 
 ## Connect Your Validator

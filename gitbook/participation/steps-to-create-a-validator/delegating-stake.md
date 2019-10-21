@@ -1,4 +1,4 @@
-# Execute core validator functions
+# Staking
 
 **By default your validator will have no stake.** This means it will be ineligible to become leader.  
 To delegate stake, first make sure your validator is running and has [caught up to the cluster](monitoring-your-validator.md#validator-catch-up).
@@ -28,7 +28,9 @@ Using RPC Endpoint: http://tds.solana.com:8899
 23iejA34QpzYjKD6A7NqMs5xyEvvSBzP4AfW953Z4KrsBP8M12NDfy7EHpt9ALnCyD2wFzK3L8HxZ4LZjJGgMEY2
 ```
 
-{% hint style="info" %} Don’t delegate your entire balance,_ as the validator needs lamports to operate. {% endhint %}
+{% hint style="warning" %}
+Don’t delegate your remaining balance of 999.5 SOL, validator will those tokens to vote.
+{% endhint %}
 
 At the end of each slot, a validator is expected to send a vote transaction. These vote transactions are paid for by lamports from a validator's identity account.
 
