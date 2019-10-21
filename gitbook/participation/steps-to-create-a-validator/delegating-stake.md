@@ -15,17 +15,14 @@ solana-keygen new -o ~/validator-stake-keypair.json
 
 ## Delegate Stake
 
-Now delegate some stake to your validator. The current recommendation is to delegate 0.5 SOL:
+Now delegate 0.5 SOL to your validator by first creating your stake account:
+
+`solana create-stake-account ~/validator-stake-keypair.json  0.5 SOL`
+
+and then delegating that stake to your validator:
 
 ```bash
 solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 0.5
-```
-
-You should see this output, that lists the transaction hash:
-
-```text
-Using RPC Endpoint: http://tds.solana.com:8899
-23iejA34QpzYjKD6A7NqMs5xyEvvSBzP4AfW953Z4KrsBP8M12NDfy7EHpt9ALnCyD2wFzK3L8HxZ4LZjJGgMEY2
 ```
 
 {% hint style="warning" %}
