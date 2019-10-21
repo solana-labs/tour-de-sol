@@ -28,7 +28,7 @@ Using RPC Endpoint: http://tds.solana.com:8899
 23iejA34QpzYjKD6A7NqMs5xyEvvSBzP4AfW953Z4KrsBP8M12NDfy7EHpt9ALnCyD2wFzK3L8HxZ4LZjJGgMEY2
 ```
 
-_Don’t delegate your entire balance,_ as the validator needs lamports to operate.
+{% hint style="info" %} Don’t delegate your entire balance,_ as the validator needs lamports to operate. {% endhint %}
 
 At the end of each slot, a validator is expected to send a vote transaction. These vote transactions are paid for by lamports from a validator's identity account.
 
