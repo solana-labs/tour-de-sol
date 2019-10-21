@@ -15,18 +15,20 @@ solana-keygen new -o ~/validator-stake-keypair.json
 
 ## Delegate Stake
 
-Now delegate 0.5 SOL to your validator by first creating your stake account:
+Now delegate 1 SOL to your validator by first creating your stake account:
 
-`solana create-stake-account ~/validator-stake-keypair.json  0.5 SOL`
+```bash
+solana create-stake-account ~/validator-stake-keypair.json 1 SOL
+```
 
 and then delegating that stake to your validator:
 
 ```bash
-solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json 0.5
+solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.json
 ```
 
 {% hint style="warning" %}
-Don’t delegate your remaining balance of 999.5 SOL, validator will those tokens to vote.
+Don’t delegate your remaining balance of 999 SOL, validator will those tokens to vote.
 {% endhint %}
 
 At the end of each slot, a validator is expected to send a vote transaction. These vote transactions are paid for by lamports from a validator's identity account.
@@ -41,9 +43,10 @@ Stakes need to warm up, and warmup increments are applied at Epoch boundaries, s
 
 To monitor your validator during its warmup period:
 
-* View your vote account:`$ solana show-vote-account ~/validator-vote-keypair.json` This displays the current state of all the votes the validator has submitted to the network.
-* View your stake account, the delegation preference and details of your stake:`$ solana show-stake-account ~/validator-stake-keypair.json`
-* `$ solana uptime ~/validator-vote-keypair.json` will display the voting history \(aka, uptime\) of your validator over recent Epochs
+* View your vote account:`solana show-vote-account ~/validator-vote-keypair.json` This displays the current state of all the votes the validator has submitted to the network.
+* View your stake account, the delegation preference and details of your stake:`solana show-stake-account ~/validator-stake-keypair.json`
+* `solana uptime ~/validator-vote-keypair.json` will display the voting history \(aka, uptime\) of your validator over recent Epochs
+* `solana show-validators` displays the current active stake of all validators, including yours
 * Look for log messages on your validator indicating your next leader slot: `[2019-09-27T20:16:00.319721164Z INFO solana_core::replay_stage] <VALIDATOR_IDENTITY_PUBKEY> voted and reset PoH at tick height ####. My next leader slot is ####`
 * Once your stake is warmed up, you will see a stake balance listed for your validator on the [Solana Network Explorer](http://explorer.solana.com/validators)
 
