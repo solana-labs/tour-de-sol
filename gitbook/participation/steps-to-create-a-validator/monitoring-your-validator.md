@@ -2,7 +2,7 @@
 
 Once your validator is connected and voting, it should appear on the [Solana Network Explorer](http://explorer.solana.com/validators). \(Switch to the Tour de SOL network in the top right\)
 
-But your validator may take some time to catch up with the cluster. Use the `get-slot` wallet command to view the current slot that the network is processing: 
+But your validator may take some time to catch up with the cluster. Use the `get-slot` wallet command to view the current slot that the network is processing:
 
 ```bash
 solana get-slot

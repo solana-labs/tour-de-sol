@@ -13,15 +13,13 @@ In order to obtain your allotment of lamports at the start of a Tour de SOL stag
 1. If you haven't already, generate your validator's identity keypair by running:
 
    ```bash
-     $ solana-keygen new -o ~/validator-keypair.json
-     Wrote /Users/<your user name>/validator-keypair.json
+     solana-keygen new -o ~/validator-keypair.json
    ```
 
 2. The identity public key can now be viewed by running:
 
    ```bash
-     $ solana-keygen pubkey ~/validator-keypair.json
-     <BASE58_PUBKEY>
+     solana-keygen pubkey ~/validator-keypair.json
    ```
 
 {% hint style="info" %}
@@ -44,7 +42,7 @@ You must sign your Solana pubkey with a Keybase.io account. The following instru
 4. Publish your validator's identity public key by creating an empty file in your Keybase public file folder in the following format: `/keybase/public/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>`. For example:
 
    ```bash
-     $ touch /keybase/public/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>
+     touch /keybase/public/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>
    ```
 
 5. To check your public key was published, ensure you can successfully browse to `https://keybase.pub/<KEYBASE_USERNAME>/solana/validator-<BASE58_PUBKEY>`

@@ -2,7 +2,7 @@
 
 ## Create Vote Account
 
-Once you’ve confirmed the network is running, it’s time to connect your validator to the network. 
+Once you’ve confirmed the network is running, it’s time to connect your validator to the network.
 
 If you haven’t already done so, create a vote-account keypair and create the vote account on the network. If you have completed this step, you should see the “validator-vote-keypair.json” in your Solana runtime directory:
 
