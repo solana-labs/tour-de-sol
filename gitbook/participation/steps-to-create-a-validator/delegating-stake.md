@@ -28,7 +28,7 @@ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.js
 ```
 
 {% hint style="warning" %}
-Don’t delegate your remaining balance of 499 SOL, validator will those tokens to vote.
+Don’t delegate your remaining balance of 499 SOL, your validator will use those tokens to vote.
 {% endhint %}
 
 At the end of each slot, a validator is expected to send a vote transaction. These vote transactions are paid for by lamports from a validator's identity account.
