@@ -9,6 +9,7 @@ use std::fs;
 use std::path::PathBuf;
 use std::time::Duration;
 
+const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
 
 fn main() {
@@ -21,20 +22,21 @@ fn main() {
             Arg::with_name("entrypoint")
                 .short("n")
                 .long("entrypoint")
-                .value_name("HOST:PORT")
+                .value_name("HOST")
                 .takes_value(true)
-                .required(true)
-                .validator(solana_netutil::is_host_port)
+                .default_value(TDS_ENTRYPOINT)
+                .validator(utils::is_host)
                 .help("Download the genesis block from this entry point"),
         )
         .get_matches();
 
     let tmp_ledger_path = PathBuf::from(TMP_LEDGER_PATH);
-    fs::remove_dir_all(&tmp_ledger_path).expect("failed to clean temp ledger path");
+    let _ = fs::remove_dir_all(&tmp_ledger_path);
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
 
     let entrypoint_str = matches.value_of("entrypoint").unwrap();
-    let entrypoint_addr = solana_netutil::parse_host_port(entrypoint_str)
+    println!("Connecting to {}", entrypoint_str);
+    let entrypoint_addr = solana_netutil::parse_host_port(&format!("{}:8899", entrypoint_str))
         .expect("failed to parse entrypoint address");
     utils::download_genesis(&entrypoint_addr, &tmp_ledger_path).expect("genesis download failed");
     let genesis_block = GenesisBlock::load(&tmp_ledger_path).expect("failed to load genesis block");
