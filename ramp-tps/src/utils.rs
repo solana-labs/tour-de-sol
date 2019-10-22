@@ -13,12 +13,16 @@ use tar::Archive;
 const GENESIS_ARCHIVE_NAME: &str = "genesis.tar.bz2";
 
 /// Inspired by solana_local_cluster::cluster_tests
-pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
+fn slots_to_secs(num_slots: u64, genesis_block: &GenesisBlock) -> u64 {
     let poh_config = &genesis_block.poh_config;
     let ticks_per_slot = genesis_block.ticks_per_slot;
     let num_ticks_to_sleep = num_slots as f64 * ticks_per_slot as f64;
     let num_ticks_per_second = (1000 / duration_as_ms(&poh_config.target_tick_duration)) as f64;
-    let secs = ((num_ticks_to_sleep + num_ticks_per_second - 1.0) / num_ticks_per_second) as u64;
+    ((num_ticks_to_sleep + num_ticks_per_second - 1.0) / num_ticks_per_second) as u64
+}
+
+pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
+    let secs = slots_to_secs(num_slots, genesis_block);
     println!("sleep for {} slots ({} seconds)", num_slots, secs);
     sleep(Duration::from_secs(secs));
 }
@@ -74,4 +78,24 @@ pub fn download_genesis(rpc_addr: &SocketAddr, download_path: &Path) -> Result<(
     );
 
     Ok(())
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_slots_to_secs() {
+        let mut genesis_block = GenesisBlock::default();
+        genesis_block.poh_config.target_tick_duration = Duration::from_millis(500);
+
+        genesis_block.ticks_per_slot = 10;
+        assert_eq!(slots_to_secs(2, &genesis_block), 10);
+
+        genesis_block.ticks_per_slot = 1;
+        assert_eq!(slots_to_secs(1, &genesis_block), 1);
+
+        genesis_block.ticks_per_slot = 0;
+        assert_eq!(slots_to_secs(10, &genesis_block), 0);
+    }
 }
