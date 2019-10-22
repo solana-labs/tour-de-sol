@@ -1,0 +1,22 @@
+[package]
+authors = ["Solana Maintainers <maintainers@solana.com>"]
+edition = "2018"
+name = "solana-ramp-tps"
+description = "Solana Tour de SOL - TPS ramp up"
+version = "1.0.0"
+repository = "https://github.com/solana-labs/tour-de-sol"
+license = "Apache-2.0"
+homepage = "https://solana.com/tds"
+
+[dependencies]
+bzip2 = "0.3.3"
+clap = "2.33.0"
+log = "0.4.8"
+reqwest = { version = "0.9.22", default-features = false }
+tar = "0.4.26"
+
+# Pinning versions until the next solana release (0.20)
+solana-client = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-logger = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-netutil = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
