@@ -1,4 +1,5 @@
 use bzip2::bufread::BzDecoder;
+use solana_netutil::parse_host;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::timing::duration_as_ms;
 use std::fs::File;
@@ -25,6 +26,11 @@ pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
     let secs = slots_to_secs(num_slots, genesis_block);
     println!("sleep for {} slots ({} seconds)", num_slots, secs);
     sleep(Duration::from_secs(secs));
+}
+
+pub fn is_host(string: String) -> Result<(), String> {
+    parse_host(&string)?;
+    Ok(())
 }
 
 /// Inspired by solana_validator::download_tar_bz2
@@ -56,7 +62,7 @@ pub fn download_genesis(rpc_addr: &SocketAddr, download_path: &Path) -> Result<(
         .map_err(|err| format!("Unable to write {:?}: {:?}", archive_path, err))?;
 
     println!(
-        "Downloaded {} ({} bytes) in {:?}",
+        "Downloaded genesis ({} - {} bytes) in {:?}",
         url,
         download_size,
         Instant::now().duration_since(download_start),
