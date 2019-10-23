@@ -35,6 +35,5 @@ solana -u http://$host:8899 -k mint-keypair.json \
 solana -u http://$host:8899 -k bench-tps.json balance
 
 export RUST_LOG=solana=info
-solana-bench-tps -i bench-tps.json --tx_count=$txCount --write-client-keys client-accounts.yml
-solana-bench-tps -i bench-tps.json --tx_count=$txCount --read-client-keys client-accounts.yml \
-  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=1000
+solana-bench-tps -i bench-tps.json --tx_count=$txCount \
+  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=250
