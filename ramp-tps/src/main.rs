@@ -54,8 +54,8 @@ fn main() {
                 .help("The round of TPS ramp up (round 1: 5000, round 2: 10000, etc.)"),
         )
         .arg(
-            Arg::with_name("round_mins")
-                .long("round-mins")
+            Arg::with_name("round_minutes")
+                .long("round-minutes")
                 .value_name("NUM")
                 .takes_value(true)
                 .default_value("60")
@@ -76,7 +76,7 @@ fn main() {
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
     let round_duration =
-        Duration::from_secs(value_t_or_exit!(matches, "round_mins", u64).max(1) * 60);
+        Duration::from_secs(value_t_or_exit!(matches, "round_minutes", u64).max(1) * 60);
     let tmp_ledger_path = PathBuf::from(TMP_LEDGER_PATH);
     let _ = fs::remove_dir_all(&tmp_ledger_path);
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
