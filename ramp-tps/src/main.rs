@@ -57,7 +57,7 @@ fn main() {
         utils::sleep_n_slots(sleep_slots, &genesis_block);
     }
 
-    info!("Fetching stage config...");
+    info!("Fetching stake config...");
     let stake_config_account = rpc_client
         .get_account(&stake_config_id())
         .expect("failed to fetch stake config");
