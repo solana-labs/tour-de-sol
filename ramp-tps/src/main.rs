@@ -3,16 +3,18 @@
 mod stake;
 mod utils;
 
-use clap::{crate_description, crate_name, crate_version, App, Arg};
+use clap::{crate_description, crate_name, crate_version, value_t_or_exit, App, Arg};
 use log::info;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
+use std::process::Command;
 
 use std::fs;
 use std::path::PathBuf;
 use std::time::Duration;
 
+const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
 
@@ -22,6 +24,13 @@ fn main() {
     let matches = App::new(crate_name!())
         .about(crate_description!())
         .version(crate_version!())
+        .arg(
+            Arg::with_name("net_dir")
+                .long("net-dir")
+                .value_name("DIR")
+                .takes_value(true)
+                .help("This tool uses the net path to run commands on the cluster"),
+        )
         .arg(
             Arg::with_name("entrypoint")
                 .short("n")
@@ -34,6 +43,7 @@ fn main() {
         )
         .get_matches();
 
+    let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let tmp_ledger_path = PathBuf::from(TMP_LEDGER_PATH);
     let _ = fs::remove_dir_all(&tmp_ledger_path);
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
@@ -74,4 +84,18 @@ fn main() {
         &stake_config,
         &genesis_block,
     );
+
+    // Start bench-tps
+    let tps = 1000;
+    for client_id in 0..NUM_BENCH_CLIENTS {
+        Command::new("bash")
+            .args(&[
+                "wrapper-bench-tps.sh",
+                &net_dir,
+                &client_id.to_string(),
+                &tps.to_string(),
+            ])
+            .spawn()
+            .unwrap();
+    }
 }

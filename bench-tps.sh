@@ -7,6 +7,19 @@ if [[ -z $host ]]; then
   host=tds.solana.com
 fi
 
+txCount=$2
+if [[ -z $txCount ]]; then
+  txCount=1000
+fi
+
+remote=$3
+if [[ -n $remote ]]; then
+  exec > solana/client.log
+  exec 2>&1
+  PATH=$PATH:.cargo/bin/
+  killall solana-bench-tps || true
+fi
+
 scp -o "ConnectTimeout=20" -o "BatchMode=yes" \
   -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" \
   solana@$host:solana/config/mint-keypair.json .
@@ -22,4 +35,6 @@ solana -u http://$host:8899 -k mint-keypair.json \
 solana -u http://$host:8899 -k bench-tps.json balance
 
 export RUST_LOG=solana=info
-solana-bench-tps -n $host:8001 -i bench-tps.json -N 2 --tx_count=1000 --thread-batch-sleep-ms=1000
+solana-bench-tps -i bench-tps.json --tx_count=$txCount --write-client-keys client-accounts.yml
+solana-bench-tps -i bench-tps.json --tx_count=$txCount --read-client-keys client-accounts.yml \
+  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=1000
