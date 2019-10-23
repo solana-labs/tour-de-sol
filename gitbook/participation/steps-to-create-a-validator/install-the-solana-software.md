@@ -1,9 +1,5 @@
 # Install the Solana software
 
-{% hint style="info" %}
-Note: Before installing the Solana software, make sure you’ve generated your validator identity keypair, as described [here](validator-public-key-registration.md).
-{% endhint %}
-
 Before attempting to connect your validator to the Tour de SOL cluster, be familiar with connecting a validator to the Public Testnet as described [here](https://docs.solana.com/book/running-validator).
 
 You can confirm the version running on the cluster entrypoint by running:
@@ -27,8 +23,8 @@ looking for latest release
 downloading v0.19.1 installer
 Configuration: /home/solana/.config/solana/install/config.yml
 Active release directory: /home/solana/.local/share/solana/install/active_release
-* Release version: 0.19.1
-* Release URL: https://github.com/solana-labs/solana/releases/download/v0.19.1/solana-release-x86_64-unknown-linux-gnu.tar.bz2
+* Release version: 0.20.0
+* Release URL: https://github.com/solana-labs/solana/releases/download/v0.20.0/solana-release-x86_64-unknown-linux-gnu.tar.bz2
 Update successful
 ```
 
