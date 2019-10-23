@@ -15,8 +15,8 @@ use clap::{
 };
 use confirmation_latency::{SlotVoterSegments, VoterRecord};
 use solana_cli::input_validators::is_pubkey;
-use solana_core::blocktree::Blocktree;
-use solana_core::blocktree_processor::{process_blocktree, ProcessOptions};
+use solana_ledger::blocktree::Blocktree;
+use solana_ledger::blocktree_processor::{process_blocktree, ProcessOptions};
 use solana_runtime::bank::Bank;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::native_token::sol_to_lamports;
