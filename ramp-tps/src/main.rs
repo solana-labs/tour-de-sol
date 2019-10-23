@@ -2,11 +2,13 @@
 
 mod stake;
 mod utils;
+mod voters;
 
 use clap::{crate_description, crate_name, crate_version, value_t_or_exit, App, Arg};
 use log::info;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::genesis_block::GenesisBlock;
+use solana_sdk::signature::read_keypair_file;
 use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
 use std::process::Command;
 use std::thread::sleep;
@@ -19,10 +21,24 @@ const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
 const TPS_ROUND_INCREMENT: u64 = 5000;
+const INITIAL_SOL_BALANCE: u64 = 1;
+const MINT_KEYPAIR_PATH: &str = "mint-keypair.json";
 
 // TPS increments linearly each round
 fn tps_for_round(tps_round: u32) -> u64 {
     u64::from(tps_round) * TPS_ROUND_INCREMENT
+}
+
+// Gift will double the staked lamports each round and assume that validators start with 1 SOL.
+//   - Award 1 SOL for Round 2
+//   - Award 2 SOL for Round 3
+//   - Award 4 SOL for Round 4
+fn gift_for_round(tps_round: u32) -> u64 {
+    if tps_round > 1 {
+        INITIAL_SOL_BALANCE * 2u64.pow(tps_round - 2)
+    } else {
+        0
+    }
 }
 
 fn main() {
@@ -31,6 +47,15 @@ fn main() {
     let matches = App::new(crate_name!())
         .about(crate_description!())
         .version(crate_version!())
+        .arg(
+            Arg::with_name("mint_keypair_path")
+                .long("mint-keypair-path")
+                .short("k")
+                .value_name("PATH")
+                .takes_value(true)
+                .default_value(MINT_KEYPAIR_PATH)
+                .help("Path to the mint keypair for stake award distribution"),
+        )
         .arg(
             Arg::with_name("net_dir")
                 .long("net-dir")
@@ -67,6 +92,8 @@ fn main() {
         .get_matches();
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
+    let mint_keypair_path = value_t_or_exit!(matches, "mint_keypair_path", String);
+    let mint_keypair = read_keypair_file(&mint_keypair_path).unwrap();
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
     let round_duration =
         Duration::from_secs(value_t_or_exit!(matches, "round_minutes", u64).max(1) * 60);
@@ -138,7 +165,25 @@ fn main() {
         }
         sleep(round_duration);
 
+        let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
+        info!(
+            "End of round {}. There are {} validators remaining",
+            tps_round,
+            remaining_voters.len()
+        );
+
+        if remaining_voters.is_empty() {
+            info!("No validators left standing",);
+            break;
+        }
+
         tps_round += 1;
+        let next_gift = gift_for_round(tps_round);
+        info!(
+            "Delegate {} SOL in stake to each remaining validator",
+            next_gift
+        );
+        voters::award_stake(&rpc_client, &mint_keypair, remaining_voters, next_gift);
 
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         info!("Current epoch info: {:?}", &epoch_info);
