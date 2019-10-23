@@ -1,11 +1,12 @@
 //! Ramp up TPS for Tour de SOL until all validators drop out
 
+mod slack;
 mod stake;
 mod utils;
 mod voters;
 
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
-use log::{debug, info};
+use log::debug;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::signature::read_keypair_file;
@@ -43,6 +44,7 @@ fn gift_for_round(tps_round: u32) -> u64 {
 
 fn main() {
     solana_logger::setup_with_filter("solana=debug");
+    let slack_logger = slack::Logger::new();
 
     let matches = App::new(crate_name!())
         .about(crate_description!())
@@ -123,7 +125,7 @@ fn main() {
     debug!("First normal slot: {}", first_normal_slot);
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
-        info!("Waiting for epochs to warm up...");
+        slack_logger.info("Waiting for epochs to warm up...");
         utils::sleep_n_slots(sleep_slots, &genesis_block);
     }
 
@@ -155,17 +157,18 @@ fn main() {
             &rpc_client,
             &stake_config,
             &genesis_block,
+            &slack_logger,
         );
     }
 
     // Start bench-tps
     loop {
         let tps = tps_for_round(tps_round);
-        info!("Starting round {} with {} TPS", tps_round, tps);
-        info!(
+        slack_logger.info(&format!("Starting round {} with {} TPS", tps_round, tps));
+        slack_logger.info(&format!(
             "Run bench-tps for {} minutes",
             round_duration.as_secs() / 60
-        );
+        ));
         let client_tps = tps / NUM_BENCH_CLIENTS as u64;
         for client_id in 0..NUM_BENCH_CLIENTS {
             Command::new("bash")
@@ -181,23 +184,23 @@ fn main() {
         sleep(round_duration);
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
-        info!(
+        slack_logger.info(&format!(
             "End of round {}. There are {} validators remaining",
             tps_round,
             remaining_voters.len()
-        );
+        ));
 
         if remaining_voters.is_empty() {
-            info!("No validators left standing",);
+            slack_logger.info("No validators left standing");
             break;
         }
 
         tps_round += 1;
         let next_gift = gift_for_round(tps_round);
-        info!(
+        slack_logger.info(&format!(
             "Delegate {} SOL in stake to each remaining validator",
             next_gift
-        );
+        ));
         voters::award_stake(&rpc_client, &mint_keypair, remaining_voters, next_gift);
 
         let epoch_info = rpc_client.get_epoch_info().unwrap();
@@ -209,6 +212,7 @@ fn main() {
             &rpc_client,
             &stake_config,
             &genesis_block,
+            &slack_logger,
         );
     }
 }

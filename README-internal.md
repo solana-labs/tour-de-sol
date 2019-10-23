@@ -111,12 +111,16 @@ $ eval $(net/gce.sh info --eval)
 ```bash
 $ net/scp.sh solana@"$NET_VALIDATOR0_IP":solana/config/mint-keypair.json .
 ```
+1. Optionally set SLACK env vars to be notified of progress
+```bash
+export SLACK_TOKEN=
+export SLACK_CHANNEL_ID=
+```
 1. Start the ramp-up TPS tool
 ```bash
 $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
-  --net-dir <solana/net>
-  --round 1
-  --round-minutes 15
+  --net-dir <solana/net> \
+  --round-minutes 15 \
   --mint-keypair-path <mint_keypair.json>
 ```
 
