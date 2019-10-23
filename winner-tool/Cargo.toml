@@ -12,10 +12,10 @@ homepage = "https://solana.com/tds"
 clap = "2.33.0"
 log = "0.4.8"
 # Pinning versions until the next solana release (0.20)
-solana-cli = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-core = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-logger = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-runtime = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-stake-api = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-vote-api = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-cli = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-ledger = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-logger = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-runtime = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-stake-api = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-vote-api = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }

@@ -1,5 +1,5 @@
 use crate::winner::Winner;
-use solana_core::blocktree::Blocktree;
+use solana_ledger::blocktree::Blocktree;
 use solana_sdk::clock::Slot;
 use solana_sdk::pubkey::Pubkey;
 

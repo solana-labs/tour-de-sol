@@ -7,8 +7,8 @@
 
 use crate::utils;
 use crate::winner::{self, Winner, Winners};
-use solana_core::blocktree::Blocktree;
-use solana_core::leader_schedule_cache::LeaderScheduleCache;
+use solana_ledger::blocktree::Blocktree;
+use solana_ledger::leader_schedule_cache::LeaderScheduleCache;
 use solana_runtime::bank::Bank;
 use solana_sdk::account::Account;
 use solana_sdk::clock::Slot;
