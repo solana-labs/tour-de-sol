@@ -124,13 +124,14 @@ fn main() {
             "Run bench-tps for {} minutes",
             round_duration.as_secs() / 60
         );
+        let client_tps = tps / NUM_BENCH_CLIENTS as u64;
         for client_id in 0..NUM_BENCH_CLIENTS {
             Command::new("bash")
                 .args(&[
                     "wrapper-bench-tps.sh",
                     &net_dir,
                     &client_id.to_string(),
-                    &tps.to_string(),
+                    &client_tps.to_string(),
                 ])
                 .spawn()
                 .unwrap();
