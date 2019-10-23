@@ -1,5 +1,5 @@
 use crate::utils::sleep_n_slots;
-use log::info;
+use log::{debug, info, warn};
 use solana_client::rpc_client::RpcClient;
 use solana_client::rpc_request::RpcEpochInfo;
 use solana_sdk::genesis_block::GenesisBlock;
@@ -54,12 +54,12 @@ pub fn wait_for_activation(
     }
 
     loop {
-        info!(
+        debug!(
             "Fetching stake history entry for activation epoch ({})...",
             activation_epoch
         );
         if let Some(stake_entry) = stake_activation_epoch_entry(activation_epoch, &rpc_client) {
-            info!("Stake history entry: {:?}", &stake_entry);
+            debug!("Stake history entry: {:?}", &stake_entry);
             let num_epochs = epochs_until_activation(stake_entry, stake_config);
             let warmed_up_epoch = activation_epoch + num_epochs;
             if warmed_up_epoch > current_epoch {
@@ -74,7 +74,7 @@ pub fn wait_for_activation(
             }
             break;
         } else {
-            info!(
+            warn!(
                 "Failed to fetch stake history entry activation epoch: {}",
                 activation_epoch
             );
