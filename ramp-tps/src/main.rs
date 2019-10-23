@@ -3,7 +3,7 @@
 mod stake;
 mod utils;
 
-use clap::{crate_description, crate_name, crate_version, value_t_or_exit, App, Arg};
+use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
 use log::{debug, info};
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::genesis_block::GenesisBlock;
@@ -64,6 +64,13 @@ fn main() {
                 .validator(utils::is_host)
                 .help("Download the genesis block from this entry point"),
         )
+        .arg(
+            Arg::with_name("stake_activation_epoch")
+                .long("stake-activation-epoch")
+                .value_name("NUM")
+                .takes_value(true)
+                .help("The stake activation epoch that must finish warming up before beginning"),
+        )
         .get_matches();
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
@@ -99,16 +106,24 @@ fn main() {
         .expect("failed to fetch stake config");
     let stake_config = StakeConfig::from(&stake_config_account).unwrap();
 
-    if tps_round == 1 {
-        // Now that epochs are warmed up, check if stakes are warmed up
-        let first_normal_epoch = genesis_block
-            .epoch_schedule
-            .first_normal_epoch
-            .saturating_sub(1);
+    // Now that epochs are warmed up, check if stakes are warmed up
+    let activation_epoch = if tps_round == 1 {
+        // Check an early epoch to make sure initial stake has finished warming up
+        Some(
+            genesis_block
+                .epoch_schedule
+                .first_normal_epoch
+                .saturating_sub(1),
+        )
+    } else {
+        value_t!(matches, "stake_activation_epoch", u64).ok()
+    };
+
+    if let Some(activation_epoch) = activation_epoch {
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         debug!("Current epoch info: {:?}", &epoch_info);
         stake::wait_for_activation(
-            first_normal_epoch,
+            activation_epoch,
             epoch_info,
             &rpc_client,
             &stake_config,
