@@ -97,3 +97,61 @@ Prune at slot 5000 hash "HRQnaDnSoaeM5xQKxjKYbU53ZFhTYtjBS7HWyG3Q1JUq"
 ```
 4. Bring the Solana TdS nodes back up with `./net start --no-deploy --no-snapshot --skip-ledger-verify -r`
 2. Announce to all participants that a rollback has been completed, they should now delete their ledger and restart their validator from a new snapshot
+
+## TPS Ramp-up Procedure
+
+#### Directions
+1. [Fetch the TdS cluster configuration](#attaching-to-the-tds-cluster)
+1. Set bash vars for the network
+```bash
+$ eval $(net/gce.sh info --eval)
+```
+1. Snag the mint keypair from the bootstrap leader
+```bash
+$ net/scp.sh solana@"$NET_VALIDATOR0_IP":solana/config/mint-keypair.json .
+```
+1. Optionally set SLACK env vars to be notified of progress
+```bash
+export SLACK_TOKEN=
+export SLACK_CHANNEL_ID=
+```
+1. Start the ramp-up TPS tool
+```bash
+$ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
+  --net-dir <solana/net> \
+  --round-minutes 15 \
+  --mint-keypair-path <mint_keypair.json>
+```
+
+#### Recovery
+If the tool fails, it may be possible to recover and pickup where it last
+left off. The only unsupported scenario is when the tool fails in the
+middle of awarding stake to the surviving validators.
+
+- If the tool failed during bench-tps, recovery is simple. Simply start
+the tool at the `round` number which failed.
+- If the tool fails during stake warmup, specify both the TPS `round` number
+as well as the epoch when the stake started activating (`stake-activation-epoch`).
+
+```bash
+$ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
+  --net-dir <solana/net> \
+  --round <START ROUND> \
+  --round-minutes 15 \
+  --stake-activation-epoch <LAST STAKE ACTIVATION EPOCH> \
+  --mint-keypair-path <mint_keypair.json>
+```
+
+#### Overview
+The ramp up tool will be following this process:
+
+1. Download the genesis block
+1. Wait for warm up epochs to pass
+1. Start ramp up cycle
+  1. Wait for validator stakes to warm up
+  1. Run solana-bench-tps on clients
+  1. Sleep until the round is finished
+  1. Stop solana-bench-tps
+  1. Fetch top performing validators
+  1. Gift stake to the top validators
+  1. Double gift and increment TPS
