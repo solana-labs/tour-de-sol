@@ -153,6 +153,7 @@ The ramp up tool will be following this process:
   1. Wait for validator stakes to warm up
   1. Run solana-bench-tps on clients
   1. Sleep until the round is finished
+  1. Stop solana-bench-tps
   1. Fetch top performing validators
   1. Gift stake to the top validators
   1. Double gift and increment TPS

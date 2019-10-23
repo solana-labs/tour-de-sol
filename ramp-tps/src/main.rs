@@ -182,6 +182,17 @@ fn main() {
                 .unwrap();
         }
         sleep(round_duration);
+        for client_id in 0..NUM_BENCH_CLIENTS {
+            Command::new("bash")
+                .args(&[
+                    "wrapper-bench-tps.sh",
+                    &net_dir,
+                    &client_id.to_string(),
+                    "0", // Setting txCount to 0 will kill bench-tps
+                ])
+                .spawn()
+                .unwrap();
+        }
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
         slack_logger.info(&format!(
