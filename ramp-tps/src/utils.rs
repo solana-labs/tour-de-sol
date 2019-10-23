@@ -1,4 +1,5 @@
 use bzip2::bufread::BzDecoder;
+use log::info;
 use solana_netutil::parse_host;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::timing::duration_as_ms;
@@ -24,7 +25,9 @@ fn slots_to_secs(num_slots: u64, genesis_block: &GenesisBlock) -> u64 {
 
 pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
     let secs = slots_to_secs(num_slots, genesis_block);
-    println!("sleep for {} slots ({} seconds)", num_slots, secs);
+    if secs > 0 {
+        info!("Sleeping for {} slots ({} seconds)", num_slots, secs);
+    }
     sleep(Duration::from_secs(secs));
 }
 
@@ -39,7 +42,7 @@ pub fn download_genesis(rpc_addr: &SocketAddr, download_path: &Path) -> Result<(
     let archive_path = download_path.join(archive_name);
     let url = format!("http://{}/{}", rpc_addr, archive_name);
     let download_start = Instant::now();
-    println!("Downloading genesis ({})...", url);
+    info!("Downloading genesis ({})...", url);
 
     let client = reqwest::Client::new();
     let mut response = client
@@ -61,14 +64,13 @@ pub fn download_genesis(rpc_addr: &SocketAddr, download_path: &Path) -> Result<(
     io::copy(&mut response, &mut file)
         .map_err(|err| format!("Unable to write {:?}: {:?}", archive_path, err))?;
 
-    println!(
-        "Downloaded genesis ({} - {} bytes) in {:?}",
-        url,
+    info!(
+        "Downloaded genesis ({} bytes) in {:?}",
         download_size,
         Instant::now().duration_since(download_start),
     );
 
-    println!("Extracting genesis ({:?})...", archive_name);
+    info!("Extracting genesis ({:?})...", archive_name);
     let extract_start = Instant::now();
     let tar_bz2 = File::open(&archive_path)
         .map_err(|err| format!("Unable to open {}: {:?}", archive_name, err))?;
@@ -77,7 +79,7 @@ pub fn download_genesis(rpc_addr: &SocketAddr, download_path: &Path) -> Result<(
     archive
         .unpack(download_path)
         .map_err(|err| format!("Unable to unpack {}: {:?}", archive_name, err))?;
-    println!(
+    info!(
         "Extracted {} in {:?}",
         archive_name,
         Instant::now().duration_since(extract_start)

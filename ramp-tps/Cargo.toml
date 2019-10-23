@@ -16,7 +16,8 @@ reqwest = { version = "0.9.22", default-features = false }
 tar = "0.4.26"
 
 # Pinning versions until the next solana release (0.20)
-solana-client = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-logger = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-netutil = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
-solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "322fcea6" }
+solana-client = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-logger = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-netutil = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
+solana-stake-api = { git = "https://github.com/solana-labs/solana", rev = "0b2d4f32f" }
