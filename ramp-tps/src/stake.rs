@@ -14,7 +14,9 @@ fn epochs_until_activation(mut stake_entry: StakeHistoryEntry, stake_config: &St
             break;
         }
         let max_warmup_stake = (stake_entry.effective as f64 * stake_config.warmup_rate) as u64;
-        stake_entry.effective += stake_entry.activating.min(max_warmup_stake);
+        let warmup_stake = stake_entry.activating.min(max_warmup_stake);
+        stake_entry.effective += warmup_stake;
+        stake_entry.activating -= warmup_stake;
         epochs += 1;
     }
     epochs
@@ -60,14 +62,15 @@ pub fn wait_for_activation(
         if let Some(stake_entry) = stake_activation_epoch_entry(activation_epoch, &rpc_client) {
             info!("Stake history entry: {:?}", &stake_entry);
             let num_epochs = epochs_until_activation(stake_entry, stake_config);
-            // TODO change this logic
-            if num_epochs > 0 {
+            let warmed_up_epoch = activation_epoch + num_epochs;
+            if warmed_up_epoch > current_epoch {
                 let epoch_info = rpc_client.get_epoch_info().unwrap();
                 info!(
-                    "Waiting until epoch {} for stake to activate...",
-                    activation_epoch + num_epochs
+                    "Waiting until epoch {} for stake to warmup...",
+                    warmed_up_epoch
                 );
-                let sleep_slots = num_epochs * slots_per_epoch - epoch_info.slot_index;
+                let sleep_epochs = warmed_up_epoch - current_epoch;
+                let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
                 sleep_n_slots(sleep_slots, genesis_block);
             }
             break;

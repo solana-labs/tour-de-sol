@@ -25,7 +25,13 @@ fn slots_to_secs(num_slots: u64, genesis_block: &GenesisBlock) -> u64 {
 
 pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
     let secs = slots_to_secs(num_slots, genesis_block);
-    if secs > 0 {
+    let mins = secs / 60;
+    let hours = mins / 60;
+    if hours >= 5 {
+        info!("Sleeping for {} slots ({} hours)", num_slots, hours);
+    } else if mins >= 5 {
+        info!("Sleeping for {} slots ({} minutes)", num_slots, mins);
+    } else if secs > 0 {
         info!("Sleeping for {} slots ({} seconds)", num_slots, secs);
     }
     sleep(Duration::from_secs(secs));
