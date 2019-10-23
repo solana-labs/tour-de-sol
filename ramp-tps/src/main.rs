@@ -19,22 +19,10 @@ const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
 const TPS_ROUND_INCREMENT: u64 = 5000;
-const INITIAL_SOL_BALANCE: u64 = 1;
 
 // TPS increments linearly each round
-// Gift will double the staked lamports each round and assume that validators start with 1 SOL.
-//   - Award 1 SOL after Round 1
-//   - Award 2 SOL after Round 2
-//   - Award 4 SOL after Round 3
-fn tps_params(tps_round: u32) -> (u64, u64) {
-    let tps = u64::from(tps_round) * TPS_ROUND_INCREMENT;
-    let gift = if tps_round > 1 {
-        INITIAL_SOL_BALANCE * 2u64.pow(tps_round - 2)
-    } else {
-        0
-    };
-
-    (tps, gift)
+fn tps_for_round(tps_round: u32) -> u64 {
+    u64::from(tps_round) * TPS_ROUND_INCREMENT
 }
 
 fn main() {
@@ -130,7 +118,7 @@ fn main() {
 
     // Start bench-tps
     loop {
-        let (tps, _next_gift) = tps_params(tps_round);
+        let tps = tps_for_round(tps_round);
         info!("Starting round {} with {} TPS", tps_round, tps);
         info!(
             "Run bench-tps for {} minutes",
