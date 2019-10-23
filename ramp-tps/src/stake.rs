@@ -1,3 +1,4 @@
+use crate::slack;
 use crate::utils::sleep_n_slots;
 use log::*;
 use solana_client::rpc_client::RpcClient;
@@ -35,6 +36,7 @@ pub fn wait_for_activation(
     rpc_client: &RpcClient,
     stake_config: &StakeConfig,
     genesis_block: &GenesisBlock,
+    slack_logger: &slack::Logger,
 ) {
     // Sleep until activation_epoch has finished
     let mut current_epoch = epoch_info.epoch;
@@ -42,10 +44,10 @@ pub fn wait_for_activation(
     let slots_per_epoch = genesis_block.epoch_schedule.slots_per_epoch;
     if sleep_epochs > 0 {
         let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
-        info!(
+        slack_logger.info(&format!(
             "Waiting until activation epoch ({}) is finished...",
             activation_epoch
-        );
+        ));
         sleep_n_slots(sleep_slots, genesis_block);
     }
 
@@ -61,10 +63,10 @@ pub fn wait_for_activation(
             debug!("Stake history entry: {:?}", &stake_entry);
             let warm_up_epochs = calculate_stake_warmup(stake_entry, stake_config);
             if warm_up_epochs > 0 {
-                info!(
+                slack_logger.info(&format!(
                     "Waiting until epoch {} for stake to warmup...",
                     current_epoch + warm_up_epochs
-                );
+                ));
                 let sleep_slots = warm_up_epochs * slots_per_epoch - epoch_info.slot_index;
                 sleep_n_slots(sleep_slots, genesis_block);
             } else {
