@@ -4,7 +4,7 @@ mod stake;
 mod utils;
 
 use clap::{crate_description, crate_name, crate_version, value_t_or_exit, App, Arg};
-use log::info;
+use log::{debug, info};
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
@@ -26,7 +26,7 @@ fn tps_for_round(tps_round: u32) -> u64 {
 }
 
 fn main() {
-    solana_logger::setup_with_filter("solana=info");
+    solana_logger::setup_with_filter("solana=debug");
 
     let matches = App::new(crate_name!())
         .about(crate_description!())
@@ -75,25 +75,25 @@ fn main() {
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
 
     let entrypoint_str = matches.value_of("entrypoint").unwrap();
-    info!("Connecting to {}", entrypoint_str);
+    debug!("Connecting to {}", entrypoint_str);
     let entrypoint_addr = solana_netutil::parse_host_port(&format!("{}:8899", entrypoint_str))
         .expect("failed to parse entrypoint address");
     utils::download_genesis(&entrypoint_addr, &tmp_ledger_path).expect("genesis download failed");
     let genesis_block = GenesisBlock::load(&tmp_ledger_path).expect("failed to load genesis block");
 
-    info!("Fetching current slot...");
+    debug!("Fetching current slot...");
     let rpc_client = RpcClient::new_socket_with_timeout(entrypoint_addr, Duration::from_secs(10));
     let current_slot = rpc_client.get_slot().expect("failed to fetch current slot");
-    info!("Current slot: {}", current_slot);
+    debug!("Current slot: {}", current_slot);
     let first_normal_slot = genesis_block.epoch_schedule.first_normal_slot;
-    info!("First normal slot: {}", first_normal_slot);
+    debug!("First normal slot: {}", first_normal_slot);
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
         info!("Waiting for epochs to warm up...");
         utils::sleep_n_slots(sleep_slots, &genesis_block);
     }
 
-    info!("Fetching stake config...");
+    debug!("Fetching stake config...");
     let stake_config_account = rpc_client
         .get_account(&stake_config_id())
         .expect("failed to fetch stake config");
@@ -106,7 +106,7 @@ fn main() {
             .first_normal_epoch
             .saturating_sub(1);
         let epoch_info = rpc_client.get_epoch_info().unwrap();
-        info!("Current epoch info: {:?}", &epoch_info);
+        debug!("Current epoch info: {:?}", &epoch_info);
         stake::wait_for_activation(
             first_normal_epoch,
             epoch_info,
@@ -152,7 +152,7 @@ fn main() {
         tps_round += 1;
 
         let epoch_info = rpc_client.get_epoch_info().unwrap();
-        info!("Current epoch info: {:?}", &epoch_info);
+        debug!("Current epoch info: {:?}", &epoch_info);
         let current_epoch = epoch_info.epoch;
         stake::wait_for_activation(
             current_epoch + 1,
