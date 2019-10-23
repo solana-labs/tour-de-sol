@@ -144,7 +144,7 @@ fn main() {
         info!("Current epoch info: {:?}", &epoch_info);
         let current_epoch = epoch_info.epoch;
         stake::wait_for_activation(
-            current_epoch + 2,
+            current_epoch + 1,
             epoch_info,
             &rpc_client,
             &stake_config,
