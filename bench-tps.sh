@@ -27,11 +27,11 @@ if [[ -n $remote ]]; then
   if [[ $txCount = 0 ]]; then
     exit 0
   fi
+else
+  scp -o "ConnectTimeout=20" -o "BatchMode=yes" \
+    -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" \
+    solana@$host:solana/config/mint-keypair.json .
 fi
-
-scp -o "ConnectTimeout=20" -o "BatchMode=yes" \
-  -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" \
-  solana@$host:solana/config/mint-keypair.json .
 
 solana -u http://$host:8899 -k mint-keypair.json balance --lamports
 
