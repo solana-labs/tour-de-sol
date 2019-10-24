@@ -12,7 +12,12 @@ if [[ -z $txCount ]]; then
   txCount=1000
 fi
 
-remote=$3
+threadBatchSleepMs=$3
+if [[ -z $threadBatchSleepMs ]]; then
+  threadBatchSleepMs=250
+fi
+
+remote=$4
 if [[ -n $remote ]]; then
   exec > solana/client.log
   exec 2>&1
@@ -40,4 +45,4 @@ solana -u http://$host:8899 -k bench-tps.json balance
 
 export RUST_LOG=solana=info
 solana-bench-tps -i bench-tps.json --tx_count=$txCount \
-  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=250
+  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=$threadBatchSleepMs

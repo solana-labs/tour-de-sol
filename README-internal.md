@@ -121,8 +121,8 @@ $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --net-dir <solana/net> \
   --initial-balance 1 \
   --round-minutes 15 \
-  --tps-baseline 5000 \
-  --tps-increment 5000 \
+  --tx-count-baseline 5000 \
+  --tx-count-increment 5000 \
   --mint-keypair-path <mint_keypair.json>
 ```
 
@@ -142,8 +142,8 @@ $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --initial-balance 1 \
   --round <START ROUND> \
   --round-minutes 15 \
-  --tps-baseline 5000 \
-  --tps-increment 5000 \
+  --tx-count-baseline 5000 \
+  --tx-count-increment 5000 \
   --stake-activation-epoch <LAST STAKE ACTIVATION EPOCH> \
   --mint-keypair-path <mint_keypair.json>
 ```

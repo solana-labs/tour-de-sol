@@ -7,9 +7,10 @@ tdsDir="$(pwd)"
 netDir=$1
 clientId=$2
 txCount=$3
+threadBatchSleepMs=$4
 
 eval "$("$netDir/gce.sh" info --eval)"
 clientIp="NET_CLIENT${clientId}_IP"
 
 "$netDir/scp.sh" $tdsDir/bench-tps.sh solana@${!clientIp}:.
-"$netDir/ssh.sh" ${!clientIp} ./bench-tps.sh $NET_VALIDATOR0_IP $txCount remote
+"$netDir/ssh.sh" ${!clientIp} ./bench-tps.sh $NET_VALIDATOR0_IP $txCount $threadBatchSleepMs remote
