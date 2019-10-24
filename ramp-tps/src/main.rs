@@ -18,12 +18,13 @@ use std::time::Duration;
 const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
-const DEFAULT_TPS_BASELINE: &str = "5000";
-const DEFAULT_TPS_INCREMENT: &str = "5000";
+const DEFAULT_TX_COUNT_BASELINE: &str = "5000";
+const DEFAULT_TX_COUNT_INCREMENT: &str = "5000";
 const DEFAULT_TPS_ROUND_MINUTES: &str = "60";
+const THREAD_BATCH_SLEEP_MS: &str = "250";
 
-// TPS increments linearly each round
-fn tps_for_round(tps_round: u32, base: u64, incr: u64) -> u64 {
+// Transaction count increments linearly each round
+fn tx_count_for_round(tps_round: u32, base: u64, incr: u64) -> u64 {
     base + u64::from(tps_round - 1) * incr
 }
 
@@ -38,7 +39,7 @@ fn main() {
                 .long("net-dir")
                 .value_name("DIR")
                 .takes_value(true)
-                .help("This tool uses the net path to run commands on the cluster"),
+                .help("The directory used for running commands on the cluster"),
         )
         .arg(
             Arg::with_name("round")
@@ -57,20 +58,20 @@ fn main() {
                 .help("The duration in minutes of a TPS round"),
         )
         .arg(
-            Arg::with_name("tps_baseline")
-                .long("tps-baseline")
+            Arg::with_name("tx_count_baseline")
+                .long("tx-count-baseline")
                 .value_name("NUM")
                 .takes_value(true)
-                .default_value(DEFAULT_TPS_BASELINE)
-                .help("The TPS of the round 1"),
+                .default_value(DEFAULT_TX_COUNT_BASELINE)
+                .help("The tx-count of round 1"),
         )
         .arg(
-            Arg::with_name("tps_increment")
-                .long("tps-increment")
+            Arg::with_name("tx_count_increment")
+                .long("tx-count-increment")
                 .value_name("NUM")
                 .takes_value(true)
-                .default_value(DEFAULT_TPS_INCREMENT)
-                .help("The amount of TPS to add each round"),
+                .default_value(DEFAULT_TX_COUNT_INCREMENT)
+                .help("The tx-count increment for the next round"),
         )
         .arg(
             Arg::with_name("entrypoint")
@@ -80,23 +81,23 @@ fn main() {
                 .takes_value(true)
                 .default_value(TDS_ENTRYPOINT)
                 .validator(utils::is_host)
-                .help("Download the genesis block from this entry point"),
+                .help("The entrypoint used for RPC calls"),
         )
         .arg(
             Arg::with_name("stake_activation_epoch")
                 .long("stake-activation-epoch")
                 .value_name("NUM")
                 .takes_value(true)
-                .help("The stake activation epoch that must finish warming up before beginning"),
+                .help("The stake activated in this epoch must fully warm up before the first round begins"),
         )
         .get_matches();
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
-    let tps_baseline = value_t_or_exit!(matches, "tps_baseline", u64);
-    let tps_increment = value_t_or_exit!(matches, "tps_increment", u64);
-    let round_duration =
-        Duration::from_secs(value_t_or_exit!(matches, "round_minutes", u64).max(1) * 60);
+    let tx_count_baseline = value_t_or_exit!(matches, "tx_count_baseline", u64);
+    let tx_count_increment = value_t_or_exit!(matches, "tx_count_increment", u64);
+    let round_minutes = value_t_or_exit!(matches, "round_minutes", u64).max(1);
+    let round_duration = Duration::from_secs(round_minutes * 60);
     let tmp_ledger_path = PathBuf::from(TMP_LEDGER_PATH);
     let _ = fs::remove_dir_all(&tmp_ledger_path);
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
@@ -153,20 +154,21 @@ fn main() {
 
     // Start bench-tps
     loop {
-        let tps = tps_for_round(tps_round, tps_baseline, tps_increment);
-        info!("Starting round {} with {} TPS", tps_round, tps);
+        let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
+        let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
+        info!("Running round {} for {} minutes", tps_round, round_minutes);
         info!(
-            "Run bench-tps for {} minutes",
-            round_duration.as_secs() / 60
+            "Running bench-tps={}='--tx_count={} --thread-batch-sleep-ms={}'",
+            NUM_BENCH_CLIENTS, client_tx_count, THREAD_BATCH_SLEEP_MS
         );
-        let client_tps = tps / NUM_BENCH_CLIENTS as u64;
         for client_id in 0..NUM_BENCH_CLIENTS {
             Command::new("bash")
                 .args(&[
                     "wrapper-bench-tps.sh",
                     &net_dir,
                     &client_id.to_string(),
-                    &client_tps.to_string(),
+                    &client_tx_count.to_string(),
+                    THREAD_BATCH_SLEEP_MS,
                 ])
                 .spawn()
                 .unwrap();
