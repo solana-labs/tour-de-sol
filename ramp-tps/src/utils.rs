@@ -1,5 +1,5 @@
 use bzip2::bufread::BzDecoder;
-use log::debug;
+use log::*;
 use solana_netutil::parse_host;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::timing::duration_as_ms;

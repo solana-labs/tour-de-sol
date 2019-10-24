@@ -1,5 +1,5 @@
 use crate::utils::sleep_n_slots;
-use log::{debug, info, warn};
+use log::*;
 use solana_client::rpc_client::RpcClient;
 use solana_client::rpc_request::RpcEpochInfo;
 use solana_sdk::genesis_block::GenesisBlock;

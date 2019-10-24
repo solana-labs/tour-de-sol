@@ -4,7 +4,7 @@ mod stake;
 mod utils;
 
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
-use log::{debug, info};
+use log::*;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
@@ -18,11 +18,13 @@ use std::time::Duration;
 const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
-const TPS_ROUND_INCREMENT: u64 = 5000;
+const DEFAULT_TPS_BASELINE: &str = "5000";
+const DEFAULT_TPS_INCREMENT: &str = "5000";
+const DEFAULT_TPS_ROUND_MINUTES: &str = "60";
 
 // TPS increments linearly each round
-fn tps_for_round(tps_round: u32) -> u64 {
-    u64::from(tps_round) * TPS_ROUND_INCREMENT
+fn tps_for_round(tps_round: u32, base: u64, incr: u64) -> u64 {
+    base + u64::from(tps_round - 1) * incr
 }
 
 fn main() {
@@ -44,15 +46,31 @@ fn main() {
                 .value_name("NUM")
                 .takes_value(true)
                 .default_value("1")
-                .help("The round of TPS ramp up (round 1: 5000, round 2: 10000, etc.)"),
+                .help("The starting round of TPS ramp up"),
         )
         .arg(
             Arg::with_name("round_minutes")
                 .long("round-minutes")
                 .value_name("NUM")
                 .takes_value(true)
-                .default_value("60")
+                .default_value(DEFAULT_TPS_ROUND_MINUTES)
                 .help("The duration in minutes of a TPS round"),
+        )
+        .arg(
+            Arg::with_name("tps_baseline")
+                .long("tps-baseline")
+                .value_name("NUM")
+                .takes_value(true)
+                .default_value(DEFAULT_TPS_BASELINE)
+                .help("The TPS of the round 1"),
+        )
+        .arg(
+            Arg::with_name("tps_increment")
+                .long("tps-increment")
+                .value_name("NUM")
+                .takes_value(true)
+                .default_value(DEFAULT_TPS_INCREMENT)
+                .help("The amount of TPS to add each round"),
         )
         .arg(
             Arg::with_name("entrypoint")
@@ -75,6 +93,8 @@ fn main() {
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
+    let tps_baseline = value_t_or_exit!(matches, "tps_baseline", u64);
+    let tps_increment = value_t_or_exit!(matches, "tps_increment", u64);
     let round_duration =
         Duration::from_secs(value_t_or_exit!(matches, "round_minutes", u64).max(1) * 60);
     let tmp_ledger_path = PathBuf::from(TMP_LEDGER_PATH);
@@ -133,7 +153,7 @@ fn main() {
 
     // Start bench-tps
     loop {
-        let tps = tps_for_round(tps_round);
+        let tps = tps_for_round(tps_round, tps_baseline, tps_increment);
         info!("Starting round {} with {} TPS", tps_round, tps);
         info!(
             "Run bench-tps for {} minutes",
