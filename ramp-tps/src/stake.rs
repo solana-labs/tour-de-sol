@@ -1,6 +1,7 @@
 use crate::utils::sleep_n_slots;
-use log::info;
+use log::*;
 use solana_client::rpc_client::RpcClient;
+use solana_client::rpc_request::RpcEpochInfo;
 use solana_sdk::genesis_block::GenesisBlock;
 use solana_sdk::sysvar::stake_history::{self, StakeHistory, StakeHistoryEntry};
 use solana_stake_api::config::Config as StakeConfig;
@@ -33,13 +34,11 @@ fn stake_activation_epoch_entry(
 
 pub fn wait_for_activation(
     activation_epoch: u64,
+    epoch_info: RpcEpochInfo,
     rpc_client: &RpcClient,
     stake_config: &StakeConfig,
     genesis_block: &GenesisBlock,
 ) {
-    info!("Fetching current epoch info...");
-    let epoch_info = rpc_client.get_epoch_info().unwrap();
-    info!("Current epoch info: {:?}", &epoch_info);
     let current_epoch = epoch_info.epoch;
 
     // Sleep until activation_epoch has finished
@@ -55,12 +54,12 @@ pub fn wait_for_activation(
     }
 
     loop {
-        info!(
+        debug!(
             "Fetching stake history entry for activation epoch ({})...",
             activation_epoch
         );
         if let Some(stake_entry) = stake_activation_epoch_entry(activation_epoch, &rpc_client) {
-            info!("Stake history entry: {:?}", &stake_entry);
+            debug!("Stake history entry: {:?}", &stake_entry);
             let num_epochs = epochs_until_activation(stake_entry, stake_config);
             let warmed_up_epoch = activation_epoch + num_epochs;
             if warmed_up_epoch > current_epoch {
@@ -75,7 +74,7 @@ pub fn wait_for_activation(
             }
             break;
         } else {
-            info!(
+            warn!(
                 "Failed to fetch stake history entry activation epoch: {}",
                 activation_epoch
             );

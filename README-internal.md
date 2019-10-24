@@ -120,6 +120,8 @@ export SLACK_CHANNEL_ID=
 $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --net-dir <solana/net> \
   --round-minutes 15 \
+  --tps-baseline 5000 \
+  --tps-increment 5000 \
   --mint-keypair-path <mint_keypair.json>
 ```
 
@@ -138,6 +140,8 @@ $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --net-dir <solana/net> \
   --round <START ROUND> \
   --round-minutes 15 \
+  --tps-baseline 5000 \
+  --tps-increment 5000 \
   --stake-activation-epoch <LAST STAKE ACTIVATION EPOCH> \
   --mint-keypair-path <mint_keypair.json>
 ```

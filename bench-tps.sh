@@ -18,6 +18,10 @@ if [[ -n $remote ]]; then
   exec 2>&1
   PATH=$PATH:.cargo/bin/
   killall solana-bench-tps || true
+
+  if [[ $txCount = 0 ]]; then
+    exit 0
+  fi
 fi
 
 scp -o "ConnectTimeout=20" -o "BatchMode=yes" \
