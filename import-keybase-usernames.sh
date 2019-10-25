@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-# Number of lamports to allocate to each validator (500 SOL)
-lamports=8589934592000
+# Number of lamports to allocate to each validator (2 SOL)
+lamports=$((2 * 17179869184))
 
 cd "$(dirname "$0")"
 
