@@ -126,7 +126,8 @@ fn main() {
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let mint_keypair_path = value_t_or_exit!(matches, "mint_keypair_path", String);
-    let mint_keypair = read_keypair_file(&mint_keypair_path).unwrap();
+    let mint_keypair = read_keypair_file(&mint_keypair_path)
+        .unwrap_or_else(|err| panic!("Unable to read {}: {}", mint_keypair_path, err));
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
     let tx_count_baseline = value_t_or_exit!(matches, "tx_count_baseline", u64);
     let tx_count_increment = value_t_or_exit!(matches, "tx_count_increment", u64);
