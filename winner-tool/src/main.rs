@@ -51,7 +51,7 @@ fn main() {
                 .long("starting-balance")
                 .value_name("SOL")
                 .takes_value(true)
-                .default_value("1000")
+                .default_value("2")
                 .help("Starting balance of validators at the beginning of TdS"),
         )
         .arg(
