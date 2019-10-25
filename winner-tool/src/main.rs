@@ -101,7 +101,7 @@ fn main() {
     });
 
     let blocktree = Blocktree::open(&ledger_path).unwrap_or_else(|err| {
-        eprintln!("Failed to open ledger at {:?}: {}", ledger_path, err);
+        eprintln!("Failed to open ledger at {:?}: {:?}", ledger_path, err);
         exit(1);
     });
 
