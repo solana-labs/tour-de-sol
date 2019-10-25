@@ -6,6 +6,7 @@ use solana_sdk::transaction::Transaction;
 use solana_stake_api::stake_instruction;
 use solana_stake_api::stake_state::Authorized as StakeAuthorized;
 use std::str::FromStr;
+use log::*;
 
 pub fn fetch_remaining_voters(rpc_client: &RpcClient) -> Vec<Pubkey> {
     rpc_client
@@ -38,8 +39,10 @@ pub fn award_stake(
             recent_blockhash,
         );
 
-        rpc_client
-            .send_and_confirm_transaction(&mut transaction, &[mint_keypair, &stake_account_keypair])
-            .expect("delegate stake");
+        info!("Delegating {} SOL to {}", sol_gift, vote_account_pubkey);
+        if let Err(err) = rpc_client
+            .send_and_confirm_transaction(&mut transaction, &[mint_keypair, &stake_account_keypair]) {
+                error!("Failed to delgate {} SOL to {}: {}", sol_gift, vote_account_pubkey, err);
+        }
     }
 }
