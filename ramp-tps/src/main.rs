@@ -221,6 +221,7 @@ fn main() {
                     &net_dir,
                     &client_id.to_string(),
                     "0", // Setting txCount to 0 will kill bench-tps
+                    THREAD_BATCH_SLEEP_MS,
                 ])
                 .spawn()
                 .unwrap();
