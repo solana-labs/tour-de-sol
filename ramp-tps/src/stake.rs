@@ -43,7 +43,7 @@ pub fn wait_for_activation(
     let sleep_epochs = (activation_epoch + 1).saturating_sub(current_epoch);
     let slots_per_epoch = genesis_block.epoch_schedule.slots_per_epoch;
     if sleep_epochs > 0 {
-        let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
+        let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index / 2;
         slack_logger.info(&format!(
             "Waiting until activation epoch ({}) is finished...",
             activation_epoch
