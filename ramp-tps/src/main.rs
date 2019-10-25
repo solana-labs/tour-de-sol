@@ -242,7 +242,7 @@ fn main() {
         tps_round += 1;
         let next_gift = gift_for_round(tps_round, initial_balance);
         slack_logger.info(&format!(
-            "Delegate {} SOL in stake to each remaining validator",
+            "{} SOL will be delegated to each remaining validator",
             next_gift
         ));
         voters::award_stake(&rpc_client, &mint_keypair, remaining_voters, next_gift);
