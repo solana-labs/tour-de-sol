@@ -119,6 +119,7 @@ export SLACK_CHANNEL_ID=
 ```bash
 $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --net-dir <solana/net> \
+  --initial-balance 1 \
   --round-minutes 15 \
   --tx-count-baseline 5000 \
   --tx-count-increment 5000 \
@@ -138,6 +139,7 @@ as well as the epoch when the stake started activating (`stake-activation-epoch`
 ```bash
 $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --net-dir <solana/net> \
+  --initial-balance 1 \
   --round <START ROUND> \
   --round-minutes 15 \
   --tx-count-baseline 5000 \
