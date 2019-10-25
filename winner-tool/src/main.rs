@@ -14,17 +14,22 @@ use clap::{
     Arg,
 };
 use confirmation_latency::{SlotVoterSegments, VoterRecord};
-use solana_cli::input_validators::is_pubkey;
-use solana_ledger::blocktree::Blocktree;
-use solana_ledger::blocktree_processor::{process_blocktree, ProcessOptions};
+use solana_cli::{
+    input_parsers::pubkey_of,
+    input_validators::{is_pubkey, is_pubkey_or_keypair},
+};
+use solana_ledger::{
+    blocktree::Blocktree,
+    blocktree_processor::{process_blocktree, ProcessOptions},
+};
 use solana_runtime::bank::Bank;
-use solana_sdk::genesis_block::GenesisBlock;
-use solana_sdk::native_token::sol_to_lamports;
-use solana_sdk::pubkey::Pubkey;
-use std::collections::HashSet;
-use std::path::PathBuf;
-use std::process::exit;
-use std::sync::{Arc, RwLock};
+use solana_sdk::{genesis_block::GenesisBlock, native_token::sol_to_lamports, pubkey::Pubkey};
+use std::{
+    collections::HashSet,
+    path::PathBuf,
+    process::exit,
+    sync::{Arc, RwLock},
+};
 
 fn main() {
     solana_logger::setup();
@@ -55,7 +60,7 @@ fn main() {
                 .value_name("PUBKEY")
                 .takes_value(true)
                 .required(true)
-                .validator(is_pubkey)
+                .validator(is_pubkey_or_keypair)
                 .help("Public key of the baseline validator"),
         )
         .arg(
@@ -64,7 +69,6 @@ fn main() {
                 .value_name("PUBKEY")
                 .multiple(true)
                 .takes_value(true)
-                .required(true)
                 .validator(is_pubkey)
                 .help("List of excluded public keys"),
         )
@@ -79,9 +83,13 @@ fn main() {
 
     let ledger_path = PathBuf::from(value_t_or_exit!(matches, "ledger", String));
     let starting_balance_sol = value_t_or_exit!(matches, "starting_balance", f64);
-    let baseline_id = value_t_or_exit!(matches, "baseline_validator", Pubkey);
-    let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkeys", Pubkey);
-    let excluded_set: HashSet<Pubkey> = exclude_pubkeys.into_iter().collect();
+    let baseline_validator = pubkey_of(&matches, "baseline_validator").unwrap();
+    let excluded_set: HashSet<Pubkey> = if matches.is_present("exclude_pubkeys") {
+        let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkeys", Pubkey);
+        exclude_pubkeys.into_iter().collect()
+    } else {
+        HashSet::new()
+    };
     let final_slot = value_t!(matches, "final_slot", u64).ok();
 
     let genesis_block = GenesisBlock::load(&ledger_path).unwrap_or_else(|err| {
@@ -134,7 +142,7 @@ fn main() {
             let availability_winners = availability::compute_winners(
                 &bank,
                 &blocktree,
-                &baseline_id,
+                &baseline_validator,
                 &excluded_set,
                 &leader_schedule_cache,
             );
@@ -142,7 +150,7 @@ fn main() {
 
             let latency_winners = confirmation_latency::compute_winners(
                 &bank,
-                &baseline_id,
+                &baseline_validator,
                 &excluded_set,
                 &mut voter_record.write().unwrap(),
                 &mut slot_voter_segments.write().unwrap(),
