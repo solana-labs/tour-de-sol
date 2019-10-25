@@ -53,7 +53,7 @@ pub fn wait_for_activation(
 
     loop {
         epoch_info = rpc_client.get_epoch_info().unwrap();
-        current_epoch = epoch_info.epoch;
+        current_epoch = epoch_info.epoch - 1;
         debug!(
             "Fetching stake history entry for epoch: {}...",
             current_epoch
