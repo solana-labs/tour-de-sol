@@ -65,7 +65,8 @@ pub fn wait_for_activation(
             if warm_up_epochs > 0 {
                 slack_logger.info(&format!(
                     "Waiting until epoch {} for stake to warmup (current epoch is {})...",
-                    current_epoch + warm_up_epochs, current_epoch
+                    current_epoch + warm_up_epochs,
+                    current_epoch
                 ));
                 let sleep_slots = epoch_info.slots_in_epoch - epoch_info.slot_index;
                 sleep_n_slots(sleep_slots, genesis_block);
