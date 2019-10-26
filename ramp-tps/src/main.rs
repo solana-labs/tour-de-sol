@@ -191,6 +191,21 @@ fn main() {
 
     // Start bench-tps
     loop {
+        let slot = rpc_client
+            .get_slot()
+            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        sleep(Duration::from_secs(5));
+        let latest_slot = rpc_client
+            .get_slot()
+            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        if slot == latest_slot {
+            slack_logger.info(&format!(
+                "Slot did not advance from {}.  Cluster may be stuck",
+                slot
+            ));
+            break;
+        }
+
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
         slack_logger.info(&format!(

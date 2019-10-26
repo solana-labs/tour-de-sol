@@ -52,7 +52,13 @@ pub fn wait_for_activation(
     }
 
     loop {
-        epoch_info = rpc_client.get_epoch_info().unwrap();
+        epoch_info = rpc_client
+            .get_epoch_info()
+            .unwrap_or_else(|err| panic!("get_epoch_info failed: {}", err));
+        let slot = rpc_client
+            .get_slot()
+            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+
         current_epoch = epoch_info.epoch - 1;
         debug!(
             "Fetching stake history entry for epoch: {}...",
@@ -79,6 +85,14 @@ pub fn wait_for_activation(
                 current_epoch
             );
             sleep(Duration::from_secs(5));
+        }
+
+        let latest_slot = rpc_client
+            .get_slot()
+            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        if slot == latest_slot {
+            warn!("Slot {} did not advance, cluster may be stuck", slot);
+            break;
         }
     }
 }
