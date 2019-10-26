@@ -115,14 +115,16 @@ $ net/scp.sh solana@"$NET_VALIDATOR0_IP":solana/config/mint-keypair.json .
 export SLACK_TOKEN=
 export SLACK_CHANNEL_ID=
 ```
+1. Wait for all validators to connect to the cluster
+1. Run `destake-net-nodes.sh` to remove the large initial stake from the Solana TdS nodes
 1. Start the ramp-up TPS tool
 ```bash
 $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --net-dir <solana/net> \
   --initial-balance 1 \
-  --round-minutes 15 \
-  --tx-count-baseline 5000 \
-  --tx-count-increment 5000 \
+  --round-minutes 20 \
+  --tx-count-baseline 1000 \
+  --tx-count-increment 2000 \
   --mint-keypair-path <mint_keypair.json>
 ```
 
