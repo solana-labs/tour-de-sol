@@ -28,7 +28,7 @@ pub fn award_stake(
     for vote_account_pubkey in voters {
         let stake_account_keypair = Keypair::new();
         let mut transaction = Transaction::new_signed_instructions(
-            &[mint_keypair, &stake_account_keypair],
+            &[mint_keypair, &mint_keypair],
             stake_instruction::create_stake_account_and_delegate_stake(
                 &mint_keypair.pubkey(),
                 &stake_account_keypair.pubkey(),
