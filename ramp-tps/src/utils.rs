@@ -1,15 +1,15 @@
 use bzip2::bufread::BzDecoder;
 use log::*;
 use solana_netutil::parse_host;
-use solana_sdk::genesis_block::GenesisBlock;
-use solana_sdk::timing::duration_as_ms;
-use std::fs::File;
-use std::io;
-use std::net::SocketAddr;
-use std::path::Path;
-use std::thread::sleep;
-use std::time::Duration;
-use std::time::Instant;
+use solana_sdk::{genesis_block::GenesisBlock, timing::duration_as_ms};
+use std::{
+    fs::File,
+    io,
+    net::SocketAddr,
+    path::Path,
+    thread::sleep,
+    time::{Duration, Instant},
+};
 use tar::Archive;
 
 const GENESIS_ARCHIVE_NAME: &str = "genesis.tar.bz2";
@@ -40,6 +40,12 @@ pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
 pub fn is_host(string: String) -> Result<(), String> {
     parse_host(&string)?;
     Ok(())
+}
+
+pub fn bail(slack_logger: &crate::slack::Logger, msg: &str) -> ! {
+    slack_logger.info(msg);
+    sleep(Duration::from_secs(10)); // Wait for slack messages to send
+    std::process::exit(1);
 }
 
 /// Inspired by solana_validator::download_tar_bz2

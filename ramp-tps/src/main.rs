@@ -191,19 +191,24 @@ fn main() {
 
     // Start bench-tps
     loop {
-        let slot = rpc_client
-            .get_slot()
-            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        let slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            utils::bail(
+                &slack_logger,
+                &format!("Error: get_slot RPC call 1 failed: {}", err),
+            );
+        });
         sleep(Duration::from_secs(5));
-        let latest_slot = rpc_client
-            .get_slot()
-            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            utils::bail(
+                &slack_logger,
+                &format!("Error: get_slot RPC call 2 failed: {}", err),
+            );
+        });
         if slot == latest_slot {
-            slack_logger.info(&format!(
-                "Slot did not advance from {}.  Cluster may be stuck",
-                slot
-            ));
-            break;
+            utils::bail(
+                &slack_logger,
+                &format!("Slot did not advance from {}.  Cluster may be stuck", slot),
+            );
         }
 
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
@@ -250,9 +255,7 @@ fn main() {
         ));
 
         if remaining_voters.is_empty() {
-            slack_logger.info("No validators left standing");
-            sleep(Duration::from_secs(10)); // Wait for slack messages to send
-            break;
+            utils::bail(&slack_logger, "No validators left standing");
         }
 
         tps_round += 1;

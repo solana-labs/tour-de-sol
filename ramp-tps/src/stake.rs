@@ -1,13 +1,12 @@
-use crate::slack;
-use crate::utils::sleep_n_slots;
+use crate::{slack, utils};
 use log::*;
-use solana_client::rpc_client::RpcClient;
-use solana_client::rpc_request::RpcEpochInfo;
-use solana_sdk::genesis_block::GenesisBlock;
-use solana_sdk::sysvar::stake_history::{self, StakeHistory, StakeHistoryEntry};
+use solana_client::{rpc_client::RpcClient, rpc_request::RpcEpochInfo};
+use solana_sdk::{
+    genesis_block::GenesisBlock,
+    sysvar::stake_history::{self, StakeHistory, StakeHistoryEntry},
+};
 use solana_stake_api::config::Config as StakeConfig;
-use std::thread::sleep;
-use std::time::Duration;
+use std::{thread::sleep, time::Duration};
 
 fn calculate_stake_warmup(mut stake_entry: StakeHistoryEntry, stake_config: &StakeConfig) -> u64 {
     let mut epochs = 0;
@@ -48,16 +47,22 @@ pub fn wait_for_activation(
             "Waiting until activation epoch ({}) is finished...",
             activation_epoch
         ));
-        sleep_n_slots(sleep_slots, genesis_block);
+        utils::sleep_n_slots(sleep_slots, genesis_block);
     }
 
     loop {
-        epoch_info = rpc_client
-            .get_epoch_info()
-            .unwrap_or_else(|err| panic!("get_epoch_info failed: {}", err));
-        let slot = rpc_client
-            .get_slot()
-            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        epoch_info = rpc_client.get_epoch_info().unwrap_or_else(|err| {
+            utils::bail(
+                slack_logger,
+                &format!("Error: get_epoch_info RPC call failed: {}", err),
+            );
+        });
+        let slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            utils::bail(
+                slack_logger,
+                &format!("Error: get_slot RPC call 3 failed: {}", err),
+            );
+        });
 
         current_epoch = epoch_info.epoch - 1;
         debug!(
@@ -75,7 +80,7 @@ pub fn wait_for_activation(
                     current_epoch
                 ));
                 let sleep_slots = epoch_info.slots_in_epoch - epoch_info.slot_index;
-                sleep_n_slots(sleep_slots, genesis_block);
+                utils::sleep_n_slots(sleep_slots, genesis_block);
             } else {
                 break;
             }
@@ -87,9 +92,12 @@ pub fn wait_for_activation(
             sleep(Duration::from_secs(5));
         }
 
-        let latest_slot = rpc_client
-            .get_slot()
-            .unwrap_or_else(|err| panic!("get_slot failed: {}", err));
+        let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            utils::bail(
+                slack_logger,
+                &format!("Error: get_slot RPC call 3 failed: {}", err),
+            );
+        });
         if slot == latest_slot {
             warn!("Slot {} did not advance, cluster may be stuck", slot);
             break;
