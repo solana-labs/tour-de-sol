@@ -63,6 +63,7 @@ pub fn wait_for_activation(
                 &format!("Error: get_slot RPC call 3 failed: {}", err),
             );
         });
+        info!("Current slot is {}", slot);
 
         current_epoch = epoch_info.epoch - 1;
         debug!(
