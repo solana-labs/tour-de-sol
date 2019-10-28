@@ -189,8 +189,9 @@ fn main() {
         );
     }
 
-    // Start bench-tps
     loop {
+        slack_logger.info(&format!("Round {}!", tps_round));
+
         let slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
                 &slack_logger,
@@ -211,11 +212,15 @@ fn main() {
             );
         }
 
+        let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
+
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
         slack_logger.info(&format!(
-            "Running round {} for {} minutes",
-            tps_round, round_minutes
+            "Starting transactions for {} minutes (batch size={}). There are {} validators present",
+            round_minutes,
+            tx_count,
+            remaining_voters.len()
         ));
         info!(
             "Running bench-tps={}='--tx_count={} --thread-batch-sleep-ms={}'",
@@ -249,21 +254,20 @@ fn main() {
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
         slack_logger.info(&format!(
-            "End of round {}. There are {} validators remaining",
-            tps_round,
+            "Transactions stopped. There are {} validators remaining",
             remaining_voters.len()
         ));
 
         if remaining_voters.is_empty() {
-            utils::bail(&slack_logger, "No validators left standing");
+            utils::bail(&slack_logger, "No validators remain");
         }
+        slack_logger.info(&format!(
+            "There are {} validators remaining",
+            remaining_voters.len()
+        ));
 
         tps_round += 1;
         let next_gift = gift_for_round(tps_round, initial_balance);
-        slack_logger.info(&format!(
-            "{} SOL will be delegated to each remaining validator",
-            next_gift
-        ));
         voters::award_stake(
             &rpc_client,
             &mint_keypair,
