@@ -11,15 +11,37 @@ use std::{thread::sleep, time::Duration};
 fn calculate_stake_warmup(mut stake_entry: StakeHistoryEntry, stake_config: &StakeConfig) -> u64 {
     let mut epochs = 0;
     loop {
-        if (stake_entry.activating as f64 / stake_entry.effective.max(1) as f64) < 0.05 {
+        let percent_warming_up =
+            stake_entry.activating as f64 / stake_entry.effective.max(1) as f64;
+        let percent_cooling_down =
+            stake_entry.deactivating as f64 / stake_entry.effective.max(1) as f64;
+        debug!(
+            "epoch +{}: stake warming up {:.2}%, cooling down {:.2}% ",
+            epochs,
+            percent_warming_up * 100.,
+            percent_cooling_down * 100.
+        );
+
+        if (percent_warming_up < 0.05) && (percent_cooling_down < 0.05) {
             break;
         }
         let max_warmup_stake = (stake_entry.effective as f64 * stake_config.warmup_rate) as u64;
         let warmup_stake = stake_entry.activating.min(max_warmup_stake);
         stake_entry.effective += warmup_stake;
         stake_entry.activating -= warmup_stake;
+
+        let max_cooldown_stake = (stake_entry.effective as f64 * stake_config.cooldown_rate) as u64;
+        let cooldown_stake = stake_entry.deactivating.min(max_cooldown_stake);
+        stake_entry.effective -= cooldown_stake;
+        stake_entry.deactivating -= cooldown_stake;
+        debug!(
+            "epoch +{}: stake warming up {}, cooling down {}",
+            epochs, warmup_stake, cooldown_stake
+        );
+
         epochs += 1;
     }
+    info!("95% stake warmup will take {} epochs", epochs);
     epochs
 }
 
@@ -74,7 +96,6 @@ pub fn wait_for_activation(
         if let Some(stake_entry) = stake_history_entry(current_epoch, &rpc_client) {
             debug!("Stake history entry: {:?}", &stake_entry);
             let warm_up_epochs = calculate_stake_warmup(stake_entry, stake_config);
-            debug!("warm_up_epochs: {}", warm_up_epochs);
             if warm_up_epochs > 0 {
                 slack_logger.info(&format!(
                     "Waiting until epoch {} for stake to warmup (current epoch is {})...",
