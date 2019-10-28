@@ -264,7 +264,13 @@ fn main() {
             "{} SOL will be delegated to each remaining validator",
             next_gift
         ));
-        voters::award_stake(&rpc_client, &mint_keypair, remaining_voters, next_gift);
+        voters::award_stake(
+            &rpc_client,
+            &mint_keypair,
+            remaining_voters,
+            next_gift,
+            &slack_logger,
+        );
 
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         debug!("Current epoch info: {:?}", &epoch_info);
