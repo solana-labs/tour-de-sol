@@ -48,6 +48,10 @@ impl Logger {
         logger
     }
 
+    pub fn connected(&self) -> bool {
+        *self.connected.0.read().unwrap()
+    }
+
     fn send(&self, msg: &str) {
         if *self.connected.0.read().unwrap() {
             let sender = self.sender.as_ref().unwrap();

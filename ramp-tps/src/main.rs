@@ -181,6 +181,12 @@ fn main() {
     let _ = fs::remove_dir_all(&tmp_ledger_path);
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
 
+    while !slack_logger.connected() {
+       info!("Waiting for slack connection");
+       sleep(Duration::from_secs(1));
+    }
+    slack_logger.info("Hi!");
+
     let entrypoint_str = matches.value_of("entrypoint").unwrap();
     debug!("Connecting to {}", entrypoint_str);
     let entrypoint_addr = solana_netutil::parse_host_port(&format!("{}:8899", entrypoint_str))
