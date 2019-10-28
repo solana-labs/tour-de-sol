@@ -1,15 +1,15 @@
 # Dry Run 5
 
-Dry Run 5 will test how well a heterogeneous cluster of validators perform under heavier transaction load.  It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive receive additional stake for the next round.  The rounds will continue until the cluster fails to maintain consensus.
+Dry Run 5 will test the performance of a heterogeneous cluster of validators under heavier transaction load.  It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive receive additional stake for the next round.  The rounds will continue until the cluster stops making progress.
 
 ## Cluster Parameters:
 
-* GPUs are not required but may be used
-* Epoch duration: 4096 slots \(approximately 27 minutes at 400ms per slot\)
-* Signature fee: 1 lamport
+* GPUs optional
 * Solana software version: v0.20.0
 * Target transaction rate of first round: 2,000 TPS
-* Transaction rate increment between rounds: 2000 TPS
+* Transaction rate round incremen: 2,000 TPS
+* Epoch duration: 4096 slots \(approximately 27 minutes\)
+* Transaction signature fee: 1 lamport
 
 ## Timeline
 
@@ -27,5 +27,7 @@ Now that all validators are staked, the Ramp TPS program will begin running roun
 
 ![Ramp TPS rounds visualized](../.gitbook/assets/image.png)
 
+## References
 
+* [Ramp TPS program](https://github.com/solana-labs/tour-de-sol/tree/master/ramp-tps)
 
