@@ -2,6 +2,8 @@
 
 Dry Run 5 will test the performance of a heterogeneous cluster of validators under heavier transaction load. It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive receive additional stake for the next round. The rounds will continue until the cluster stops making progress.
 
+![Ramp TPS rounds visualized](../.gitbook/assets/image%20%282%29.png)
+
 ## Cluster Parameters:
 
 * GPUs optional
@@ -29,6 +31,3 @@ Now that all validator stake is active, the Ramp TPS program will begin running 
 ## References
 
 * [Ramp TPS program](https://github.com/solana-labs/tour-de-sol/tree/master/ramp-tps)
-
-![Ramp TPS rounds visualized](../.gitbook/assets/image%20%282%29.png)
-
