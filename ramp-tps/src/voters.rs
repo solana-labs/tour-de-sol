@@ -1,3 +1,4 @@
+use log::*;
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::native_token::sol_to_lamports;
 use solana_sdk::pubkey::Pubkey;
@@ -8,22 +9,26 @@ use solana_stake_api::stake_state::Authorized as StakeAuthorized;
 use std::str::FromStr;
 
 pub fn fetch_remaining_voters(rpc_client: &RpcClient) -> Vec<(Pubkey, Pubkey)> {
-    rpc_client
-        .get_vote_accounts()
-        .unwrap()
-        .current
-        .into_iter()
-        .filter_map(|info| {
-            if let (Ok(node_pubkey), Ok(vote_pubkey)) = (
-                Pubkey::from_str(&info.node_pubkey),
-                Pubkey::from_str(&info.vote_pubkey),
-            ) {
-                Some((node_pubkey, vote_pubkey))
-            } else {
-                None
-            }
-        })
-        .collect()
+    match rpc_client.get_vote_accounts() {
+        Err(err) => {
+            warn!("Failed to get_vote_accounts(): {}", err);
+            vec![]
+        }
+        Ok(vote_accounts) => vote_accounts
+            .current
+            .into_iter()
+            .filter_map(|info| {
+                if let (Ok(node_pubkey), Ok(vote_pubkey)) = (
+                    Pubkey::from_str(&info.node_pubkey),
+                    Pubkey::from_str(&info.vote_pubkey),
+                ) {
+                    Some((node_pubkey, vote_pubkey))
+                } else {
+                    None
+                }
+            })
+            .collect(),
+    }
 }
 
 pub fn award_stake(
