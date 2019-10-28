@@ -153,7 +153,10 @@ fn main() {
     debug!("First normal slot: {}", first_normal_slot);
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
-        slack_logger.info("Waiting for epochs to warm up...");
+        slack_logger.info(&format!(
+            "Waiting for warm-up epochs to complete (first normal epoch={})",
+            genesis_block.epoch_schedule.first_normal_epoch
+        ));
         utils::sleep_n_slots(sleep_slots, &genesis_block);
     }
 
@@ -163,22 +166,19 @@ fn main() {
         .expect("failed to fetch stake config");
     let stake_config = StakeConfig::from(&stake_config_account).unwrap();
 
-    // Now that epochs are warmed up, check if stakes are warmed up
-    let activation_epoch = if tps_round == 1 {
-        // Check an early epoch to make sure initial stake has finished warming up
-        Some(
-            genesis_block
-                .epoch_schedule
-                .first_normal_epoch
-                .saturating_sub(1),
-        )
-    } else {
-        value_t!(matches, "stake_activation_epoch", u64).ok()
-    };
+    // Wait for the next epoch, or --stake-activation-epoch
+    {
+        let epoch_info = rpc_client.get_epoch_info().unwrap();
+        let activation_epoch =
+            if let Some(activation_epoch) = value_t!(matches, "stake_activation_epoch", u64).ok() {
+                activation_epoch
+            } else {
+                epoch_info.epoch - 1
+            };
 
-    if let Some(activation_epoch) = activation_epoch {
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         debug!("Current epoch info: {:?}", &epoch_info);
+        debug!("Activation epoch is: {:?}", activation_epoch);
         stake::wait_for_activation(
             activation_epoch,
             epoch_info,

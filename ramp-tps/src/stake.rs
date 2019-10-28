@@ -16,7 +16,7 @@ fn calculate_stake_warmup(mut stake_entry: StakeHistoryEntry, stake_config: &Sta
         let percent_cooling_down =
             stake_entry.deactivating as f64 / stake_entry.effective.max(1) as f64;
         debug!(
-            "epoch +{}: stake warming up {:.2}%, cooling down {:.2}% ",
+            "epoch +{}: stake warming up {:.1}%, cooling down {:.1}% ",
             epochs,
             percent_warming_up * 100.,
             percent_cooling_down * 100.
