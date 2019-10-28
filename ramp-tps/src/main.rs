@@ -207,7 +207,7 @@ fn main() {
         if slot == latest_slot {
             utils::bail(
                 &slack_logger,
-                &format!("Slot did not advance from {}.  Cluster may be stuck", slot),
+                &format!("Slot is not advancing from {}", slot),
             );
         }
 

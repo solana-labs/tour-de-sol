@@ -100,8 +100,10 @@ pub fn wait_for_activation(
             );
         });
         if slot == latest_slot {
-            warn!("Slot {} did not advance, cluster may be stuck", slot);
-            break;
+            utils::bail(
+                &slack_logger,
+                &format!("Slot did not advance from {}", slot),
+            );
         }
     }
 }
