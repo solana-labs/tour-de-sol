@@ -13,7 +13,7 @@ Dry Run 5 will test the performance of a heterogeneous cluster of validators und
 
 ## Timeline
 
-### Epoch 0 to 9: Connect and Delegate  \(approx. 1 hour, 30 minutes\)
+### Epoch 0 to 9: Connect and delegate  \(approx. 1 hour, 30 minutes\)
 
 When the cluster boots, validators will have approximately 1 hour 30 minutes to connect and delegate 1 SOL of stake to themselves.
 
