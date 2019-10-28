@@ -133,15 +133,17 @@ pub fn compute_winners(
 ) -> Winners {
     let block_chain = utils::block_chain(0, bank.slot(), blocktree);
     let mut validator_credits = validator_credits(bank.vote_accounts());
-    let baseline_credits = validator_credits
-        .remove(baseline_id)
-        .expect("Solana baseline validator not found");
+    let baseline_credits = validator_credits.remove(baseline_id).expect(&format!(
+        "Solana baseline validator {} not found in validator_credits",
+        baseline_id
+    ));
 
     let mut validator_leader_stats =
         validator_leader_stats(bank, block_chain, &leader_schedule_cache);
-    let baseline_leader_stat = validator_leader_stats
-        .remove(baseline_id)
-        .expect("Solana baseline validator not found");
+    let baseline_leader_stat = validator_leader_stats.remove(baseline_id).expect(&format!(
+        "Solana baseline validator {} not found in validator_leader_stats",
+        baseline_id
+    ));
 
     let total_blocks = bank.block_height();
     let total_credits = total_blocks.saturating_sub(MAX_LOCKOUT_HISTORY as u64);
