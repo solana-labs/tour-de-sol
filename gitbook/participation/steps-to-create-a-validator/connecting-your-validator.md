@@ -10,8 +10,6 @@ Configure solana for your validator identity and Tour de SOL:
 solana set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
 ```
 
-
-
 You should see the following output:
 
 ```text
@@ -42,6 +40,5 @@ solana balance --lamports
 
 If your validator identity keypair is created and the above command shows a non-zero balance, your validator is created and configured for TdS.
 
-Your starting balance will be 2 SOL.
-Read more about the [difference between SOL and lamports here](https://solana-labs.github.io/book/introduction.html?highlight=lamport#what-are-sols).
+Your starting balance will be 2 SOL. Read more about the [difference between SOL and lamports here](https://solana-labs.github.io/book/introduction.html?highlight=lamport#what-are-sols).
 

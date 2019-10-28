@@ -19,5 +19,6 @@
     * [Validator catch-up](participation/steps-to-create-a-validator/monitoring-your-validator.md)
     * [Staking](participation/steps-to-create-a-validator/delegating-stake.md)
     * [Publish information about your validator](participation/steps-to-create-a-validator/publishing-information-about-your-validator.md)
+  * [Dry Run 5](participation/dry-run-5.md)
 * [Submitting Bugs](submitting-bugs.md)
 
