@@ -10,7 +10,7 @@ Dry Run 5 will test the performance of a heterogeneous cluster of validators und
 * Transaction rate round increment: 2,000 TPS
 * Epoch duration: 4096 slots \(approximately 27 minutes\)
 * Transaction signature fee: 1 lamport
-* Genesis allotment to each validator: 2 SOL (1 SOL for initial delegatation, 1 SOL for transaction fees)
+* Genesis allotment to each validator: 2 SOL (1 SOL for initial delegation, 1 SOL for transaction fees)
 
 ## Timeline
 
