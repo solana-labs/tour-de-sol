@@ -44,8 +44,6 @@ done
 ls -l
 $solana balance
 
-exit 1
-
 for i in $(seq 0 $((NET_NUM_VALIDATORS - 1))); do
   v="NET_VALIDATOR${i}_IP"
   if [[ -f $i-tds-stake-keypair.json ]]; then
