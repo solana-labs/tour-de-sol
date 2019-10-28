@@ -19,11 +19,11 @@ When the cluster boots, validators will have approximately 1 hour 30 minutes to 
 
 ### Epoch 10 to 13: Stake warmup \(approx. 2 hours\)
 
-With all online and validators delegated to, the new stake will take 3-4 epochs \(~2 hours\) to warmup.
+The new validator stake will take 3-4 epochs \(~2 hours\) to warmup.  During this time the stake of the Solana boot nodes will be reduced as well.
 
 ### Epoch 14+: Ramp TPS rounds begin! \(approx. 1-2 hours per round\)
 
-Now that all validators are staked, the Ramp TPS program will begin running rounds of increasing transactions-per-second until the cluster dies.  Each round starts with of 20 minutes of solid transactions.  After 20 minutes, all validators that remain with the cluster will receive an additional delegation of stake.  This new stake will also take 3-4 epochs to warm up.  Once warm up is complete, the next round commences with an increased transaction rate.
+Now that all validator stake is active, the Ramp TPS program will begin running the rounds of increasing transactions-per-second until the cluster dies.  Each round starts with of 20 minutes of solid transactions.  After 20 minutes all validators that remain with the cluster will receive an additional stake delegation.  This new stake will also take 3-4 epochs to warm up, and once warm up is complete the next round commences with an increased transaction rate.
 
 ![Ramp TPS rounds visualized](../.gitbook/assets/image.png)
 
