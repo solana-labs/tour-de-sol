@@ -182,8 +182,8 @@ fn main() {
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
 
     while !slack_logger.connected() {
-       info!("Waiting for slack connection");
-       sleep(Duration::from_secs(1));
+        info!("Waiting for slack connection");
+        sleep(Duration::from_secs(1));
     }
     slack_logger.info("Hi!");
 
