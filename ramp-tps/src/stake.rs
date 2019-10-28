@@ -44,7 +44,7 @@ pub fn wait_for_activation(
     if sleep_epochs > 0 {
         let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
         slack_logger.info(&format!(
-            "Waiting until activation epoch ({}) is finished...",
+            "Waiting until epoch {} is finished...",
             activation_epoch
         ));
         utils::sleep_n_slots(sleep_slots, genesis_block);
@@ -74,6 +74,7 @@ pub fn wait_for_activation(
         if let Some(stake_entry) = stake_history_entry(current_epoch, &rpc_client) {
             debug!("Stake history entry: {:?}", &stake_entry);
             let warm_up_epochs = calculate_stake_warmup(stake_entry, stake_config);
+            debug!("warm_up_epochs: {}", warm_up_epochs);
             if warm_up_epochs > 0 {
                 slack_logger.info(&format!(
                     "Waiting until epoch {} for stake to warmup (current epoch is {})...",
