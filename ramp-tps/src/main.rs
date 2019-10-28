@@ -132,6 +132,14 @@ fn main() {
                 .takes_value(true)
                 .help("The stake activated in this epoch must fully warm up before the first round begins"),
         )
+        .arg(
+            Arg::with_name("destake_net_nodes_epoch")
+                .long("destake-net-nodes-epoch")
+                .value_name("NUM")
+                .takes_value(true)
+                .default_value("8")
+                .help("The epoch for which to run destake-net-nodes.sh at"),
+        )
         .get_matches();
 
     let pubkey_map_file = value_t_or_exit!(matches, "pubkey_map_file", String);
@@ -159,6 +167,7 @@ fn main() {
     };
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
+
     let mint_keypair_path = value_t_or_exit!(matches, "mint_keypair_path", String);
     let mint_keypair = read_keypair_file(&mint_keypair_path)
         .unwrap_or_else(|err| panic!("Unable to read {}: {}", mint_keypair_path, err));
@@ -199,6 +208,35 @@ fn main() {
         .get_account(&stake_config_id())
         .expect("failed to fetch stake config");
     let stake_config = StakeConfig::from(&stake_config_account).unwrap();
+
+    // Check if destake-net-nodes.sh should be run
+    {
+        let epoch_info = rpc_client.get_epoch_info().unwrap();
+        let destake_net_nodes_epoch = value_t_or_exit!(matches, "destake_net_nodes_epoch", u64);
+
+        if epoch_info.epoch >= destake_net_nodes_epoch {
+            info!(
+                "Current epoch {} >= destake_net_nodes_epoch of {}, skipping destake-net-nodes.sh",
+                epoch_info.epoch, destake_net_nodes_epoch
+            );
+        } else {
+            let slots_per_epoch = genesis_block.epoch_schedule.slots_per_epoch;
+            let sleep_epochs = destake_net_nodes_epoch - epoch_info.epoch;
+            let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
+            info!(
+                "Waiting for destake-net-nodes epoch {}",
+                destake_net_nodes_epoch
+            );
+            utils::sleep_n_slots(sleep_slots, &genesis_block);
+
+            info!("Destaking net nodes...");
+            Command::new("bash")
+                .args(&["destake-net-nodes.sh", &net_dir])
+                .spawn()
+                .unwrap();
+            info!("Done destaking net nodes");
+        }
+    }
 
     // Wait for the next epoch, or --stake-activation-epoch
     {
