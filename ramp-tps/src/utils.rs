@@ -44,7 +44,7 @@ pub fn is_host(string: String) -> Result<(), String> {
 
 pub fn bail(slack_logger: &crate::slack::Logger, msg: &str) -> ! {
     slack_logger.info(msg);
-    sleep(Duration::from_secs(10)); // Wait for slack messages to send
+    sleep(Duration::from_secs(30)); // Wait for slack messages to send
     std::process::exit(1);
 }
 
