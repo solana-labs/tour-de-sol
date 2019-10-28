@@ -217,10 +217,10 @@ fn main() {
             "Running round {} for {} minutes",
             tps_round, round_minutes
         ));
-        slack_logger.info(&format!(
+        info!(
             "Running bench-tps={}='--tx_count={} --thread-batch-sleep-ms={}'",
             NUM_BENCH_CLIENTS, client_tx_count, THREAD_BATCH_SLEEP_MS
-        ));
+        );
         for client_id in 0..NUM_BENCH_CLIENTS {
             Command::new("bash")
                 .args(&[
