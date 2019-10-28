@@ -34,7 +34,7 @@ pub fn fetch_remaining_voters(rpc_client: &RpcClient) -> Vec<(Pubkey, Pubkey)> {
 pub fn award_stake(
     rpc_client: &RpcClient,
     mint_keypair: &Keypair,
-    voters: Vec<(Pubkey, Pubkey)>,
+    voters: Vec<(String, Pubkey)>,
     sol_gift: u64,
     slack_logger: &crate::slack::Logger,
 ) {

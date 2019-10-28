@@ -8,20 +8,22 @@ mod voters;
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
 use log::*;
 use solana_client::rpc_client::RpcClient;
-use solana_sdk::genesis_block::GenesisBlock;
-use solana_sdk::signature::read_keypair_file;
+use solana_sdk::{genesis_block::GenesisBlock, signature::read_keypair_file};
 use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
-use std::process::Command;
-use std::thread::sleep;
-
-use std::fs;
-use std::path::PathBuf;
-use std::time::Duration;
+use std::{
+    collections::HashMap,
+    fs,
+    path::PathBuf,
+    process::{exit, Command},
+    thread::sleep,
+    time::Duration,
+};
 
 const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
 const MINT_KEYPAIR_PATH: &str = "mint-keypair.json";
+const PUBKEY_MAP_FILE: &str = "validators/all-username.yml";
 const DEFAULT_TX_COUNT_BASELINE: &str = "5000";
 const DEFAULT_TX_COUNT_INCREMENT: &str = "5000";
 const DEFAULT_TPS_ROUND_MINUTES: &str = "60";
@@ -64,6 +66,14 @@ fn main() {
                 .value_name("DIR")
                 .takes_value(true)
                 .help("The directory used for running commands on the cluster"),
+        )
+        .arg(
+            Arg::with_name("pubkey_map_file")
+                .long("pubkey-map-file")
+                .value_name("FILE")
+                .default_value(PUBKEY_MAP_FILE)
+                .takes_value(true)
+                .help("YAML file that maps validator identity pubkeys to keybase user id"),
         )
         .arg(
             Arg::with_name("round")
@@ -123,6 +133,30 @@ fn main() {
                 .help("The stake activated in this epoch must fully warm up before the first round begins"),
         )
         .get_matches();
+
+    let pubkey_map_file = value_t_or_exit!(matches, "pubkey_map_file", String);
+    let pubkey_map: HashMap<String, String> =
+        serde_yaml::from_reader(fs::File::open(&pubkey_map_file).unwrap_or_else(|err| {
+            eprintln!(
+                "Error: Unable to open --pubkey-map-file {}: {}",
+                pubkey_map_file, err
+            );
+            exit(1);
+        }))
+        .unwrap_or_else(|err| {
+            eprintln!(
+                "Error: Unable to parse --pubkey-map-file {}: {}",
+                pubkey_map_file, err
+            );
+            exit(1);
+        });
+    let pubkey_to_keybase = |pubkey: &solana_sdk::pubkey::Pubkey| -> String {
+        let pubkey = pubkey.to_string();
+        match pubkey_map.get(&pubkey) {
+            Some(keybase) => format!("{} ({})", keybase, pubkey),
+            None => pubkey,
+        }
+    };
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let mint_keypair_path = value_t_or_exit!(matches, "mint_keypair_path", String);
@@ -213,14 +247,19 @@ fn main() {
         }
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
+        slack_logger.info(&format!(
+            "There are {} validators present:",
+            remaining_voters.len()
+        ));
+        for (node_pubkey, _) in remaining_voters {
+            slack_logger.info(&format!("* {}", pubkey_to_keybase(&node_pubkey)));
+        }
 
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
         slack_logger.info(&format!(
-            "Starting transactions for {} minutes (batch size={}). There are {} validators present",
-            round_minutes,
-            tx_count,
-            remaining_voters.len()
+            "Starting transactions for {} minutes (batch size={})",
+            round_minutes, tx_count,
         ));
         info!(
             "Running bench-tps={}='--tx_count={} --thread-batch-sleep-ms={}'",
@@ -252,7 +291,13 @@ fn main() {
                 .unwrap();
         }
 
-        let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
+        let remaining_voters: Vec<_> = voters::fetch_remaining_voters(&rpc_client)
+            .into_iter()
+            .map(|(node_pubkey, vote_account_pubkey)| {
+                (pubkey_to_keybase(&node_pubkey), vote_account_pubkey)
+            })
+            .collect();
+
         slack_logger.info(&format!(
             "Transactions stopped. There are {} validators remaining",
             remaining_voters.len()

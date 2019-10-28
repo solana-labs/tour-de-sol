@@ -13,6 +13,7 @@ bzip2 = "0.3.3"
 clap = "2.33.0"
 log = "0.4.8"
 reqwest = { version = "0.9.22", default-features = false }
+serde_yaml = "0.8.11"
 slack = "0.22"
 tar = "0.4.26"
 

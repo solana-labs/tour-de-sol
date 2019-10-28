@@ -125,6 +125,7 @@ $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --round-minutes 20 \
   --tx-count-baseline 1000 \
   --tx-count-increment 2000 \
+  --stake-activation-epoch 9 \
   --mint-keypair-path <mint_keypair.json>
 ```
 

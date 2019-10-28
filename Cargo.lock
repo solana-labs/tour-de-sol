@@ -2460,6 +2460,7 @@ dependencies = [
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
  "reqwest 0.9.22 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_yaml 0.8.11 (registry+https://github.com/rust-lang/crates.io-index)",
  "slack 0.22.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-client 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
  "solana-logger 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
