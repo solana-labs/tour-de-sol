@@ -1,4 +1,4 @@
-use crate::{slack, utils};
+use crate::{notifier, utils};
 use log::*;
 use solana_client::{rpc_client::RpcClient, rpc_request::RpcEpochInfo};
 use solana_sdk::{
@@ -57,7 +57,7 @@ pub fn wait_for_activation(
     rpc_client: &RpcClient,
     stake_config: &StakeConfig,
     genesis_block: &GenesisBlock,
-    slack_logger: &slack::Logger,
+    notifier: &notifier::Notifier,
 ) {
     // Sleep until activation_epoch has finished
     let mut current_epoch = epoch_info.epoch;
@@ -65,7 +65,7 @@ pub fn wait_for_activation(
     let slots_per_epoch = genesis_block.epoch_schedule.slots_per_epoch;
     if sleep_epochs > 0 {
         let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
-        slack_logger.info(&format!(
+        notifier.notify(&format!(
             "Waiting until epoch {} is finished...",
             activation_epoch
         ));
@@ -75,13 +75,13 @@ pub fn wait_for_activation(
     loop {
         epoch_info = rpc_client.get_epoch_info().unwrap_or_else(|err| {
             utils::bail(
-                slack_logger,
+                notifier,
                 &format!("Error: get_epoch_info RPC call failed: {}", err),
             );
         });
         let slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
-                slack_logger,
+                notifier,
                 &format!("Error: get_slot RPC call 3 failed: {}", err),
             );
         });
@@ -97,7 +97,7 @@ pub fn wait_for_activation(
             debug!("Stake history entry: {:?}", &stake_entry);
             let warm_up_epochs = calculate_stake_warmup(stake_entry, stake_config);
             if warm_up_epochs > 0 {
-                slack_logger.info(&format!(
+                notifier.notify(&format!(
                     "Waiting until epoch {} for stake to warmup (current epoch is {})...",
                     current_epoch + warm_up_epochs,
                     current_epoch
@@ -117,15 +117,12 @@ pub fn wait_for_activation(
 
         let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
-                slack_logger,
+                notifier,
                 &format!("Error: get_slot RPC call 3 failed: {}", err),
             );
         });
         if slot == latest_slot {
-            utils::bail(
-                &slack_logger,
-                &format!("Slot did not advance from {}", slot),
-            );
+            utils::bail(notifier, &format!("Slot did not advance from {}", slot));
         }
     }
 }

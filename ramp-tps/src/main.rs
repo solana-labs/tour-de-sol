@@ -1,6 +1,6 @@
 //! Ramp up TPS for Tour de SOL until all validators drop out
 
-mod slack;
+mod notifier;
 mod stake;
 mod utils;
 mod voters;
@@ -49,7 +49,7 @@ fn gift_for_round(tps_round: u32, initial_balance: u64) -> u64 {
 fn main() {
     solana_logger::setup_with_filter("solana=debug");
     solana_metrics::set_panic_hook("ramp-tps");
-    let slack_logger = slack::Logger::new();
+    let notifier = notifier::Notifier::new();
 
     let matches = App::new(crate_name!())
         .about(crate_description!())
@@ -184,11 +184,7 @@ fn main() {
     let _ = fs::remove_dir_all(&tmp_ledger_path);
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
 
-    while !slack_logger.connected() {
-        info!("Waiting for slack connection");
-        sleep(Duration::from_secs(1));
-    }
-    slack_logger.info("Hi!");
+    notifier.notify("Hi!");
 
     let entrypoint_str = matches.value_of("entrypoint").unwrap();
     debug!("Connecting to {}", entrypoint_str);
@@ -205,7 +201,7 @@ fn main() {
     debug!("First normal slot: {}", first_normal_slot);
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
-        slack_logger.info(&format!(
+        notifier.notify(&format!(
             "Waiting for warm-up epochs to complete (first normal epoch={})",
             genesis_block.epoch_schedule.first_normal_epoch
         ));
@@ -266,12 +262,12 @@ fn main() {
             &rpc_client,
             &stake_config,
             &genesis_block,
-            &slack_logger,
+            &notifier,
         );
     }
 
     loop {
-        slack_logger.info(&format!("Round {}!", tps_round));
+        notifier.notify(&format!("Round {}!", tps_round));
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
         datapoint_info!(
             "ramp-tps-round-start",
@@ -281,22 +277,19 @@ fn main() {
 
         let slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
-                &slack_logger,
+                &notifier,
                 &format!("Error: get_slot RPC call 1 failed: {}", err),
             );
         });
         sleep(Duration::from_secs(5));
         let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
-                &slack_logger,
+                &notifier,
                 &format!("Error: get_slot RPC call 2 failed: {}", err),
             );
         });
         if slot == latest_slot {
-            utils::bail(
-                &slack_logger,
-                &format!("Slot is not advancing from {}", slot),
-            );
+            utils::bail(&notifier, &format!("Slot is not advancing from {}", slot));
         }
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
@@ -306,16 +299,16 @@ fn main() {
             ("validators", remaining_voters.len(), i64)
         );
 
-        slack_logger.info(&format!(
+        notifier.notify(&format!(
             "There are {} validators present:",
             remaining_voters.len()
         ));
         for (node_pubkey, _) in remaining_voters {
-            slack_logger.info(&format!("* {}", pubkey_to_keybase(&node_pubkey)));
+            notifier.notify(&format!("* {}", pubkey_to_keybase(&node_pubkey)));
         }
 
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
-        slack_logger.info(&format!(
+        notifier.notify(&format!(
             "Starting transactions for {} minutes (batch size={})",
             round_minutes, tx_count,
         ));
@@ -363,9 +356,9 @@ fn main() {
         );
 
         if remaining_voters.is_empty() {
-            utils::bail(&slack_logger, "Transactions stopped. No validators remain");
+            utils::bail(&notifier, "Transactions stopped. No validators remain");
         }
-        slack_logger.info(&format!(
+        notifier.notify(&format!(
             "Transactions stopped. There are {} validators remaining",
             remaining_voters.len()
         ));
@@ -375,7 +368,7 @@ fn main() {
         // Idle for 5 minutes before awarding stake to let the cluster come back together before
         // issuing RPC calls.
         // This should not be necessary once https://github.com/solana-labs/solana/pull/6538 lands
-        slack_logger.info("5 minute cool down");
+        notifier.notify("5 minute cool down");
         sleep(Duration::from_secs(60 * 5));
 
         datapoint_info!("ramp-tps-round-gifting", ("round", tps_round, i64));
@@ -386,7 +379,7 @@ fn main() {
             &mint_keypair,
             remaining_voters,
             next_gift,
-            &slack_logger,
+            &notifier,
         );
 
         datapoint_info!("ramp-tps-round-warmup", ("round", tps_round, i64));
@@ -400,7 +393,7 @@ fn main() {
             &rpc_client,
             &stake_config,
             &genesis_block,
-            &slack_logger,
+            &notifier,
         );
         tps_round += 1;
     }

@@ -42,9 +42,9 @@ pub fn is_host(string: String) -> Result<(), String> {
     Ok(())
 }
 
-pub fn bail(slack_logger: &crate::slack::Logger, msg: &str) -> ! {
-    slack_logger.info(msg);
-    sleep(Duration::from_secs(30)); // Wait for slack messages to send
+pub fn bail(notifier: &crate::notifier::Notifier, msg: &str) -> ! {
+    notifier.notify(msg);
+    sleep(Duration::from_secs(30)); // Wait for notifications to send
     std::process::exit(1);
 }
 
