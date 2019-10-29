@@ -342,16 +342,11 @@ fn main() {
             })
             .collect();
 
-        slack_logger.info(&format!(
-            "Transactions stopped. There are {} validators remaining",
-            remaining_voters.len()
-        ));
-
         if remaining_voters.is_empty() {
-            utils::bail(&slack_logger, "No validators remain");
+            utils::bail(&slack_logger, "Transactions stopped. No validators remain");
         }
         slack_logger.info(&format!(
-            "There are {} validators remaining",
+            "Transactions stopped. There are {} validators remaining",
             remaining_voters.len()
         ));
 
