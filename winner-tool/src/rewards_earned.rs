@@ -10,8 +10,7 @@
 
 use crate::winner::{self, Winner, Winners};
 use solana_runtime::bank::Bank;
-use solana_sdk::account::Account;
-use solana_sdk::pubkey::Pubkey;
+use solana_sdk::{account::Account, native_token::lamports_to_sol, pubkey::Pubkey};
 use solana_stake_api::stake_state::StakeState;
 use solana_vote_api::vote_state::VoteState;
 use std::cmp::{max, min};
@@ -116,7 +115,11 @@ fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<Winner> {
         .map(|(key, earned)| {
             (
                 *key,
-                format!("Earned {} lamports in stake rewards and commission", earned),
+                format!(
+                    "Earned {:.5} SOL ({} lamports) in stake rewards and commission",
+                    lamports_to_sol(*earned as u64),
+                    earned
+                ),
             )
         })
         .collect()
