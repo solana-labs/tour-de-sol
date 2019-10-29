@@ -110,10 +110,10 @@ $ eval $(net/gce.sh info --eval)
 ```bash
 $ net/scp.sh solana@"$NET_VALIDATOR0_IP":solana/config/mint-keypair.json .
 ```
-1. Optionally set SLACK env vars to be notified of progress
+1. Optionally set Slack and Discord webhook env vars to be notified of progress
 ```bash
-export SLACK_TOKEN=
-export SLACK_CHANNEL_ID=
+export SLACK_WEBHOOK=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+export DISCORD_WEBHOOK=https://discordapp.com/api/webhooks/<ID>/<TOKEN>
 ```
 1. Wait for all validators to connect to the cluster
 1. Run `destake-net-nodes.sh` to remove the large initial stake from the Solana TdS nodes

@@ -36,7 +36,7 @@ pub fn award_stake(
     mint_keypair: &Keypair,
     voters: Vec<(String, Pubkey)>,
     sol_gift: u64,
-    slack_logger: &crate::slack::Logger,
+    notifier: &crate::notifier::Notifier,
 ) {
     let recent_blockhash = rpc_client.get_recent_blockhash().unwrap().0;
     for (node_pubkey, vote_account_pubkey) in voters {
@@ -56,12 +56,12 @@ pub fn award_stake(
         if let Err(err) = rpc_client
             .send_and_confirm_transaction(&mut transaction, &[mint_keypair, &stake_account_keypair])
         {
-            slack_logger.info(&format!(
+            notifier.notify(&format!(
                 "Failed to delegate {} SOL to {}: {}",
                 sol_gift, node_pubkey, err
             ));
         } else {
-            slack_logger.info(&format!("Delegated {} SOL to {}", sol_gift, node_pubkey));
+            notifier.notify(&format!("Delegated {} SOL to {}", sol_gift, node_pubkey));
         }
     }
 }
