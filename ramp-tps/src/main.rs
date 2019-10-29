@@ -44,6 +44,7 @@ fn gift_for_round(tps_round: u32, initial_balance: u64) -> u64 {
     }
 }
 
+#[allow(clippy::cognitive_complexity)]
 fn main() {
     solana_logger::setup_with_filter("solana=debug");
     let slack_logger = slack::Logger::new();
