@@ -16,6 +16,7 @@
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 1. [caddilackness](https://keybase.io/caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
 1. [Caddilackness](https://keybase.io/Caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
+1. [chorusoneinc](https://keybase.io/chorusoneinc): `ChorusM5BVgnAKbg9PF15285LkqeCoZWK2p9s35T7J2A`
 1. [chrisremus](https://keybase.io/chrisremus): `2jrM8c8ZhpX9CovseJ2sRsrU9yzsFrP7d3gCi5ESU5Rs`
 1. [codonyat](https://keybase.io/codonyat): `7JYVN6QpMBnfjiiE4owyjJzxtJfXKdBzPGs6tuYB9sVB`
 1. [coinseeker](https://keybase.io/coinseeker): `58J9ucd9Qc6gMD8QHh2sHTyJyD8kdjHRQZkEAyAZ72YA`
