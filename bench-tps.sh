@@ -19,7 +19,7 @@ fi
 
 remote=$4
 if [[ -n $remote ]]; then
-  exec > ~/solana/client.log
+  exec > ~/solana/client-$txCount.log
   exec 2>&1
   PATH=$PATH:~/.cargo/bin/
   killall solana-bench-tps || true
