@@ -18,6 +18,7 @@ slack = "0.22"
 tar = "0.4.26"
 
 # Pinning versions until the next solana release (0.20)
+solana-metrics = { git = "https://github.com/solana-labs/solana", rev = "v0.20" }
 solana-client = { git = "https://github.com/solana-labs/solana", rev = "v0.20" }
 solana-logger = { git = "https://github.com/solana-labs/solana", rev = "v0.20" }
 solana-netutil = { git = "https://github.com/solana-labs/solana", rev = "v0.20" }

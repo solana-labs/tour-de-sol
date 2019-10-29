@@ -2464,6 +2464,7 @@ dependencies = [
  "slack 0.22.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-client 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
  "solana-logger 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
+ "solana-metrics 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
  "solana-netutil 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
  "solana-sdk 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",
  "solana-stake-api 0.20.0 (git+https://github.com/solana-labs/solana?rev=v0.20)",

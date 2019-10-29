@@ -8,6 +8,7 @@ mod voters;
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
 use log::*;
 use solana_client::rpc_client::RpcClient;
+use solana_metrics::datapoint_info;
 use solana_sdk::{genesis_block::GenesisBlock, signature::read_keypair_file};
 use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
 use std::{
@@ -47,6 +48,7 @@ fn gift_for_round(tps_round: u32, initial_balance: u64) -> u64 {
 #[allow(clippy::cognitive_complexity)]
 fn main() {
     solana_logger::setup_with_filter("solana=debug");
+    solana_metrics::set_panic_hook("ramp-tps");
     let slack_logger = slack::Logger::new();
 
     let matches = App::new(crate_name!())
@@ -270,6 +272,12 @@ fn main() {
 
     loop {
         slack_logger.info(&format!("Round {}!", tps_round));
+        let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
+        datapoint_info!(
+            "ramp-tps-round-start",
+            ("round", tps_round, i64),
+            ("tx_count", tx_count, i64)
+        );
 
         let slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
@@ -292,6 +300,12 @@ fn main() {
         }
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
+        datapoint_info!(
+            "ramp-tps-round-start-transactions",
+            ("round", tps_round, i64),
+            ("validators", remaining_voters.len(), i64)
+        );
+
         slack_logger.info(&format!(
             "There are {} validators present:",
             remaining_voters.len()
@@ -300,7 +314,6 @@ fn main() {
             slack_logger.info(&format!("* {}", pubkey_to_keybase(&node_pubkey)));
         }
 
-        let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
         slack_logger.info(&format!(
             "Starting transactions for {} minutes (batch size={})",
@@ -343,6 +356,12 @@ fn main() {
             })
             .collect();
 
+        datapoint_info!(
+            "ramp-tps-round-stop-transactions",
+            ("round", tps_round, i64),
+            ("validators", remaining_voters.len(), i64)
+        );
+
         if remaining_voters.is_empty() {
             utils::bail(&slack_logger, "Transactions stopped. No validators remain");
         }
@@ -351,14 +370,17 @@ fn main() {
             remaining_voters.len()
         ));
 
+        datapoint_info!("ramp-tps-round-cooldown", ("round", tps_round, i64));
+
         // Idle for 5 minutes before awarding stake to let the cluster come back together before
         // issuing RPC calls.
         // This should not be necessary once https://github.com/solana-labs/solana/pull/6538 lands
         slack_logger.info("5 minute cool down");
         sleep(Duration::from_secs(60 * 5));
 
-        tps_round += 1;
-        let next_gift = gift_for_round(tps_round, initial_balance);
+        datapoint_info!("ramp-tps-round-gifting", ("round", tps_round, i64));
+
+        let next_gift = gift_for_round(tps_round + 1, initial_balance);
         voters::award_stake(
             &rpc_client,
             &mint_keypair,
@@ -366,6 +388,8 @@ fn main() {
             next_gift,
             &slack_logger,
         );
+
+        datapoint_info!("ramp-tps-round-warmup", ("round", tps_round, i64));
 
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         debug!("Current epoch info: {:?}", &epoch_info);
@@ -378,5 +402,6 @@ fn main() {
             &genesis_block,
             &slack_logger,
         );
+        tps_round += 1;
     }
 }
