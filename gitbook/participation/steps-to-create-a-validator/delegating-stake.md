@@ -5,7 +5,7 @@ To delegate stake, first make sure your validator is running and has [caught up 
 
 More information about staking on solana can be found at [https://docs.solana.com/book/running-validator/validator-stake](https://docs.solana.com/book/running-validator/validator-stake)
 
-## Create Stake Account
+## Create Stake Keypair
 
 If you haven’t already done so, create a staking keypair. If you have completed this step, you should see the “validator-stake-keypair.json” in your Solana runtime directory.
 

@@ -5,13 +5,13 @@ See [https://docs.solana.com/book/running-validator/validator-info](https://docs
 Example publish command:
 
 ```bash
-$ solana validator-info publish "Elvis Validator" -n elvis -w "https://elvis-validates.com"
+solana validator-info publish "Elvis Validator" -n elvis -w "https://elvis-validates.com"
 ```
 
 Example query command:
 
 ```bash
-$ solana validator-info get
+solana validator-info get
 ```
 
 which outputs
