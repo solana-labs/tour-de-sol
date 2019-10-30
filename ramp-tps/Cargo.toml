@@ -13,6 +13,7 @@ bzip2 = "0.3.3"
 clap = "2.33.0"
 log = "0.4.8"
 reqwest = { version = "0.9.22", default-features = false }
+serde = "1.0"
 serde_json = "1.0"
 serde_yaml = "0.8.11"
 solana-client = { git = "https://github.com/solana-labs/solana", tag = "v0.20.0" }
