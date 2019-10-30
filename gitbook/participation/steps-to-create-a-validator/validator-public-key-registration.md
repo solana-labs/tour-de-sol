@@ -32,9 +32,9 @@ If you don’t back up this information, you WILL NOT BE ABLE TO RECOVER YOUR VA
 
 To back-up your validator identify keypair, **back-up your "validator-keypair.json” file to a secure location.**
 
-## Sign your Solana pubkey with a Keybase account
+## Link your Solana pubkey to a Keybase account
 
-You must sign your Solana pubkey with a Keybase.io account. The following instructions describe how to do that by installing Keybase on your server.
+You must link your Solana pubkey to a Keybase.io account. The following instructions describe how to do that by installing Keybase on your server.
 
 1. Install [Keybase](https://keybase.io/download) on your machine.
 2. Log in to your Keybase account on your server. Create a Keybase account first if you don’t already have one. Here’s a [list of basic Keybase CLI commands](https://keybase.io/docs/command_line/basics).
