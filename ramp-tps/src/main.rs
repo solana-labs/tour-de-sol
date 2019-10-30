@@ -140,7 +140,7 @@ fn main() {
                 .long("destake-net-nodes-epoch")
                 .value_name("NUM")
                 .takes_value(true)
-                .default_value("8")
+                .default_value("9")
                 .help("The epoch for which to run destake-net-nodes.sh at"),
         )
         .get_matches();
@@ -203,7 +203,7 @@ fn main() {
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
         notifier.notify(&format!(
-            "Waiting for warm-up epochs to complete (first normal epoch={})",
+            "Waiting for warm-up epochs to complete (epoch {})",
             genesis_block.epoch_schedule.first_normal_epoch
         ));
         utils::sleep_n_slots(sleep_slots, &genesis_block);
