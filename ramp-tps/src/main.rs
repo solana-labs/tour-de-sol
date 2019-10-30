@@ -1,12 +1,14 @@
 //! Ramp up TPS for Tour de SOL until all validators drop out
 
 mod notifier;
+mod results;
 mod stake;
 mod utils;
 mod voters;
 
 use clap::{crate_description, crate_name, crate_version, value_t, value_t_or_exit, App, Arg};
 use log::*;
+use results::Results;
 use solana_client::rpc_client::RpcClient;
 use solana_metrics::datapoint_info;
 use solana_sdk::{genesis_block::GenesisBlock, signature::read_keypair_file};
@@ -25,6 +27,7 @@ const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
 const MINT_KEYPAIR_PATH: &str = "mint-keypair.json";
 const PUBKEY_MAP_FILE: &str = "validators/all-username.yml";
+const RESULTS_FILE: &str = "results.yml";
 const DEFAULT_TX_COUNT_BASELINE: &str = "5000";
 const DEFAULT_TX_COUNT_INCREMENT: &str = "5000";
 const DEFAULT_TPS_ROUND_MINUTES: &str = "60";
@@ -77,6 +80,14 @@ fn main() {
                 .default_value(PUBKEY_MAP_FILE)
                 .takes_value(true)
                 .help("YAML file that maps validator identity pubkeys to keybase user id"),
+        )
+        .arg(
+            Arg::with_name("results_file")
+                .long("results-file")
+                .value_name("FILE")
+                .default_value(RESULTS_FILE)
+                .takes_value(true)
+                .help("YAML file that lists the results for each round"),
         )
         .arg(
             Arg::with_name("round")
@@ -170,11 +181,13 @@ fn main() {
     };
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
-
     let mint_keypair_path = value_t_or_exit!(matches, "mint_keypair_path", String);
     let mint_keypair = read_keypair_file(&mint_keypair_path)
         .unwrap_or_else(|err| panic!("Unable to read {}: {}", mint_keypair_path, err));
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
+    let results_file_name = value_t_or_exit!(matches, "results_file", String);
+    let previous_results = Results::read(&results_file_name);
+    let mut tps_round_results = Results::new(results_file_name, previous_results, tps_round);
     let tx_count_baseline = value_t_or_exit!(matches, "tx_count_baseline", u64);
     let tx_count_increment = value_t_or_exit!(matches, "tx_count_increment", u64);
     let round_minutes = value_t_or_exit!(matches, "round_minutes", u64).max(1);
@@ -366,6 +379,12 @@ fn main() {
             "Transactions stopped. There are {} validators remaining",
             remaining_voters.len()
         ));
+
+        tps_round_results
+            .record(tps_round, &remaining_voters)
+            .unwrap_or_else(|err| {
+                warn!("Failed to record round results: {}", err);
+            });
 
         datapoint_info!(
             "ramp-tps",
