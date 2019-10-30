@@ -12,7 +12,7 @@
 1. [aurel](https://keybase.io/aurel): `8diJdQj3y4QbkjfnXr95SXoktiJ1ad965ZkeFsmutfyz`
 1. [avaluo](https://keybase.io/avaluo): `7mmRxJNttYcJVNsJmiLjTHYmNDt32EpzUSgLDoBsTKKK`
 1. [bharvest](https://keybase.io/bharvest): `2RYnM1C5XuzWzZu4sD7TyJTgxQTKzFVHG6jNtbK65q2y`
-1. [bitcat365](https://keybase.io/bitcat365): `BpzjtHCQSbJGWYJFtHnfW5qK38iG4jSQQK2bUr45fuSK`
+1. [bitcat365](https://keybase.io/bitcat365): `74U9LiSPv2gb8bBZSh5uVNf89W4wZ8zs9B8EvRVVwr87`
 1. [bneiluj](https://keybase.io/bneiluj): `59WHuha1QunWmupWhFA4vr3WMUe8BLN7dc8HUsJ4YC86`
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 1. [caddilackness](https://keybase.io/caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
