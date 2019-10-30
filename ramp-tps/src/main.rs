@@ -185,6 +185,7 @@ fn main() {
     fs::create_dir_all(&tmp_ledger_path).expect("failed to create temp ledger path");
 
     notifier.notify("Hi!");
+    datapoint_info!("ramp-tps", ("event", "boot", String),);
 
     let entrypoint_str = matches.value_of("entrypoint").unwrap();
     debug!("Connecting to {}", entrypoint_str);
@@ -270,7 +271,8 @@ fn main() {
         notifier.notify(&format!("Round {}!", tps_round));
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
         datapoint_info!(
-            "ramp-tps-round-start",
+            "ramp-tps",
+            ("event", "round-start", String),
             ("round", tps_round, i64),
             ("tx_count", tx_count, i64)
         );
@@ -294,7 +296,8 @@ fn main() {
 
         let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
         datapoint_info!(
-            "ramp-tps-round-start-transactions",
+            "ramp-tps",
+            ("event", "start-transactions", String),
             ("round", tps_round, i64),
             ("validators", remaining_voters.len(), i64)
         );
@@ -350,7 +353,8 @@ fn main() {
             .collect();
 
         datapoint_info!(
-            "ramp-tps-round-stop-transactions",
+            "ramp-tps",
+            ("event", "stop-transactions", String),
             ("round", tps_round, i64),
             ("validators", remaining_voters.len(), i64)
         );
@@ -363,7 +367,11 @@ fn main() {
             remaining_voters.len()
         ));
 
-        datapoint_info!("ramp-tps-round-cooldown", ("round", tps_round, i64));
+        datapoint_info!(
+            "ramp-tps",
+            ("event", "cooldown", String),
+            ("round", tps_round, i64)
+        );
 
         // Idle for 5 minutes before awarding stake to let the cluster come back together before
         // issuing RPC calls.
@@ -371,7 +379,11 @@ fn main() {
         notifier.notify("5 minute cool down");
         sleep(Duration::from_secs(60 * 5));
 
-        datapoint_info!("ramp-tps-round-gifting", ("round", tps_round, i64));
+        datapoint_info!(
+            "ramp-tps",
+            ("event", "gifting", String),
+            ("round", tps_round, i64)
+        );
 
         let next_gift = gift_for_round(tps_round + 1, initial_balance);
         voters::award_stake(
@@ -382,7 +394,11 @@ fn main() {
             &notifier,
         );
 
-        datapoint_info!("ramp-tps-round-warmup", ("round", tps_round, i64));
+        datapoint_info!(
+            "ramp-tps",
+            ("event", "new-stake-warmup", String),
+            ("round", tps_round, i64)
+        );
 
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         debug!("Current epoch info: {:?}", &epoch_info);
