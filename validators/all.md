@@ -23,7 +23,6 @@
 1. [coinwww](https://keybase.io/coinwww): `FQigEZ2cSQZPLNjK5NMbt7oquyg17Q27cqQBMEJr4dQf`
 1. [consortium_fund](https://keybase.io/consortium_fund): `BV8sS1jn1AvGAptY5TxNZdcm7aa49MZCXSpXQjzjdnYG`
 1. [cosmostation](https://keybase.io/cosmostation): `AmNRXJSSaGJrXaYBahD1PBoBR2ApkfLBAJ7SiRK4772R`
-1. [cosmostation](https://keybase.io/cosmostation): `AmNRXJSSaGJrXaYBahD1PBoBR2ApkfLBAJ7SiRK4772R`
 1. [costy](https://keybase.io/costy): `9fMqL641B7nQZ1xktU35qXuFESxMB7pkqmqVANtovzmE`
 1. [cushman09](https://keybase.io/cushman09): `HgmPwzNcY85HfrN3bYiqaypb6Nmf7ayaZEaivGY37913`
 1. [cyberili](https://keybase.io/cyberili): `AicKhNhJmkdqafRDjKLPgVqLzXLzJ8pS6aVrYrRkq1iq`
@@ -38,6 +37,7 @@
 1. [forbole](https://keybase.io/forbole): `AkVMbJq8pqKEe87uFaxjmt35tX2cNhUJTJwv13iioHu7`
 1. [globe1158](https://keybase.io/globe1158): `Fb5cEcYNgPXKJoEmvPvsU2ENYRVePQtExqgf77AnVX54`
 1. [gnossienli](https://keybase.io/gnossienli): `33LfdA2yKS6m7E8pSanrKTKYMhpYHEGaSWtNNB5s7xnm`
+1. [gunray](https://keybase.io/gunray): `9gmnbM2GUVXiTfCg1Pj3ZTJdqyKdS81kjBWwwnZbS4MR`
 1. [hashquark](https://keybase.io/hashquark): `2ZeChc7Res7fUVdcGCDTJfRd9N8R21hiBPLAuJsqHHwh`
 1. [heda](https://keybase.io/heda): `592eDka2qrXWcszC3NNvViKfEyxvuoAbBgohVt75dWq1`
 1. [hma_cope](https://keybase.io/hma_cope): `HM2hzFLTd5TAhejGFjaXAm8LLjdmnj7bqQrzpRTaawdo`
@@ -70,6 +70,7 @@
 1. [ponchik69](https://keybase.io/ponchik69): `DJvMQcb3ZtXC49LsaMvAo4x1rzCxjNfBfZtvkUeR4mAx`
 1. [pos_bakerz](https://keybase.io/pos_bakerz): `A1voPbfnmCq8UBNQTBKnZ3Xbhs2x4cS2Gx2b2wJtqCh1`
 1. [proofofjk](https://keybase.io/proofofjk): `3Z5XVczCTXeYeFABoeFm1LngC9657kZMVGNFzqFXviHb`
+1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 1. [rockxrocks](https://keybase.io/rockxrocks): `5KZRD6hDCZd1dgM9rJLweFFRkHu3qAgBhHgQ96Wz1VSn`
 1. [rosewu](https://keybase.io/rosewu): `GkNQ9hQM1DoTQy9i4HVzhCjtKh9A6uSx7Z5XTAkqRGhu`
 1. [ruru](https://keybase.io/ruru): `B5FNFrfrrfpBggFBp9h6Js93mrz1Tham1z1GgP3bDgNc`
@@ -96,6 +97,7 @@
 1. [yongjoo](https://keybase.io/yongjoo): `2XAHomUvH3LFjYSxzSfcbwS73JgynpQHfapMNMJ8isL9`
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF`
+1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 ## internal
 1. [mvines](https://keybase.io/mvines): `6dMH3u76qZ7XG4bVboVRnBHR2FfrxEqTTTyj4xmyDMWo`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
