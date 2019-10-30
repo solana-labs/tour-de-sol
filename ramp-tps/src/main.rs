@@ -52,7 +52,7 @@ fn gift_for_round(tps_round: u32, initial_balance: u64) -> u64 {
 fn main() {
     solana_logger::setup_with_filter("solana=debug");
     solana_metrics::set_panic_hook("ramp-tps");
-    let notifier = notifier::Notifier::new();
+    let mut notifier = notifier::Notifier::new();
 
     let matches = App::new(crate_name!())
         .about(crate_description!())
@@ -315,13 +315,14 @@ fn main() {
             ("validators", remaining_voters.len(), i64)
         );
 
-        notifier.notify(&format!(
+        notifier.buffer(format!(
             "There are {} validators present:",
             remaining_voters.len()
         ));
         for (node_pubkey, _) in remaining_voters {
-            notifier.notify(&format!("* {}", pubkey_to_keybase(&node_pubkey)));
+            notifier.buffer(format!("* {}", pubkey_to_keybase(&node_pubkey)));
         }
+        notifier.flush();
 
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
         notifier.notify(&format!(
@@ -410,7 +411,7 @@ fn main() {
             &mint_keypair,
             remaining_voters,
             next_gift,
-            &notifier,
+            &mut notifier,
         );
 
         datapoint_info!(

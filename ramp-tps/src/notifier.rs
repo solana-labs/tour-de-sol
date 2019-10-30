@@ -8,6 +8,7 @@ use std::env;
 ///   2) Notify Slack channel if Slack is configured
 ///   3) Notify Discord channel if Discord is configured
 pub struct Notifier {
+    buffer: Vec<String>,
     client: Client,
     discord_webhook: Option<String>,
     slack_webhook: Option<String>,
@@ -26,6 +27,7 @@ impl Notifier {
             })
             .ok();
         Notifier {
+            buffer: Vec::new(),
             client: Client::new(),
             discord_webhook,
             slack_webhook,
@@ -46,6 +48,15 @@ impl Notifier {
                 warn!("Failed to send Slack message: {:?}", err);
             }
         }
+    }
+
+    pub fn buffer(&mut self, msg: String) {
+        self.buffer.push(msg);
+    }
+
+    pub fn flush(&mut self) {
+        self.notify(&self.buffer.join("\n"));
+        self.buffer.clear();
     }
 
     pub fn notify(&self, msg: &str) {
