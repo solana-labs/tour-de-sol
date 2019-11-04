@@ -72,3 +72,17 @@ Helpful JSON-RPC methods:
 * `getLeaderSchedule` At any given moment, the network expects only one validator to produce ledger entries. The [validator currently selected to produce ledger entries](https://solana-labs.github.io/book/leader-rotation.html?highlight=leader#leader-rotation) is called the “leader”.  This will return the complete leader schedule \(on a slot-by-slot basis\) for the current epoch. If you validator is scheduled to be leader based on its currently activated stake, the identity pubkey will show up 1 or more times here. 
 * The TdS repo comes with a script to automatically make a batch of these RPC requests: [rpc-check.sh](https://github.com/solana-labs/tour-de-sol/blob/master/rpc-check.sh)
 
+## Deactivating Stake
+
+Before detaching your validator from the TdS cluster, you should deactivate the stake that was previously delegated by running:
+
+```
+solana deactivate-stake ~/validator-stake-keypair.json
+```
+
+Stake is not deactivated immediately and instead cools down in a similar fashion as stake warm up.  Your validator should remain attached to the cluster while the stake is cooling down. More information about the stake cool down can be found at [https://docs.solana.com/book/running-validator/validator-stake](https://docs.solana.com/book/running-validator/validator-stake)
+
+
+
+
+
