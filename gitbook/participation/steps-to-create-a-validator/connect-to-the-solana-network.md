@@ -30,11 +30,7 @@ solana-validator --identity ~/validator-keypair.json --voting-keypair ~/validato
     --limit-ledger-size
 ```
 
-To capture the console logging to a file, append the following string to the previous command when launching your validator. Be aware that this will consume disk space in the current directory.
-
-```bash
- 2>&1 | tee solana_tds-$(date --utc +%Y%m%d-%H%M%S).log
-```
+To force validator logging to the console add a `--log -` argument, otherwise the validator will automatically log to a file.
 
 Confirm your validator connected to the network by running:
 
