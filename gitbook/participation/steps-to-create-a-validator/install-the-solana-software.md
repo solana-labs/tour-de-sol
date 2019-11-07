@@ -10,10 +10,10 @@ curl -X POST -H "Content-Type: application/json" -d '{"jsonrpc": "2.0","id":1,"m
 
 ## Install Software
 
-Install the Solana release [v0.20.2](https://github.com/solana-labs/solana/releases/tag/v0.20.2) on your machine by running:
+Install the Solana release [v0.20.3](https://github.com/solana-labs/solana/releases/tag/v0.20.3) on your machine by running:
 
 ```bash
-curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.19.1/install/solana-install-init.sh | sh -s - 0.20.2
+curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.19.1/install/solana-install-init.sh | sh -s - 0.20.3
 ```
 
 The following output indicates a successful update:
@@ -23,8 +23,8 @@ looking for latest release
 downloading v0.19.1 installer
 Configuration: /home/solana/.config/solana/install/config.yml
 Active release directory: /home/solana/.local/share/solana/install/active_release
-* Release version: 0.20.2
-* Release URL: https://github.com/solana-labs/solana/releases/download/v0.20.2/solana-release-x86_64-unknown-linux-gnu.tar.bz2
+* Release version: 0.20.3
+* Release URL: https://github.com/solana-labs/solana/releases/download/v0.20.3/solana-release-x86_64-unknown-linux-gnu.tar.bz2
 Update successful
 ```
 
