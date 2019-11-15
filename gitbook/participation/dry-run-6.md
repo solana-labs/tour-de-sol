@@ -1,6 +1,6 @@
-# Dry Run 5
+# Dry Run 6
 
-Dry Run 5 will test the performance of a heterogeneous cluster of validators under heavier transaction load. It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive receive additional stake for the next round. The rounds will continue until the cluster stops making progress.
+Dry Run 6 will test the performance of a heterogeneous cluster of validators under heavier transaction load. It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive receive additional stake for the next round. The rounds will continue until the cluster stops making progress.
 
 ![Ramp TPS rounds visualized](../.gitbook/assets/image-2%20%281%29.png)
 
@@ -11,7 +11,7 @@ Dry Run 5 will test the performance of a heterogeneous cluster of validators und
 * Target transaction rate of first round: 2,000 TPS
 * Transaction rate round increment: 2,000 TPS
 * Epoch duration: 4096 slots \(approximately 27 minutes\)
-* Transaction signature fee: 1 lamport
+* Transaction signature fee: 0 lamport
 * Genesis allotment to each validator: 2 SOL \(1 SOL for initial delegation, 1 SOL for transaction fees\)
 * Round duration: 20 minutes of transactions, followed by 2-3 epochs for stake warm up
 
