@@ -12,7 +12,6 @@
 1. [aurel](https://keybase.io/aurel): `8diJdQj3y4QbkjfnXr95SXoktiJ1ad965ZkeFsmutfyz`
 1. [avaluo](https://keybase.io/avaluo): `7mmRxJNttYcJVNsJmiLjTHYmNDt32EpzUSgLDoBsTKKK`
 1. [bharvest](https://keybase.io/bharvest): `2RYnM1C5XuzWzZu4sD7TyJTgxQTKzFVHG6jNtbK65q2y`
-1. [bitcat365](https://keybase.io/bitcat365): `BpzjtHCQSbJGWYJFtHnfW5qK38iG4jSQQK2bUr45fuSK`
 1. [bneiluj](https://keybase.io/bneiluj): `59WHuha1QunWmupWhFA4vr3WMUe8BLN7dc8HUsJ4YC86`
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 1. [caddilackness](https://keybase.io/caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
@@ -73,6 +72,7 @@
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 1. [rockxrocks](https://keybase.io/rockxrocks): `5KZRD6hDCZd1dgM9rJLweFFRkHu3qAgBhHgQ96Wz1VSn`
 1. [rosewu](https://keybase.io/rosewu): `GkNQ9hQM1DoTQy9i4HVzhCjtKh9A6uSx7Z5XTAkqRGhu`
+1. [rudylu](https://keybase.io/rudylu): `EJ7cCyW3BtLutGikzakNCJL2vCMWfLnts1XaKbxY6vVK`
 1. [ruru](https://keybase.io/ruru): `B5FNFrfrrfpBggFBp9h6Js93mrz1Tham1z1GgP3bDgNc`
 1. [samzeb](https://keybase.io/samzeb): `3pzTi41c6NAbZyTiyPEAQtmi2K5MyWZJMxx6nDvWPgnQ`
 1. [sebler](https://keybase.io/sebler): `2YLPihCDxqztR5be69jhoNDPMxV6KeTJ2X2LtVBXDgp4`
@@ -101,7 +101,7 @@
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
-1. [tyera](https://keybase.io/tyera): `9YVBedSq1ekPy9TaibEKbT8wpUdbopYgRsgzq65jKDaV`
+1. [tyera](https://keybase.io/tyera): `tyeraJRJFcHECfTmEGTaCzjcYebfLWETBRniRNuJN12`
 1. [danpaul000](https://keybase.io/danpaul000): `9hhrtfrDFSeqkTeGf4EW85Q4ED42mP8Tv3YU6x3Ri5Ss`
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [magycian](https://keybase.io/magycian): `BMhDrD4d4N1h2LWyzLPBjgPKHf6g91RyKBVC6foXisVY`
