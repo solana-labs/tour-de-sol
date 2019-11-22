@@ -3,7 +3,7 @@
 Before you connect your validator to the Solana network, confirm the network is running. To do this, view the existing nodes in the network using:
 
 ```bash
-solana-gossip --entrypoint tds.solana.com:8001 spy
+solana-gossip spy --entrypoint tds.solana.com:8001
 ```
 
 If you see more than 1 node listed in the output of the above command, the network is running.
