@@ -25,7 +25,7 @@ export SOLANA_METRICS_CONFIG="host=https://tds-metrics.solana.com:8086,db=tds,u=
 ```
 
 ```bash
-solana-validator --identity ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json \
+solana-validator --identity-keypair ~/validator-keypair.json --voting-keypair ~/validator-vote-keypair.json \
     --ledger ~/validator-ledger --rpc-port 8899 --entrypoint tds.solana.com:8001 \
     --limit-ledger-size
 ```
