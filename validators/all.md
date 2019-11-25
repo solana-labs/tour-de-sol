@@ -100,11 +100,11 @@
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
-1. [jackcmay](https://keybase.io/jackcmay): `Hhk3n7X1pq4iCuh1XpdDm81pYNhqTUcphNXSq2qTRiCk`
+1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
 1. [tyera](https://keybase.io/tyera): `tyeraJRJFcHECfTmEGTaCzjcYebfLWETBRniRNuJN12`
 1. [danpaul000](https://keybase.io/danpaul000): `9hhrtfrDFSeqkTeGf4EW85Q4ED42mP8Tv3YU6x3Ri5Ss`
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
-1. [magycian](https://keybase.io/magycian): `BMhDrD4d4N1h2LWyzLPBjgPKHf6g91RyKBVC6foXisVY`
+1. [magycian](https://keybase.io/magycian): `tristbrEhXkAg24C6yKo4C77MDrFi4RVWYQh6jUt51A`
 1. [trent_solana](https://keybase.io/trent_solana): `96f8cytEj7EFA3RZwzW8Q85bKuWbE7AQGRct21cAtPWn`
 1. [pgarg66](https://keybase.io/pgarg66): `FgxJ3bEruCX68ZFbNcGegz3JqhFjByDKrvChfS5pdqaU`
 ## us
