@@ -102,7 +102,7 @@
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
 1. [tyera](https://keybase.io/tyera): `tyeraJRJFcHECfTmEGTaCzjcYebfLWETBRniRNuJN12`
-1. [danpaul000](https://keybase.io/danpaul000): `9hhrtfrDFSeqkTeGf4EW85Q4ED42mP8Tv3YU6x3Ri5Ss`
+1. [danpaul000](https://keybase.io/danpaul000): `dan5LxQTGW3T2Lr8iWzHmNu4RgDCdpFBC7EjEzdKaBu`
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [magycian](https://keybase.io/magycian): `tristbrEhXkAg24C6yKo4C77MDrFi4RVWYQh6jUt51A`
 1. [trent_solana](https://keybase.io/trent_solana): `96f8cytEj7EFA3RZwzW8Q85bKuWbE7AQGRct21cAtPWn`
