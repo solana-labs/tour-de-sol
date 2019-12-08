@@ -25,7 +25,7 @@ use std::{
 const NUM_BENCH_CLIENTS: usize = 2;
 const TDS_ENTRYPOINT: &str = "tds.solana.com";
 const TMP_LEDGER_PATH: &str = ".tmp/ledger";
-const MINT_KEYPAIR_PATH: &str = "mint-keypair.json";
+const FAUCET_KEYPAIR_PATH: &str = "faucet-keypair.json";
 const PUBKEY_MAP_FILE: &str = "validators/all-username.yml";
 const RESULTS_FILE: &str = "results.yml";
 const DEFAULT_TX_COUNT_BASELINE: &str = "5000";
@@ -58,13 +58,13 @@ fn main() {
         .about(crate_description!())
         .version(crate_version!())
         .arg(
-            Arg::with_name("mint_keypair_path")
-                .long("mint-keypair-path")
+            Arg::with_name("faucet_keypair_path")
+                .long("faucet-keypair-path")
                 .short("k")
                 .value_name("PATH")
                 .takes_value(true)
-                .default_value(MINT_KEYPAIR_PATH)
-                .help("Path to the mint keypair for stake award distribution"),
+                .default_value(FAUCET_KEYPAIR_PATH)
+                .help("Path to the faucet keypair for stake award distribution"),
         )
         .arg(
             Arg::with_name("net_dir")
@@ -181,9 +181,9 @@ fn main() {
     };
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
-    let mint_keypair_path = value_t_or_exit!(matches, "mint_keypair_path", String);
-    let mint_keypair = read_keypair_file(&mint_keypair_path)
-        .unwrap_or_else(|err| panic!("Unable to read {}: {}", mint_keypair_path, err));
+    let faucet_keypair_path = value_t_or_exit!(matches, "faucet_keypair_path", String);
+    let faucet_keypair = read_keypair_file(&faucet_keypair_path)
+        .unwrap_or_else(|err| panic!("Unable to read {}: {}", faucet_keypair_path, err));
     let mut tps_round = value_t_or_exit!(matches, "round", u32).max(1);
     let results_file_name = value_t_or_exit!(matches, "results_file", String);
     let previous_results = Results::read(&results_file_name);
@@ -409,7 +409,7 @@ fn main() {
         let next_gift = gift_for_round(tps_round + 1, initial_balance);
         voters::award_stake(
             &rpc_client,
-            &mint_keypair,
+            &faucet_keypair,
             remaining_voters,
             next_gift,
             &mut notifier,

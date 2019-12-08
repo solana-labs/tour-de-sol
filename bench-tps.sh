@@ -30,16 +30,16 @@ if [[ -n $remote ]]; then
 else
   scp -o "ConnectTimeout=20" -o "BatchMode=yes" \
     -o "StrictHostKeyChecking=no" -o "UserKnownHostsFile=/dev/null" \
-    solana@$host:solana/config/mint-keypair.json .
+    solana@$host:solana/config/faucet-keypair.json .
 fi
 
-solana -u http://$host:8899 -k mint-keypair.json balance --lamports
+solana -u http://$host:8899 -k faucet-keypair.json balance --lamports
 
 if [[ ! -f bench-tps.json ]]; then
   solana-keygen new -o bench-tps.json
 fi
 
-solana -u http://$host:8899 -k mint-keypair.json \
+solana -u http://$host:8899 -k faucet-keypair.json \
   pay "$(solana-keygen pubkey bench-tps.json)" 10000 SOL
 solana -u http://$host:8899 -k bench-tps.json balance
 

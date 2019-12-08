@@ -106,9 +106,9 @@ Prune at slot 5000 hash "HRQnaDnSoaeM5xQKxjKYbU53ZFhTYtjBS7HWyG3Q1JUq"
 ```bash
 $ eval $(net/gce.sh info --eval)
 ```
-1. Snag the mint keypair from the bootstrap leader
+1. Snag the faucet keypair from the bootstrap leader
 ```bash
-$ net/scp.sh solana@"$NET_VALIDATOR0_IP":solana/config/mint-keypair.json .
+$ net/scp.sh solana@"$NET_VALIDATOR0_IP":solana/config/faucet-keypair.json .
 ```
 1. Optionally set Slack and Discord webhook env vars to be notified of progress
 ```bash
@@ -126,7 +126,7 @@ $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --tx-count-baseline 1000 \
   --tx-count-increment 2000 \
   --stake-activation-epoch 9 \
-  --mint-keypair-path <mint_keypair.json>
+  --faucet-keypair-path <faucet_keypair.json>
 ```
 
 #### Recovery
@@ -148,7 +148,7 @@ $ cargo run -p solana-ramp-tps -- -n $NET_VALIDATOR0_IP \
   --tx-count-baseline 5000 \
   --tx-count-increment 5000 \
   --stake-activation-epoch <LAST STAKE ACTIVATION EPOCH> \
-  --mint-keypair-path <mint_keypair.json>
+  --faucet-keypair-path <faucet_keypair.json>
 ```
 
 #### Overview
