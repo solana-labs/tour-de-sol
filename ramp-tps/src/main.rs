@@ -11,8 +11,8 @@ use log::*;
 use results::Results;
 use solana_client::rpc_client::RpcClient;
 use solana_metrics::datapoint_info;
-use solana_sdk::{genesis_block::GenesisBlock, signature::read_keypair_file};
-use solana_stake_api::config::{id as stake_config_id, Config as StakeConfig};
+use solana_sdk::{genesis_config::GenesisConfig, signature::read_keypair_file};
+use solana_stake_program::config::{id as stake_config_id, Config as StakeConfig};
 use std::{
     collections::HashMap,
     fs,
@@ -202,24 +202,25 @@ fn main() {
 
     let entrypoint_str = matches.value_of("entrypoint").unwrap();
     debug!("Connecting to {}", entrypoint_str);
-    let entrypoint_addr = solana_netutil::parse_host_port(&format!("{}:8899", entrypoint_str))
+    let entrypoint_addr = solana_net_utils::parse_host_port(&format!("{}:8899", entrypoint_str))
         .expect("failed to parse entrypoint address");
     utils::download_genesis(&entrypoint_addr, &tmp_ledger_path).expect("genesis download failed");
-    let genesis_block = GenesisBlock::load(&tmp_ledger_path).expect("failed to load genesis block");
+    let genesis_config =
+        GenesisConfig::load(&tmp_ledger_path).expect("failed to load genesis block");
 
     debug!("Fetching current slot...");
     let rpc_client = RpcClient::new_socket_with_timeout(entrypoint_addr, Duration::from_secs(10));
     let current_slot = rpc_client.get_slot().expect("failed to fetch current slot");
     debug!("Current slot: {}", current_slot);
-    let first_normal_slot = genesis_block.epoch_schedule.first_normal_slot;
+    let first_normal_slot = genesis_config.epoch_schedule.first_normal_slot;
     debug!("First normal slot: {}", first_normal_slot);
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
         notifier.notify(&format!(
             "Waiting for warm-up epochs to complete (epoch {})",
-            genesis_block.epoch_schedule.first_normal_epoch
+            genesis_config.epoch_schedule.first_normal_epoch
         ));
-        utils::sleep_n_slots(sleep_slots, &genesis_block);
+        utils::sleep_n_slots(sleep_slots, &genesis_config);
     }
 
     debug!("Fetching stake config...");
@@ -239,14 +240,14 @@ fn main() {
                 epoch_info.epoch, destake_net_nodes_epoch
             );
         } else {
-            let slots_per_epoch = genesis_block.epoch_schedule.slots_per_epoch;
+            let slots_per_epoch = genesis_config.epoch_schedule.slots_per_epoch;
             let sleep_epochs = destake_net_nodes_epoch - epoch_info.epoch;
             let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
             info!(
                 "Waiting for destake-net-nodes epoch {}",
                 destake_net_nodes_epoch
             );
-            utils::sleep_n_slots(sleep_slots, &genesis_block);
+            utils::sleep_n_slots(sleep_slots, &genesis_config);
 
             info!("Destaking net nodes...");
             Command::new("bash")
@@ -275,7 +276,7 @@ fn main() {
             epoch_info,
             &rpc_client,
             &stake_config,
-            &genesis_block,
+            &genesis_config,
             &notifier,
         );
     }
@@ -428,7 +429,7 @@ fn main() {
             epoch_info,
             &rpc_client,
             &stake_config,
-            &genesis_block,
+            &genesis_config,
             &notifier,
         );
         tps_round += 1;

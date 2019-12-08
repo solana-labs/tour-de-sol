@@ -4,8 +4,8 @@ use solana_sdk::native_token::sol_to_lamports;
 use solana_sdk::pubkey::Pubkey;
 use solana_sdk::signature::{Keypair, KeypairUtil};
 use solana_sdk::transaction::Transaction;
-use solana_stake_api::stake_instruction;
-use solana_stake_api::stake_state::Authorized as StakeAuthorized;
+use solana_stake_program::stake_instruction;
+use solana_stake_program::stake_state::Authorized as StakeAuthorized;
 use std::str::FromStr;
 
 pub fn fetch_remaining_voters(rpc_client: &RpcClient) -> Vec<(Pubkey, Pubkey)> {
