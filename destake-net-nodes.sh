@@ -26,7 +26,7 @@ mkdir .destake
 cd .destake
 
 echo Fetching bootstrap leader keys
-$scp solana@"$NET_VALIDATOR0_IP":~/solana/config/mint-keypair.json .
+$scp solana@"$NET_VALIDATOR0_IP":~/solana/config/faucet-keypair.json .
 $scp solana@"$NET_VALIDATOR0_IP":~/solana/config/bootstrap-leader/stake-keypair.json 0-stake-keypair.json
 $scp solana@"$NET_VALIDATOR0_IP":~/solana/config/bootstrap-leader/vote-keypair.json 0-vote-keypair.json
 $scp solana@"$NET_VALIDATOR0_IP":~/solana/config/bootstrap-leader/identity-keypair.json 0-identity-keypair.json
@@ -53,8 +53,8 @@ for i in $(seq 0 $((NET_NUM_VALIDATORS - 1))); do
       set -x
       solana-keygen new -f -o $i-tds-stake-keypair.json
       $solana --keypair $i-identity-keypair.json deactivate-stake $i-stake-keypair.json
-      $solana --keypair mint-keypair.json create-stake-account $i-tds-stake-keypair.json 1 SOL
-      $solana --keypair mint-keypair.json delegate-stake --keypair mint-keypair.json $i-tds-stake-keypair.json $i-vote-keypair.json
+      $solana --keypair faucet-keypair.json create-stake-account $i-tds-stake-keypair.json 1 SOL
+      $solana --keypair faucet-keypair.json delegate-stake --keypair faucet-keypair.json $i-tds-stake-keypair.json $i-vote-keypair.json
       $scp $i-tds-stake-keypair.json solana@"${!v}":~/solana/config/tds-stake-keypair.json
     )
   fi

@@ -1,5 +1,5 @@
 /bench-tps.json
-/mint-keypair.json
+/faucet-keypair.json
 target
 .tmp
 results.yml
