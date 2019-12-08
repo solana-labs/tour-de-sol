@@ -1,7 +1,7 @@
 use bzip2::bufread::BzDecoder;
 use log::*;
-use solana_netutil::parse_host;
-use solana_sdk::{genesis_block::GenesisBlock, timing::duration_as_ms};
+use solana_net_utils::parse_host;
+use solana_sdk::{genesis_config::GenesisConfig, timing::duration_as_ms};
 use std::{
     fs::File,
     io,
@@ -15,16 +15,16 @@ use tar::Archive;
 const GENESIS_ARCHIVE_NAME: &str = "genesis.tar.bz2";
 
 /// Inspired by solana_local_cluster::cluster_tests
-fn slots_to_secs(num_slots: u64, genesis_block: &GenesisBlock) -> u64 {
-    let poh_config = &genesis_block.poh_config;
-    let ticks_per_slot = genesis_block.ticks_per_slot;
+fn slots_to_secs(num_slots: u64, genesis_config: &GenesisConfig) -> u64 {
+    let poh_config = &genesis_config.poh_config;
+    let ticks_per_slot = genesis_config.ticks_per_slot;
     let num_ticks_to_sleep = num_slots as f64 * ticks_per_slot as f64;
     let num_ticks_per_second = (1000 / duration_as_ms(&poh_config.target_tick_duration)) as f64;
     ((num_ticks_to_sleep + num_ticks_per_second - 1.0) / num_ticks_per_second) as u64
 }
 
-pub fn sleep_n_slots(num_slots: u64, genesis_block: &GenesisBlock) {
-    let secs = slots_to_secs(num_slots, genesis_block);
+pub fn sleep_n_slots(num_slots: u64, genesis_config: &GenesisConfig) {
+    let secs = slots_to_secs(num_slots, genesis_config);
     let mins = secs / 60;
     let hours = mins / 60;
     if hours >= 5 {
@@ -106,16 +106,16 @@ mod test {
 
     #[test]
     fn test_slots_to_secs() {
-        let mut genesis_block = GenesisBlock::default();
-        genesis_block.poh_config.target_tick_duration = Duration::from_millis(500);
+        let mut genesis_config = GenesisConfig::default();
+        genesis_config.poh_config.target_tick_duration = Duration::from_millis(500);
 
-        genesis_block.ticks_per_slot = 10;
-        assert_eq!(slots_to_secs(2, &genesis_block), 10);
+        genesis_config.ticks_per_slot = 10;
+        assert_eq!(slots_to_secs(2, &genesis_config), 10);
 
-        genesis_block.ticks_per_slot = 1;
-        assert_eq!(slots_to_secs(1, &genesis_block), 1);
+        genesis_config.ticks_per_slot = 1;
+        assert_eq!(slots_to_secs(1, &genesis_config), 1);
 
-        genesis_block.ticks_per_slot = 0;
-        assert_eq!(slots_to_secs(10, &genesis_block), 0);
+        genesis_config.ticks_per_slot = 0;
+        assert_eq!(slots_to_secs(10, &genesis_config), 0);
     }
 }

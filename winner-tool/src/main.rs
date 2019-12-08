@@ -122,7 +122,7 @@ fn main() {
     };
 
     let opts = ProcessOptions {
-        verify_ledger: false,
+        poh_verify: false,
         dev_halt_at_slot: final_slot,
         full_leader_cache: true,
         entry_callback: Some(entry_callback),

@@ -2,10 +2,13 @@ use crate::{notifier, utils};
 use log::*;
 use solana_client::{rpc_client::RpcClient, rpc_request::RpcEpochInfo};
 use solana_sdk::{
-    genesis_block::GenesisBlock,
-    sysvar::stake_history::{self, StakeHistory, StakeHistoryEntry},
+    genesis_config::GenesisConfig,
+    sysvar::{
+        stake_history::{self, StakeHistory, StakeHistoryEntry},
+        Sysvar,
+    },
 };
-use solana_stake_api::config::Config as StakeConfig;
+use solana_stake_program::config::Config as StakeConfig;
 use std::{thread::sleep, time::Duration};
 
 fn calculate_stake_warmup(mut stake_entry: StakeHistoryEntry, stake_config: &StakeConfig) -> u64 {
@@ -25,12 +28,13 @@ fn calculate_stake_warmup(mut stake_entry: StakeHistoryEntry, stake_config: &Sta
         if (percent_warming_up < 0.05) && (percent_cooling_down < 0.05) {
             break;
         }
-        let max_warmup_stake = (stake_entry.effective as f64 * stake_config.warmup_rate) as u64;
+        let warmup_cooldown_rate = stake_config.warmup_cooldown_rate;
+        let max_warmup_stake = (stake_entry.effective as f64 * warmup_cooldown_rate) as u64;
         let warmup_stake = stake_entry.activating.min(max_warmup_stake);
         stake_entry.effective += warmup_stake;
         stake_entry.activating -= warmup_stake;
 
-        let max_cooldown_stake = (stake_entry.effective as f64 * stake_config.cooldown_rate) as u64;
+        let max_cooldown_stake = (stake_entry.effective as f64 * warmup_cooldown_rate) as u64;
         let cooldown_stake = stake_entry.deactivating.min(max_cooldown_stake);
         stake_entry.effective -= cooldown_stake;
         stake_entry.deactivating -= cooldown_stake;
@@ -56,20 +60,20 @@ pub fn wait_for_activation(
     mut epoch_info: RpcEpochInfo,
     rpc_client: &RpcClient,
     stake_config: &StakeConfig,
-    genesis_block: &GenesisBlock,
+    genesis_config: &GenesisConfig,
     notifier: &notifier::Notifier,
 ) {
     // Sleep until activation_epoch has finished
     let mut current_epoch = epoch_info.epoch;
     let sleep_epochs = (activation_epoch + 1).saturating_sub(current_epoch);
-    let slots_per_epoch = genesis_block.epoch_schedule.slots_per_epoch;
+    let slots_per_epoch = genesis_config.epoch_schedule.slots_per_epoch;
     if sleep_epochs > 0 {
         let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
         notifier.notify(&format!(
             "Waiting until epoch {} is finished...",
             activation_epoch
         ));
-        utils::sleep_n_slots(sleep_slots, genesis_block);
+        utils::sleep_n_slots(sleep_slots, genesis_config);
     }
 
     loop {
@@ -103,7 +107,7 @@ pub fn wait_for_activation(
                     current_epoch
                 ));
                 let sleep_slots = epoch_info.slots_in_epoch - epoch_info.slot_index;
-                utils::sleep_n_slots(sleep_slots, genesis_block);
+                utils::sleep_n_slots(sleep_slots, genesis_config);
             } else {
                 break;
             }
