@@ -38,9 +38,13 @@ pub fn award_stake(
     sol_gift: u64,
     notifier: &mut crate::notifier::Notifier,
 ) {
-    let recent_blockhash = rpc_client.get_recent_blockhash().unwrap().0;
     for (node_pubkey, vote_account_pubkey) in voters {
         let stake_account_keypair = Keypair::new();
+        let recent_blockhash = loop {
+            if let Ok(response) = rpc_client.get_recent_blockhash() {
+                break response.0;
+            }
+        };
         let mut transaction = Transaction::new_signed_instructions(
             &[faucet_keypair, &stake_account_keypair],
             stake_instruction::create_stake_account_and_delegate_stake(
