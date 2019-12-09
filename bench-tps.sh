@@ -36,7 +36,7 @@ fi
 solana -u http://$host:8899 -k faucet-keypair.json balance --lamports
 
 if [[ ! -f bench-tps.json ]]; then
-  solana-keygen new -o bench-tps.json
+  solana-keygen new --no-passphrase -o bench-tps.json
 fi
 
 solana -u http://$host:8899 -k faucet-keypair.json \
