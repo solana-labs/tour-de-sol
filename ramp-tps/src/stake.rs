@@ -64,16 +64,19 @@ pub fn wait_for_activation(
     notifier: &notifier::Notifier,
 ) {
     // Sleep until activation_epoch has finished
-    let mut current_epoch = epoch_info.epoch;
-    let sleep_epochs = (activation_epoch + 1).saturating_sub(current_epoch);
-    let slots_per_epoch = genesis_config.epoch_schedule.slots_per_epoch;
-    if sleep_epochs > 0 {
-        let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
+    if epoch_info.epoch <= activation_epoch {
         notifier.notify(&format!(
             "Waiting until epoch {} is finished...",
             activation_epoch
         ));
-        utils::sleep_n_slots(sleep_slots, genesis_config);
+
+        utils::sleep_until_epoch(
+            rpc_client,
+            notifier,
+            genesis_config,
+            epoch_info.absolute_slot,
+            activation_epoch + 1,
+        );
     }
 
     loop {
@@ -83,15 +86,11 @@ pub fn wait_for_activation(
                 &format!("Error: get_epoch_info RPC call failed: {}", err),
             );
         });
-        let slot = rpc_client.get_slot().unwrap_or_else(|err| {
-            utils::bail(
-                notifier,
-                &format!("Error: get_slot RPC call 3 failed: {}", err),
-            );
-        });
-        info!("Current slot is {}", slot);
 
-        current_epoch = epoch_info.epoch;
+        let current_slot = epoch_info.absolute_slot;
+        info!("Current slot is {}", current_slot);
+
+        let current_epoch = epoch_info.epoch;
         let latest_epoch = current_epoch - 1;
         debug!(
             "Fetching stake history entry for epoch: {}...",
@@ -107,8 +106,13 @@ pub fn wait_for_activation(
                     "Waiting until epoch {} for stake to warmup (current epoch is {})...",
                     stake_warmed_up_epoch, current_epoch
                 ));
-                let sleep_slots = epoch_info.slots_in_epoch - epoch_info.slot_index;
-                utils::sleep_n_slots(sleep_slots, genesis_config);
+                utils::sleep_until_epoch(
+                    rpc_client,
+                    notifier,
+                    genesis_config,
+                    current_slot,
+                    stake_warmed_up_epoch,
+                );
             } else {
                 break;
             }
@@ -123,11 +127,14 @@ pub fn wait_for_activation(
         let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
                 notifier,
-                &format!("Error: get_slot RPC call 4 failed: {}", err),
+                &format!("Error: get_slot RPC call 3 failed: {}", err),
             );
         });
-        if slot == latest_slot {
-            utils::bail(notifier, &format!("Slot did not advance from {}", slot));
+        if current_slot == latest_slot {
+            utils::bail(
+                notifier,
+                &format!("Slot did not advance from {}", current_slot),
+            );
         }
     }
 }

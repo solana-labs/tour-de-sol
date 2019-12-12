@@ -220,7 +220,13 @@ fn main() {
             "Waiting for warm-up epochs to complete (epoch {})",
             genesis_config.epoch_schedule.first_normal_epoch
         ));
-        utils::sleep_n_slots(sleep_slots, &genesis_config);
+        utils::sleep_until_epoch(
+            &rpc_client,
+            &notifier,
+            &genesis_config,
+            current_slot,
+            genesis_config.epoch_schedule.first_normal_epoch,
+        );
     }
 
     debug!("Fetching stake config...");
@@ -240,14 +246,17 @@ fn main() {
                 epoch_info.epoch, destake_net_nodes_epoch
             );
         } else {
-            let slots_per_epoch = genesis_config.epoch_schedule.slots_per_epoch;
-            let sleep_epochs = destake_net_nodes_epoch - epoch_info.epoch;
-            let sleep_slots = sleep_epochs * slots_per_epoch - epoch_info.slot_index;
             info!(
                 "Waiting for destake-net-nodes epoch {}",
                 destake_net_nodes_epoch
             );
-            utils::sleep_n_slots(sleep_slots, &genesis_config);
+            utils::sleep_until_epoch(
+                &rpc_client,
+                &notifier,
+                &genesis_config,
+                epoch_info.absolute_slot,
+                destake_net_nodes_epoch,
+            );
 
             info!("Destaking net nodes...");
             Command::new("bash")
