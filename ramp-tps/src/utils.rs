@@ -1,7 +1,13 @@
+use crate::notifier::Notifier;
 use bzip2::bufread::BzDecoder;
 use log::*;
+use solana_client::rpc_client::RpcClient;
 use solana_net_utils::parse_host;
-use solana_sdk::{genesis_config::GenesisConfig, timing::duration_as_ms};
+use solana_sdk::{
+    clock::{Epoch, Slot},
+    genesis_config::GenesisConfig,
+    timing::duration_as_ms,
+};
 use std::{
     fs::File,
     io,
@@ -23,7 +29,7 @@ fn slots_to_secs(num_slots: u64, genesis_config: &GenesisConfig) -> u64 {
     ((num_ticks_to_sleep + num_ticks_per_second - 1.0) / num_ticks_per_second) as u64
 }
 
-pub fn sleep_n_slots(num_slots: u64, genesis_config: &GenesisConfig) {
+fn sleep_n_slots(num_slots: u64, genesis_config: &GenesisConfig) {
     let secs = slots_to_secs(num_slots, genesis_config);
     let mins = secs / 60;
     let hours = mins / 60;
@@ -35,6 +41,48 @@ pub fn sleep_n_slots(num_slots: u64, genesis_config: &GenesisConfig) {
         debug!("Sleeping for {} slots ({} seconds)", num_slots, secs);
     }
     sleep(Duration::from_secs(secs));
+}
+
+/// Sleep until the target epoch has started or bail if cluster is stuck
+pub fn sleep_until_epoch(
+    rpc_client: &RpcClient,
+    notifier: &Notifier,
+    genesis_config: &GenesisConfig,
+    mut current_slot: Slot,
+    target_epoch: Epoch,
+) {
+    let target_slot = genesis_config
+        .epoch_schedule
+        .get_first_slot_in_epoch(target_epoch);
+    dbg!(&genesis_config.epoch_schedule);
+    info!(
+        "sleep_until_epoch() target_epoch: {}, target_slot: {}",
+        target_epoch, target_slot
+    );
+
+    loop {
+        let sleep_slots = target_slot.saturating_sub(current_slot);
+        if sleep_slots == 0 {
+            break;
+        }
+
+        sleep_n_slots(sleep_slots.max(5), genesis_config);
+        let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            bail(
+                notifier,
+                &format!("Error: Could not fetch current slot: {}", err),
+            );
+        });
+
+        if current_slot == latest_slot {
+            bail(
+                notifier,
+                &format!("Slot did not advance from {}", current_slot),
+            );
+        } else {
+            current_slot = latest_slot;
+        }
+    }
 }
 
 pub fn is_host(string: String) -> Result<(), String> {
