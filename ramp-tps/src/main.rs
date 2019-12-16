@@ -399,18 +399,6 @@ fn main() {
 
         datapoint_info!(
             "ramp-tps",
-            ("event", "cooldown", String),
-            ("round", tps_round, i64)
-        );
-
-        // Idle for 5 minutes before awarding stake to let the cluster come back together before
-        // issuing RPC calls.
-        // This should not be necessary once https://github.com/solana-labs/solana/pull/6538 lands
-        notifier.notify("5 minute cool down");
-        sleep(Duration::from_secs(60 * 5));
-
-        datapoint_info!(
-            "ramp-tps",
             ("event", "gifting", String),
             ("round", tps_round, i64)
         );
