@@ -54,7 +54,6 @@ pub fn sleep_until_epoch(
     let target_slot = genesis_config
         .epoch_schedule
         .get_first_slot_in_epoch(target_epoch);
-    dbg!(&genesis_config.epoch_schedule);
     info!(
         "sleep_until_epoch() target_epoch: {}, target_slot: {}",
         target_epoch, target_slot
