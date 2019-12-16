@@ -3,6 +3,7 @@
 mod notifier;
 mod results;
 mod stake;
+mod tps;
 mod utils;
 mod voters;
 
@@ -290,6 +291,8 @@ fn main() {
         );
     }
 
+    let mut tps_sampler = tps::Sampler::new(&entrypoint_addr);
+
     loop {
         notifier.notify(&format!("Round {}!", tps_round));
         let tx_count = tx_count_for_round(tps_round, tx_count_baseline, tx_count_increment);
@@ -355,7 +358,14 @@ fn main() {
                 .spawn()
                 .unwrap();
         }
+
+        info!("Sleeping 30s to allow bench-tps to warmup");
+        sleep(Duration::from_secs(30));
+
+        tps_sampler.start_sampling_thread();
         sleep(round_duration);
+        tps_sampler.stop_sampling_thread();
+
         for client_id in 0..NUM_BENCH_CLIENTS {
             Command::new("bash")
                 .args(&[
@@ -391,6 +401,7 @@ fn main() {
             remaining_voters.len()
         ));
 
+        tps_sampler.report_results(&notifier);
         tps_round_results
             .record(tps_round, &remaining_voters)
             .unwrap_or_else(|err| {
