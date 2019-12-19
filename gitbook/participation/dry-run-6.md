@@ -7,7 +7,7 @@ Dry Run 6 will test the performance of a heterogeneous cluster of validators und
 ## Cluster Parameters:
 
 * GPUs optional
-* Solana software version: v0.20.4
+* Solana software version: v0.21.5
 * Target transaction rate of first round: 2,000 TPS
 * Transaction rate round increment: 2,000 TPS
 * Epoch duration: 4096 slots \(approximately 27 minutes\)
