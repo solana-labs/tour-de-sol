@@ -40,9 +40,10 @@ if [[ ! -f bench-tps.json ]]; then
 fi
 
 solana -u http://$host:8899 -k faucet-keypair.json \
-  pay "$(solana-keygen pubkey bench-tps.json)" 100000 SOL
+  pay "$(solana-keygen pubkey bench-tps.json)" 5000000 SOL
 solana -u http://$host:8899 -k bench-tps.json balance
 
 export RUST_LOG=solana=info
 solana-bench-tps -i bench-tps.json --tx_count=$txCount \
-  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=$threadBatchSleepMs
+  -n $host:8001 -N 2 --sustained --thread-batch-sleep-ms=$threadBatchSleepMs \
+  --threads 1
