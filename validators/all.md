@@ -98,13 +98,13 @@
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF`
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
+1. [smartins](https://keybase.io/smartins): `5uTcsQSrUffYo6RYSWj75SuGMkJ4v9x5RYuQoTc5aWGR`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
 1. [tyera](https://keybase.io/tyera): `tyeraJRJFcHECfTmEGTaCzjcYebfLWETBRniRNuJN12`
-1. [danpaul000](https://keybase.io/danpaul000): `dan5LxQTGW3T2Lr8iWzHmNu4RgDCdpFBC7EjEzdKaBu`
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [magycian](https://keybase.io/magycian): `tristbrEhXkAg24C6yKo4C77MDrFi4RVWYQh6jUt51A`
-1. [trent_solana](https://keybase.io/trent_solana): `96f8cytEj7EFA3RZwzW8Q85bKuWbE7AQGRct21cAtPWn`
+1. [trent_solana](https://keybase.io/trent_solana): `trent1i9e9bniu8oQ3U3JTqjPMbTzDHcnq7tV7eUcTT`
 1. [pgarg66](https://keybase.io/pgarg66): `FgxJ3bEruCX68ZFbNcGegz3JqhFjByDKrvChfS5pdqaU`
 ## us
