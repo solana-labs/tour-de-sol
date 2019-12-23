@@ -14,7 +14,7 @@ use clap::{
     Arg,
 };
 use confirmation_latency::{SlotVoterSegments, VoterRecord};
-use solana_cli::{
+use solana_clap_utils::{
     input_parsers::pubkey_of,
     input_validators::{is_pubkey, is_pubkey_or_keypair},
 };
@@ -23,7 +23,7 @@ use solana_ledger::{
     blocktree_processor::{process_blocktree, ProcessOptions},
 };
 use solana_runtime::bank::Bank;
-use solana_sdk::{genesis_block::GenesisBlock, native_token::sol_to_lamports, pubkey::Pubkey};
+use solana_sdk::{genesis_config::GenesisConfig, native_token::sol_to_lamports, pubkey::Pubkey};
 use std::{
     collections::HashSet,
     path::PathBuf,
@@ -32,7 +32,7 @@ use std::{
 };
 
 fn main() {
-    solana_logger::setup();
+    solana_logger::setup_with_filter("solana=info");
 
     let matches = App::new(crate_name!())
         .about(crate_description!())
@@ -64,13 +64,13 @@ fn main() {
                 .help("Public key of the baseline validator"),
         )
         .arg(
-            Arg::with_name("exclude_pubkeys")
-                .long("exclude-pubkeys")
+            Arg::with_name("exclude_pubkey")
+                .long("exclude-pubkey")
                 .value_name("PUBKEY")
                 .multiple(true)
                 .takes_value(true)
                 .validator(is_pubkey)
-                .help("List of excluded public keys"),
+                .help("Exclude this public keys from the rewards calculation"),
         )
         .arg(
             Arg::with_name("final_slot")
@@ -84,17 +84,17 @@ fn main() {
     let ledger_path = PathBuf::from(value_t_or_exit!(matches, "ledger", String));
     let starting_balance_sol = value_t_or_exit!(matches, "starting_balance", f64);
     let baseline_validator = pubkey_of(&matches, "baseline_validator").unwrap();
-    let excluded_set: HashSet<Pubkey> = if matches.is_present("exclude_pubkeys") {
-        let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkeys", Pubkey);
+    let excluded_set: HashSet<Pubkey> = if matches.is_present("exclude_pubkey") {
+        let exclude_pubkeys = values_t_or_exit!(matches, "exclude_pubkey", Pubkey);
         exclude_pubkeys.into_iter().collect()
     } else {
         HashSet::new()
     };
     let final_slot = value_t!(matches, "final_slot", u64).ok();
 
-    let genesis_block = GenesisBlock::load(&ledger_path).unwrap_or_else(|err| {
+    let genesis_config = GenesisConfig::load(&ledger_path).unwrap_or_else(|err| {
         eprintln!(
-            "Failed to open ledger genesis_block at {:?}: {}",
+            "Failed to open ledger genesis_config at {:?}: {}",
             ledger_path, err
         );
         exit(1);
@@ -130,7 +130,7 @@ fn main() {
     };
 
     println!("Processing ledger...");
-    match process_blocktree(&genesis_block, &blocktree, None, opts) {
+    match process_blocktree(&genesis_config, &blocktree, vec![], opts) {
         Ok((bank_forks, _bank_forks_info, leader_schedule_cache)) => {
             let bank = bank_forks.working_bank();
             let starting_balance = sol_to_lamports(starting_balance_sol);

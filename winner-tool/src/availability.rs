@@ -13,7 +13,7 @@ use solana_runtime::bank::Bank;
 use solana_sdk::account::Account;
 use solana_sdk::clock::Slot;
 use solana_sdk::pubkey::Pubkey;
-use solana_vote_api::vote_state::{VoteState, MAX_LOCKOUT_HISTORY};
+use solana_vote_program::vote_state::{VoteState, MAX_LOCKOUT_HISTORY};
 use std::cmp::{max, min};
 use std::collections::{HashMap, HashSet};
 
@@ -181,7 +181,7 @@ pub fn compute_winners(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use solana_vote_api::vote_state::VoteInit;
+    use solana_vote_program::vote_state::VoteInit;
 
     #[test]
     fn test_validator_results() {
