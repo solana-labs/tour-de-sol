@@ -111,11 +111,19 @@ fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<Winner> {
     winners
         .iter()
         .map(|(key, earned)| {
+            let mut earned = *earned;
+            let mut sign = "";
+            if earned < 0 {
+                sign = "-";
+                earned = -earned;
+            }
             (
                 *key,
                 format!(
-                    "Earned {:.5} SOL ({} lamports) in stake rewards and commission",
-                    lamports_to_sol(*earned as u64),
+                    "Earned {}{:.5} SOL ({}{} lamports) in stake rewards and commission",
+                    sign,
+                    lamports_to_sol(earned as u64),
+                    sign,
                     earned
                 ),
             )
