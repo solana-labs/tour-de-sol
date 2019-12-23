@@ -11,10 +11,10 @@ homepage = "https://solana.com/tds"
 [dependencies]
 clap = "2.33.0"
 log = "0.4.8"
-solana-clap-utils = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
-solana-ledger = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
-solana-logger = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
-solana-runtime = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
-solana-sdk = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
-solana-stake-program = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
-solana-vote-program = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
+solana-clap-utils = { path = "../../solana/clap-utils", version = "0.21.6" }
+solana-ledger = { path = "../../solana/ledger", version = "0.21.6" }
+solana-logger = { path = "../../solana/logger", version = "0.21.6" }
+solana-runtime = { path = "../../solana/runtime", version = "0.21.6" }
+solana-sdk = { path = "../../solana/sdk", version = "0.21.6" }
+solana-stake-program = { path = "../../solana/programs/stake", version = "0.21.6" }
+solana-vote-program = { path = "../../solana/programs/vote", version = "0.21.6" }
