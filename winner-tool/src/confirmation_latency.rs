@@ -9,7 +9,7 @@ use solana_sdk::account::Account;
 use solana_sdk::clock::Slot;
 use solana_sdk::hash::Hash;
 use solana_sdk::pubkey::Pubkey;
-use solana_vote_api::vote_state::VoteState;
+use solana_vote_program::vote_state::VoteState;
 use std::cmp::{max, min};
 use std::collections::{BTreeMap, HashMap, HashSet};
 
@@ -167,7 +167,7 @@ pub fn compute_winners(
 mod tests {
     use super::*;
     use solana_sdk::hash::hash;
-    use solana_vote_api::vote_state::{Lockout, VoteInit};
+    use solana_vote_program::vote_state::{Lockout, VoteInit};
     use std::ops::Range;
 
     #[test]

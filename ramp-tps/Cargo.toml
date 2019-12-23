@@ -16,11 +16,11 @@ reqwest = { version = "0.9.22", default-features = false }
 serde = "1.0"
 serde_json = "1.0"
 serde_yaml = "0.8.11"
-solana-core = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
-solana-client = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
-solana-logger = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
-solana-metrics = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
-solana-net-utils = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
-solana-sdk = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
-solana-stake-program = { git = "https://github.com/solana-labs/solana", tag = "v0.21.0" }
+solana-core = { path = "../../solana/core", version = "0.21.6" }
+solana-client = { path = "../../solana/client", version = "0.21.6" }
+solana-logger = { path = "../../solana/logger", version = "0.21.6" }
+solana-metrics = { path = "../../solana/metrics", version = "0.21.6" }
+solana-net-utils = { path = "../../solana/net-utils", version = "0.21.6" }
+solana-sdk = { path = "../../solana/sdk", version = "0.21.6" }
+solana-stake-program = { path = "../../solana/programs/stake", version = "0.21.6" }
 tar = "0.4.26"

@@ -11,8 +11,8 @@
 use crate::winner::{self, Winner, Winners};
 use solana_runtime::bank::Bank;
 use solana_sdk::{account::Account, native_token::lamports_to_sol, pubkey::Pubkey};
-use solana_stake_api::stake_state::StakeState;
-use solana_vote_api::vote_state::VoteState;
+use solana_stake_program::stake_state::Delegation;
+use solana_vote_program::vote_state::VoteState;
 use std::cmp::{max, min};
 use std::collections::{HashMap, HashSet};
 
@@ -20,15 +20,13 @@ const HIGH_BUCKET: &str = "Top 25% Bucket";
 const MID_BUCKET: &str = "Top 25-50% Bucket";
 const LOW_BUCKET: &str = "Top 50-90% Bucket";
 
-fn voter_stake_rewards(stake_accounts: HashMap<Pubkey, Account>) -> HashMap<Pubkey, u64> {
+fn voter_stake_rewards(stake_delegations: HashMap<Pubkey, Delegation>) -> HashMap<Pubkey, u64> {
     let mut voter_stake_sum: HashMap<Pubkey, u64> = HashMap::new();
-    for (_key, account) in stake_accounts {
-        if let Some(StakeState::Stake(_authorized, _lockup, stake)) = StakeState::from(&account) {
-            voter_stake_sum
-                .entry(stake.voter_pubkey)
-                .and_modify(|stake_sum| *stake_sum += account.lamports)
-                .or_insert(account.lamports);
-        }
+    for (_key, delegation) in stake_delegations {
+        voter_stake_sum
+            .entry(delegation.voter_pubkey)
+            .and_modify(|stake_sum| *stake_sum += delegation.stake)
+            .or_insert(delegation.stake);
     }
     voter_stake_sum
 }
@@ -113,11 +111,19 @@ fn normalize_winners(winners: &[(Pubkey, i64)]) -> Vec<Winner> {
     winners
         .iter()
         .map(|(key, earned)| {
+            let mut earned = *earned;
+            let mut sign = "";
+            if earned < 0 {
+                sign = "-";
+                earned = -earned;
+            }
             (
                 *key,
                 format!(
-                    "Earned {:.5} SOL ({} lamports) in stake rewards and commission",
-                    lamports_to_sol(*earned as u64),
+                    "Earned {}{:.5} SOL ({}{} lamports) in stake rewards and commission",
+                    sign,
+                    lamports_to_sol(earned as u64),
+                    sign,
                     earned
                 ),
             )
@@ -130,7 +136,7 @@ pub fn compute_winners(
     excluded_set: &HashSet<Pubkey>,
     starting_balance: u64,
 ) -> Winners {
-    let voter_stake_rewards = voter_stake_rewards(bank.stake_accounts());
+    let voter_stake_rewards = voter_stake_rewards(bank.stake_delegations());
     let validator_reward_map = validator_rewards(voter_stake_rewards, bank.vote_accounts());
     let results = validator_results(validator_reward_map, excluded_set, starting_balance);
     let num_validators = results.len();
@@ -147,8 +153,8 @@ pub fn compute_winners(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use solana_stake_api::stake_state::{Authorized, Lockup, Stake};
-    use solana_vote_api::vote_state::VoteInit;
+    use solana_stake_program::stake_state::{Authorized, Lockup, Stake};
+    use solana_vote_program::vote_state::VoteInit;
 
     #[test]
     fn test_validator_results() {
