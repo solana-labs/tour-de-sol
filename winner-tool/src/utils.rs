@@ -22,8 +22,9 @@ pub fn block_chain(first_block: Slot, last_block: Slot, blocktree: &Blocktree) -
 pub type WinnerTransform = fn(&[(Pubkey, f64)]) -> Vec<Winner>;
 
 const HIGH_BUCKET: &str = "Greater than 95% of the baseline";
-const MID_BUCKET: &str = "95 - 75% of the baseline";
+const MEDIUM_BUCKET: &str = "95 - 75% of the baseline";
 const LOW_BUCKET: &str = "75 - 50% of the baseline";
+const BOTTOM_BUCKET: &str = "Under 50% of the baseline";
 
 /// Bucket winners relative to the Solana validator baseline.
 pub fn bucket_winners(
@@ -41,17 +42,21 @@ pub fn bucket_winners(
 
     let mut bucket_winners = Vec::new();
 
-    let hi_bucket_index = find_bucket_index(0.95 * baseline);
-    let hi = &results[..hi_bucket_index];
-    bucket_winners.push((HIGH_BUCKET.to_string(), winner_transform(hi)));
+    let high_bucket_index = find_bucket_index(0.95 * baseline);
+    let high = &results[..high_bucket_index];
+    bucket_winners.push((HIGH_BUCKET.to_string(), winner_transform(high)));
 
-    let md_bucket_index = find_bucket_index(0.75 * baseline);
-    let md = &results[hi_bucket_index..md_bucket_index];
-    bucket_winners.push((MID_BUCKET.to_string(), winner_transform(md)));
+    let medium_bucket_index = find_bucket_index(0.75 * baseline);
+    let medium = &results[high_bucket_index..medium_bucket_index];
+    bucket_winners.push((MEDIUM_BUCKET.to_string(), winner_transform(medium)));
 
-    let lo_bucket_index = find_bucket_index(0.5 * baseline);
-    let lo = &results[md_bucket_index..lo_bucket_index];
-    bucket_winners.push((LOW_BUCKET.to_string(), winner_transform(lo)));
+    let low_bucket_index = find_bucket_index(0.5 * baseline);
+    let low = &results[medium_bucket_index..low_bucket_index];
+    bucket_winners.push((LOW_BUCKET.to_string(), winner_transform(low)));
+
+    let bottom_bucket_index = find_bucket_index(-1.);
+    let bottom = &results[low_bucket_index..bottom_bucket_index];
+    bucket_winners.push((BOTTOM_BUCKET.to_string(), winner_transform(bottom)));
 
     bucket_winners
 }
