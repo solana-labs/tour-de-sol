@@ -17,10 +17,10 @@ use solana_vote_program::vote_state::VoteState;
 use std::cmp::{max, min};
 use std::collections::{HashMap, HashSet};
 
-const HIGH_BUCKET: &str = "Top 25% Bucket";
-const MEDUIM_BUCKET: &str = "Top 25-50% Bucket";
-const LOW_BUCKET: &str = "Top 50-90% Bucket";
-const BOTTOM_BUCKET: &str = "Bottom 10% Bucket";
+const HIGH_BUCKET: &str = "Top 25%";
+const MEDUIM_BUCKET: &str = "25% to 50%";
+const LOW_BUCKET: &str = "50% to 90%";
+const BOTTOM_BUCKET: &str = "Bottom 10%";
 
 fn voter_stake_rewards(stake_delegations: HashMap<Pubkey, Delegation>) -> HashMap<Pubkey, u64> {
     let mut voter_stake_sum: HashMap<Pubkey, u64> = HashMap::new();

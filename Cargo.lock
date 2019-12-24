@@ -2881,6 +2881,7 @@ version = "1.0.0"
 dependencies = [
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_yaml 0.8.11 (registry+https://github.com/rust-lang/crates.io-index)",
  "solana-clap-utils 0.21.6 (git+https://github.com/solana-labs/solana?rev=v0.21.6)",
  "solana-ledger 0.21.6 (git+https://github.com/solana-labs/solana?rev=v0.21.6)",
  "solana-logger 0.21.6 (git+https://github.com/solana-labs/solana?rev=v0.21.6)",

@@ -11,6 +11,7 @@ homepage = "https://solana.com/tds"
 [dependencies]
 clap = "2.33.0"
 log = "0.4.8"
+serde_yaml = "0.8.11"
 solana-clap-utils = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
 solana-ledger = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }
 solana-logger = { git = "https://github.com/solana-labs/solana", rev = "v0.21.6" }

@@ -22,8 +22,8 @@ pub fn block_chain(first_block: Slot, last_block: Slot, blocktree: &Blocktree) -
 pub type WinnerTransform = fn(&[(Pubkey, f64)]) -> Vec<Winner>;
 
 const HIGH_BUCKET: &str = "Greater than 95% of the baseline";
-const MEDIUM_BUCKET: &str = "95 - 75% of the baseline";
-const LOW_BUCKET: &str = "75 - 50% of the baseline";
+const MEDIUM_BUCKET: &str = "95% to 75% of the baseline";
+const LOW_BUCKET: &str = "75% to 50% of the baseline";
 const BOTTOM_BUCKET: &str = "Under 50% of the baseline";
 
 /// Bucket winners relative to the Solana validator baseline.
