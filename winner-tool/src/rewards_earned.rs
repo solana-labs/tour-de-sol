@@ -4,9 +4,10 @@
 //! The top 3 validators will receive the top prizes and validators will be awarded additional
 //! prizes if they place into the following buckets:
 //!
-//! `hi` - Top 25%
-//! `md` - Top 25-50%
-//! `lo` - Top 50-90%
+//! `high` - Top 25%
+//! `medium` - Top 25-50%
+//! `low` - Top 50-90%
+//! `bottom` - Bottom 10%
 
 use crate::winner::{self, Winner, Winners};
 use solana_runtime::bank::Bank;
@@ -16,9 +17,10 @@ use solana_vote_program::vote_state::VoteState;
 use std::cmp::{max, min};
 use std::collections::{HashMap, HashSet};
 
-const HIGH_BUCKET: &str = "Top 25% Bucket";
-const MID_BUCKET: &str = "Top 25-50% Bucket";
-const LOW_BUCKET: &str = "Top 50-90% Bucket";
+const HIGH_BUCKET: &str = "Top 25%";
+const MEDUIM_BUCKET: &str = "25% to 50%";
+const LOW_BUCKET: &str = "50% to 90%";
+const BOTTOM_BUCKET: &str = "Bottom 10%";
 
 fn voter_stake_rewards(stake_delegations: HashMap<Pubkey, Delegation>) -> HashMap<Pubkey, u64> {
     let mut voter_stake_sum: HashMap<Pubkey, u64> = HashMap::new();
@@ -90,19 +92,24 @@ fn bucket_winners(results: &[(Pubkey, i64)]) -> Vec<(String, Vec<Winner>)> {
     };
 
     // Top 25% of validators
-    let hi_bucket_index = handle_ties(max(1, num_validators / 4) - 1);
-    let hi = &results[..=hi_bucket_index];
-    bucket_winners.push((HIGH_BUCKET.to_string(), normalize_winners(hi)));
+    let high_bucket_index = handle_ties(max(1, num_validators / 4) - 1);
+    let high = &results[..=high_bucket_index];
+    bucket_winners.push((HIGH_BUCKET.to_string(), normalize_winners(high)));
 
     // Top 25-50% of validators
-    let md_bucket_index = handle_ties(max(1, num_validators / 2) - 1);
-    let md = &results[(hi_bucket_index + 1)..=md_bucket_index];
-    bucket_winners.push((MID_BUCKET.to_string(), normalize_winners(md)));
+    let medium_bucket_index = handle_ties(max(1, num_validators / 2) - 1);
+    let medium = &results[(high_bucket_index + 1)..=medium_bucket_index];
+    bucket_winners.push((MEDUIM_BUCKET.to_string(), normalize_winners(medium)));
 
     // Top 50-90% of validators
-    let lo_bucket_index = handle_ties(max(1, 9 * num_validators / 10) - 1);
-    let lo = &results[(md_bucket_index + 1)..=lo_bucket_index];
-    bucket_winners.push((LOW_BUCKET.to_string(), normalize_winners(lo)));
+    let low_bucket_index = handle_ties(max(1, 9 * num_validators / 10) - 1);
+    let low = &results[(medium_bucket_index + 1)..=low_bucket_index];
+    bucket_winners.push((LOW_BUCKET.to_string(), normalize_winners(low)));
+
+    // Bottom 10% of validators
+    let bottom_bucket_index = handle_ties(max(1, num_validators) - 1);
+    let bottom = &results[(low_bucket_index + 1)..=bottom_bucket_index];
+    bucket_winners.push((BOTTOM_BUCKET.to_string(), normalize_winners(bottom)));
 
     bucket_winners
 }
@@ -153,7 +160,6 @@ pub fn compute_winners(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use solana_stake_program::stake_state::{Authorized, Lockup, Stake};
     use solana_vote_program::vote_state::VoteInit;
 
     #[test]
@@ -221,29 +227,30 @@ mod tests {
 
     #[test]
     fn test_voter_stake_rewards() {
-        let new_stake_account = |lamports: u64, voter_pubkey: &Pubkey| -> Account {
-            Account::new_data(
-                lamports,
-                &StakeState::Stake(
-                    Authorized::default(),
-                    Lockup::default(),
-                    Stake {
-                        voter_pubkey: voter_pubkey.clone(),
-                        ..Stake::default()
-                    },
-                ),
-                &Pubkey::new_rand(),
-            )
-            .unwrap()
+        let new_stake_delegation = |stake: u64, voter_pubkey: &Pubkey| -> Delegation {
+            Delegation {
+                voter_pubkey: voter_pubkey.clone(),
+                stake,
+                ..Delegation::default()
+            }
         };
 
         let voter_pubkey1 = Pubkey::new_rand();
         let voter_pubkey2 = Pubkey::new_rand();
 
         let mut stake_accounts = HashMap::new();
-        stake_accounts.insert(Pubkey::new_rand(), new_stake_account(100, &voter_pubkey1));
-        stake_accounts.insert(Pubkey::new_rand(), new_stake_account(100, &voter_pubkey2));
-        stake_accounts.insert(Pubkey::new_rand(), new_stake_account(100, &voter_pubkey2));
+        stake_accounts.insert(
+            Pubkey::new_rand(),
+            new_stake_delegation(100, &voter_pubkey1),
+        );
+        stake_accounts.insert(
+            Pubkey::new_rand(),
+            new_stake_delegation(100, &voter_pubkey2),
+        );
+        stake_accounts.insert(
+            Pubkey::new_rand(),
+            new_stake_delegation(100, &voter_pubkey2),
+        );
 
         let expected = {
             let mut map = HashMap::new();
@@ -259,26 +266,37 @@ mod tests {
     fn test_bucket_winners() {
         let mut results = Vec::new();
 
-        let expected_hi_bucket = vec![(Pubkey::new_rand(), 8_000), (Pubkey::new_rand(), 7_000)];
+        let expected_high_bucket = vec![(Pubkey::new_rand(), 8_000), (Pubkey::new_rand(), 7_000)];
 
-        let expected_md_bucket = vec![(Pubkey::new_rand(), 6_000), (Pubkey::new_rand(), 5_000)];
+        let expected_medium_bucket = vec![(Pubkey::new_rand(), 6_000), (Pubkey::new_rand(), 5_000)];
 
-        let expected_lo_bucket = vec![
+        let expected_low_bucket = vec![
             (Pubkey::new_rand(), 4_000),
             (Pubkey::new_rand(), 3_000),
             (Pubkey::new_rand(), 2_000),
         ];
+        let expected_bottom_bucket = vec![(Pubkey::new_rand(), 1_000)];
 
-        results.extend(expected_hi_bucket.iter());
-        results.extend(expected_md_bucket.iter());
-        results.extend(expected_lo_bucket.iter());
-        results.push((Pubkey::new_rand(), 1_000));
+        results.extend(expected_high_bucket.iter());
+        results.extend(expected_medium_bucket.iter());
+        results.extend(expected_low_bucket.iter());
+        results.extend(expected_bottom_bucket.iter());
 
         let bucket_winners = bucket_winners(&results);
 
-        assert_eq!(bucket_winners[0].1, normalize_winners(&expected_hi_bucket));
-        assert_eq!(bucket_winners[1].1, normalize_winners(&expected_md_bucket));
-        assert_eq!(bucket_winners[2].1, normalize_winners(&expected_lo_bucket));
+        assert_eq!(
+            bucket_winners[0].1,
+            normalize_winners(&expected_high_bucket)
+        );
+        assert_eq!(
+            bucket_winners[1].1,
+            normalize_winners(&expected_medium_bucket)
+        );
+        assert_eq!(bucket_winners[2].1, normalize_winners(&expected_low_bucket));
+        assert_eq!(
+            bucket_winners[3].1,
+            normalize_winners(&expected_bottom_bucket)
+        );
     }
 
     #[test]
@@ -286,30 +304,42 @@ mod tests {
         let mut results = Vec::new();
 
         // Ties should all get bucketed together
-        let expected_hi_bucket = vec![
+        let expected_high_bucket = vec![
             (Pubkey::new_rand(), 8_000),
             (Pubkey::new_rand(), 7_000),
             (Pubkey::new_rand(), 7_000),
             (Pubkey::new_rand(), 7_000),
         ];
 
-        let expected_md_bucket = vec![];
+        let expected_medium_bucket = vec![];
 
-        let expected_lo_bucket = vec![
+        let expected_low_bucket = vec![
             (Pubkey::new_rand(), 4_000),
             (Pubkey::new_rand(), 3_000),
             (Pubkey::new_rand(), 2_000),
         ];
 
-        results.extend(expected_hi_bucket.iter());
-        results.extend(expected_md_bucket.iter());
-        results.extend(expected_lo_bucket.iter());
-        results.push((Pubkey::new_rand(), 1_000));
+        let expected_bottom_bucket = vec![(Pubkey::new_rand(), 1_000)];
+
+        results.extend(expected_high_bucket.iter());
+        results.extend(expected_medium_bucket.iter());
+        results.extend(expected_low_bucket.iter());
+        results.extend(expected_bottom_bucket.iter());
 
         let bucket_winners = bucket_winners(&results);
 
-        assert_eq!(bucket_winners[0].1, normalize_winners(&expected_hi_bucket));
-        assert_eq!(bucket_winners[1].1, normalize_winners(&expected_md_bucket));
-        assert_eq!(bucket_winners[2].1, normalize_winners(&expected_lo_bucket));
+        assert_eq!(
+            bucket_winners[0].1,
+            normalize_winners(&expected_high_bucket)
+        );
+        assert_eq!(
+            bucket_winners[1].1,
+            normalize_winners(&expected_medium_bucket)
+        );
+        assert_eq!(bucket_winners[2].1, normalize_winners(&expected_low_bucket));
+        assert_eq!(
+            bucket_winners[3].1,
+            normalize_winners(&expected_bottom_bucket)
+        );
     }
 }

@@ -157,7 +157,10 @@ pub fn compute_winners(
     let num_winners = min(num_validators, 3);
 
     Winners {
-        category: winner::Category::ConfirmationLatency(format!("Baseline Score: {}", baseline)),
+        category: winner::Category::ConfirmationLatency(format!(
+            "Baseline latency score: {}",
+            baseline
+        )),
         top_winners: normalize_winners(&results[..num_winners]),
         bucket_winners: utils::bucket_winners(&results, baseline as f64, normalize_winners),
     }

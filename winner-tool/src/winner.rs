@@ -9,7 +9,6 @@ pub enum Category {
 
 pub type Winner = (Pubkey, String);
 
-#[derive(Debug)]
 pub struct Winners {
     pub category: Category,
     pub top_winners: Vec<Winner>,

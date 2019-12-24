@@ -25,11 +25,14 @@ use solana_ledger::{
 use solana_runtime::bank::Bank;
 use solana_sdk::{genesis_config::GenesisConfig, native_token::sol_to_lamports, pubkey::Pubkey};
 use std::{
-    collections::HashSet,
+    collections::{HashMap, HashSet},
+    fs,
     path::PathBuf,
     process::exit,
     sync::{Arc, RwLock},
 };
+
+const PUBKEY_MAP_FILE: &str = "validators/all-username.yml";
 
 fn main() {
     solana_logger::setup_with_filter("solana=info");
@@ -79,6 +82,14 @@ fn main() {
                 .takes_value(true)
                 .help("Final slot of TdS ledger"),
         )
+        .arg(
+            Arg::with_name("pubkey_map_file")
+                .long("pubkey-map-file")
+                .value_name("FILE")
+                .default_value(PUBKEY_MAP_FILE)
+                .takes_value(true)
+                .help("YAML file that maps validator identity pubkeys to keybase user id"),
+        )
         .get_matches();
 
     let ledger_path = PathBuf::from(value_t_or_exit!(matches, "ledger", String));
@@ -91,6 +102,30 @@ fn main() {
         HashSet::new()
     };
     let final_slot = value_t!(matches, "final_slot", u64).ok();
+
+    let pubkey_map_file = value_t_or_exit!(matches, "pubkey_map_file", String);
+    let pubkey_map: HashMap<String, String> =
+        serde_yaml::from_reader(fs::File::open(&pubkey_map_file).unwrap_or_else(|err| {
+            eprintln!(
+                "Error: Unable to open --pubkey-map-file {}: {}",
+                pubkey_map_file, err
+            );
+            exit(1);
+        }))
+        .unwrap_or_else(|err| {
+            eprintln!(
+                "Error: Unable to parse --pubkey-map-file {}: {}",
+                pubkey_map_file, err
+            );
+            exit(1);
+        });
+    let pubkey_to_keybase = |pubkey: &solana_sdk::pubkey::Pubkey| -> String {
+        let pubkey = pubkey.to_string();
+        match pubkey_map.get(&pubkey) {
+            Some(keybase) => format!("{} ({})", keybase, pubkey),
+            None => pubkey,
+        }
+    };
 
     let genesis_config = GenesisConfig::load(&ledger_path).unwrap_or_else(|err| {
         eprintln!(
@@ -129,6 +164,31 @@ fn main() {
         override_num_threads: Some(1),
     };
 
+    let print_winners = |winners: winner::Winners| {
+        println!("\n{:?}:", winners.category);
+        if !winners.top_winners.is_empty() {
+            println!("  Top Three:");
+            for (index, winner) in winners.top_winners.iter().enumerate() {
+                println!(
+                    "    {}. {:<44}: {}",
+                    index + 1,
+                    pubkey_to_keybase(&winner.0),
+                    winner.1
+                );
+            }
+        }
+        for (bucket_name, winners) in winners.bucket_winners.iter() {
+            println!("  {}:", bucket_name);
+            if winners.is_empty() {
+                println!("    None");
+            } else {
+                for winner in winners {
+                    println!("    - {:<44}: {}", pubkey_to_keybase(&winner.0), winner.1);
+                }
+            }
+        }
+    };
+
     println!("Processing ledger...");
     match process_blocktree(&genesis_config, &blocktree, vec![], opts) {
         Ok((bank_forks, _bank_forks_info, leader_schedule_cache)) => {
@@ -137,7 +197,7 @@ fn main() {
 
             let rewards_earned_winners =
                 rewards_earned::compute_winners(&bank, &excluded_set, starting_balance);
-            println!("{:#?}", rewards_earned_winners);
+            print_winners(rewards_earned_winners);
 
             let availability_winners = availability::compute_winners(
                 &bank,
@@ -146,7 +206,7 @@ fn main() {
                 &excluded_set,
                 &leader_schedule_cache,
             );
-            println!("{:#?}", availability_winners);
+            print_winners(availability_winners);
 
             let latency_winners = confirmation_latency::compute_winners(
                 &bank,
@@ -155,7 +215,7 @@ fn main() {
                 &mut voter_record.write().unwrap(),
                 &mut slot_voter_segments.write().unwrap(),
             );
-            println!("{:#?}", latency_winners);
+            print_winners(latency_winners);
         }
         Err(err) => {
             eprintln!("Failed to process ledger: {:?}", err);
