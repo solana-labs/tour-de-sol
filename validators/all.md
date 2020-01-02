@@ -14,6 +14,7 @@
 1. [bharvest](https://keybase.io/bharvest): `2RYnM1C5XuzWzZu4sD7TyJTgxQTKzFVHG6jNtbK65q2y`
 1. [bneiluj](https://keybase.io/bneiluj): `59WHuha1QunWmupWhFA4vr3WMUe8BLN7dc8HUsJ4YC86`
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
+1. [brianlong](https://keybase.io/brianlong): `71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B`
 1. [caddilackness](https://keybase.io/caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
 1. [chorusoneinc](https://keybase.io/chorusoneinc): `ChorusM5BVgnAKbg9PF15285LkqeCoZWK2p9s35T7J2A`
 1. [chrisremus](https://keybase.io/chrisremus): `2jrM8c8ZhpX9CovseJ2sRsrU9yzsFrP7d3gCi5ESU5Rs`
