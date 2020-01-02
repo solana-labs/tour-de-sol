@@ -32,7 +32,7 @@ const RESULTS_FILE: &str = "results.yml";
 const DEFAULT_TX_COUNT_BASELINE: &str = "5000";
 const DEFAULT_TX_COUNT_INCREMENT: &str = "5000";
 const DEFAULT_TPS_ROUND_MINUTES: &str = "60";
-const THREAD_BATCH_SLEEP_MS: &str = "250";
+const THREAD_BATCH_SLEEP_MS: &str = "1000";
 const DEFAULT_INITIAL_SOL_BALANCE: &str = "1";
 
 // Transaction count increments linearly each round
@@ -359,8 +359,12 @@ fn main() {
                 .unwrap();
         }
 
-        info!("Sleeping 30s to allow bench-tps to warmup");
-        sleep(Duration::from_secs(30));
+        let bench_warmup_secs = 60;
+        info!(
+            "Sleeping {}s to allow bench-tps to warmup",
+            bench_warmup_secs
+        );
+        sleep(Duration::from_secs(bench_warmup_secs));
 
         tps_sampler.start_sampling_thread();
         sleep(round_duration);
