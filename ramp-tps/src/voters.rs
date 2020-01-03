@@ -9,7 +9,7 @@ use solana_sdk::{
     signature::{Keypair, KeypairUtil},
     transaction::Transaction,
 };
-use solana_stake_program::stake_state::StakeState;
+use solana_stake_program::stake_state::{Lockup, StakeState};
 use solana_stake_program::{stake_instruction, stake_state::Authorized as StakeAuthorized};
 use std::{str::FromStr, thread::sleep, time::Duration};
 
@@ -58,11 +58,12 @@ fn delegate_stake(
 
         let mut transaction = Transaction::new_signed_instructions(
             &[faucet_keypair, &stake_account_keypair],
-            stake_instruction::create_stake_account_and_delegate_stake(
+            stake_instruction::create_account_and_delegate_stake(
                 &faucet_keypair.pubkey(),
                 &stake_account_keypair.pubkey(),
                 &vote_account_pubkey,
                 &StakeAuthorized::auto(&faucet_keypair.pubkey()),
+                &Lockup::default(),
                 sol_to_lamports(sol_gift as f64),
             ),
             recent_blockhash,
