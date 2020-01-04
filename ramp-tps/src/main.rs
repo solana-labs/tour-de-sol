@@ -19,6 +19,7 @@ use std::{
     fs,
     path::PathBuf,
     process::{exit, Command},
+    rc::Rc,
     thread::sleep,
     time::Duration,
 };
@@ -173,13 +174,13 @@ fn main() {
             );
             exit(1);
         });
-    let pubkey_to_keybase = |pubkey: &solana_sdk::pubkey::Pubkey| -> String {
+    let pubkey_to_keybase = Rc::new(move |pubkey: &solana_sdk::pubkey::Pubkey| -> String {
         let pubkey = pubkey.to_string();
         match pubkey_map.get(&pubkey) {
             Some(keybase) => format!("{} ({})", keybase, pubkey),
             None => pubkey,
         }
-    };
+    });
 
     let net_dir = value_t_or_exit!(matches, "net_dir", String);
     let faucet_keypair_path = value_t_or_exit!(matches, "faucet_keypair_path", String);
@@ -213,20 +214,21 @@ fn main() {
     let rpc_client = RpcClient::new_socket_with_timeout(entrypoint_addr, Duration::from_secs(10));
     let current_slot = rpc_client.get_slot().expect("failed to fetch current slot");
     debug!("Current slot: {}", current_slot);
-    let first_normal_slot = genesis_config.epoch_schedule.first_normal_slot;
+    let epoch_schedule = &genesis_config.epoch_schedule;
+    let first_normal_slot = epoch_schedule.first_normal_slot;
     debug!("First normal slot: {}", first_normal_slot);
     let sleep_slots = first_normal_slot.saturating_sub(current_slot);
     if sleep_slots > 0 {
         notifier.notify(&format!(
             "Waiting for warm-up epochs to complete (epoch {})",
-            genesis_config.epoch_schedule.first_normal_epoch
+            epoch_schedule.first_normal_epoch
         ));
         utils::sleep_until_epoch(
             &rpc_client,
             &notifier,
             &genesis_config,
             current_slot,
-            genesis_config.epoch_schedule.first_normal_epoch,
+            epoch_schedule.first_normal_epoch,
         );
     }
 
@@ -271,17 +273,12 @@ fn main() {
     // Wait for the next epoch, or --stake-activation-epoch
     {
         let epoch_info = rpc_client.get_epoch_info().unwrap();
-        let activation_epoch =
-            if let Some(activation_epoch) = value_t!(matches, "stake_activation_epoch", u64).ok() {
-                activation_epoch
-            } else {
-                epoch_info.epoch - 1
-            };
-
-        let epoch_info = rpc_client.get_epoch_info().unwrap();
+        let activation_epoch = value_t!(matches, "stake_activation_epoch", u64)
+            .ok()
+            .unwrap_or(epoch_info.epoch - 1);
         debug!("Current epoch info: {:?}", &epoch_info);
         debug!("Activation epoch is: {:?}", activation_epoch);
-        stake::wait_for_activation(
+        stake::wait_for_warm_up(
             activation_epoch,
             epoch_info,
             &rpc_client,
@@ -303,36 +300,39 @@ fn main() {
             ("tx_count", tx_count, i64)
         );
 
-        let slot = rpc_client.get_slot().unwrap_or_else(|err| {
-            utils::bail(
-                &notifier,
-                &format!("Error: get_slot RPC call 1 failed: {}", err),
-            );
-        });
-        sleep(Duration::from_secs(5));
         let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
             utils::bail(
                 &notifier,
-                &format!("Error: get_slot RPC call 2 failed: {}", err),
+                &format!("Error: get latest slot failed: {}", err),
             );
         });
-        if slot == latest_slot {
-            utils::bail(&notifier, &format!("Slot is not advancing from {}", slot));
+        sleep(Duration::from_secs(5));
+        let round_start_slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            utils::bail(
+                &notifier,
+                &format!("Error: get round start slot failed: {}", err),
+            );
+        });
+        if round_start_slot == latest_slot {
+            utils::bail(
+                &notifier,
+                &format!("Slot is not advancing from {}", latest_slot),
+            );
         }
 
-        let remaining_voters = voters::fetch_remaining_voters(&rpc_client);
+        let starting_validators = voters::fetch_active_validators(&rpc_client);
         datapoint_info!(
             "ramp-tps",
             ("event", "start-transactions", String),
             ("round", tps_round, i64),
-            ("validators", remaining_voters.len(), i64)
+            ("validators", starting_validators.len(), i64)
         );
 
         notifier.buffer(format!(
             "There are {} validators present:",
-            remaining_voters.len()
+            starting_validators.len()
         ));
-        for (node_pubkey, _) in remaining_voters {
+        for node_pubkey in starting_validators.keys() {
             notifier.buffer(format!("* {}", pubkey_to_keybase(&node_pubkey)));
         }
         notifier.flush();
@@ -383,34 +383,65 @@ fn main() {
                 .unwrap();
         }
 
-        let remaining_voters: Vec<_> = voters::fetch_remaining_voters(&rpc_client)
-            .into_iter()
-            .map(|(node_pubkey, vote_account_pubkey)| {
-                (pubkey_to_keybase(&node_pubkey), vote_account_pubkey)
-            })
-            .collect();
-
         datapoint_info!(
             "ramp-tps",
             ("event", "stop-transactions", String),
             ("round", tps_round, i64),
-            ("validators", remaining_voters.len(), i64)
         );
 
-        if remaining_voters.is_empty() {
-            utils::bail(&notifier, "Transactions stopped. No validators remain");
-        }
-        notifier.notify(&format!(
-            "Transactions stopped. There are {} validators remaining",
-            remaining_voters.len()
-        ));
-
+        notifier.notify("Transactions stopped");
         tps_sampler.report_results(&notifier);
+
+        let remaining_validators = voters::fetch_active_validators(&rpc_client);
+        let remaining_keybase = remaining_validators
+            .keys()
+            .map(|k| pubkey_to_keybase(k))
+            .collect();
         tps_round_results
-            .record(tps_round, &remaining_voters)
+            .record(tps_round, remaining_keybase)
             .unwrap_or_else(|err| {
                 warn!("Failed to record round results: {}", err);
             });
+
+        if remaining_validators.is_empty() {
+            utils::bail(&notifier, "No validators remain");
+        }
+
+        datapoint_info!(
+            "ramp-tps",
+            ("event", "calculate-leader-records", String),
+            ("round", tps_round, i64),
+            ("validators", remaining_validators.len(), i64)
+        );
+
+        let round_end_slot = rpc_client.get_slot().unwrap_or_else(|err| {
+            utils::bail(
+                &notifier,
+                &format!("Error: get round end slot failed: {}", err),
+            );
+        });
+
+        let leader_records = voters::calculate_leader_records(
+            &rpc_client,
+            &epoch_schedule,
+            round_start_slot,
+            round_end_slot,
+            &notifier,
+        )
+        .unwrap_or_else(|err| {
+            utils::bail(
+                &notifier,
+                &format!("Error: Could not calculate leader records: {}", err),
+            );
+        });
+
+        voters::announce_results(
+            &starting_validators,
+            &remaining_validators,
+            pubkey_to_keybase.clone(),
+            &leader_records,
+            &mut notifier,
+        );
 
         datapoint_info!(
             "ramp-tps",
@@ -418,11 +449,19 @@ fn main() {
             ("round", tps_round, i64)
         );
 
+        let healthy_validators: Vec<_> = remaining_validators
+            .iter()
+            .filter(|(k, _)| leader_records.get(k).map(|r| r.healthy()).unwrap_or(false))
+            .map(|(node_pubkey, vote_account_pubkey)| {
+                (pubkey_to_keybase(&node_pubkey), vote_account_pubkey)
+            })
+            .collect();
+
         let next_gift = gift_for_round(tps_round + 1, initial_balance);
         voters::award_stake(
             &rpc_client,
             &faucet_keypair,
-            remaining_voters,
+            healthy_validators,
             next_gift,
             &mut notifier,
         );
@@ -433,10 +472,11 @@ fn main() {
             ("round", tps_round, i64)
         );
 
+        // Wait for stake to warm up before starting the next round
         let epoch_info = rpc_client.get_epoch_info().unwrap();
         debug!("Current epoch info: {:?}", &epoch_info);
         let current_epoch = epoch_info.epoch;
-        stake::wait_for_activation(
+        stake::wait_for_warm_up(
             current_epoch,
             epoch_info,
             &rpc_client,
@@ -444,6 +484,7 @@ fn main() {
             &genesis_config,
             &notifier,
         );
+
         tps_round += 1;
     }
 }
