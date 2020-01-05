@@ -1,13 +1,13 @@
 # Dry Run 6
 
-Dry Run 6 will test the performance of a heterogeneous cluster of validators under heavier transaction load. It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive receive additional stake for the next round. The rounds will continue until the cluster stops making progress.
+Dry Run 6 will test the performance of a heterogeneous cluster of validators under heavier transaction load. It will be structured as a series of increasing rounds of transactions per second \(TPS\). At the end of each round the validators that survive and produce a block in at least 80% of their leader slots will receive additional stake for the next round. The rounds will continue until the cluster stops making progress.
 
 ![Ramp TPS rounds visualized](../.gitbook/assets/image-2%20%281%29.png)
 
 ## Cluster Parameters:
 
 * GPUs optional
-* Solana software version: v0.21.5
+* Solana software version: v0.22.2
 * Target transaction rate of first round: 2,000 TPS
 * Transaction rate round increment: 2,000 TPS
 * Epoch duration: 4096 slots \(approximately 27 minutes\)
