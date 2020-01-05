@@ -1,6 +1,5 @@
 use log::*;
 use serde::{Serialize, Serializer};
-use solana_sdk::pubkey::Pubkey;
 use std::{
     collections::{BTreeMap, HashMap},
     error::Error,
@@ -84,16 +83,8 @@ impl Results {
     }
 
     /// Record the remaining validators after each TPS round
-    pub fn record(
-        &mut self,
-        round: u32,
-        validators: &[(String, Pubkey)],
-    ) -> Result<(), Box<dyn Error>> {
-        self.results.insert(
-            Round(round),
-            validators.iter().map(|v| v.0.clone()).collect(),
-        );
-
+    pub fn record(&mut self, round: u32, validators: Vec<String>) -> Result<(), Box<dyn Error>> {
+        self.results.insert(Round(round), validators);
         let file = File::create(&self.file_path)?;
         serde_yaml::to_writer(&file, &self.results)?;
         Ok(())

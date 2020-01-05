@@ -2,6 +2,7 @@ use crate::{notifier, utils};
 use log::*;
 use solana_client::{rpc_client::RpcClient, rpc_request::RpcEpochInfo};
 use solana_sdk::{
+    clock::Epoch,
     genesis_config::GenesisConfig,
     sysvar::{
         stake_history::{self, StakeHistory, StakeHistoryEntry},
@@ -49,14 +50,15 @@ fn calculate_stake_warmup(mut stake_entry: StakeHistoryEntry, stake_config: &Sta
     epochs
 }
 
-fn stake_history_entry(epoch: u64, rpc_client: &RpcClient) -> Option<StakeHistoryEntry> {
+fn stake_history_entry(epoch: Epoch, rpc_client: &RpcClient) -> Option<StakeHistoryEntry> {
     let stake_history_account = rpc_client.get_account(&stake_history::id()).ok()?;
     let stake_history = StakeHistory::from_account(&stake_history_account)?;
     stake_history.get(&epoch).cloned()
 }
 
-pub fn wait_for_activation(
-    activation_epoch: u64,
+/// Wait until stake warms up and return the current epoch
+pub fn wait_for_warm_up(
+    activation_epoch: Epoch,
     mut epoch_info: RpcEpochInfo,
     rpc_client: &RpcClient,
     stake_config: &StakeConfig,
