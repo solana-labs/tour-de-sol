@@ -17,13 +17,13 @@ Dry Run 6 will test the performance of a heterogeneous cluster of validators und
 
 ## Timeline
 
-### Epoch 0 to 99: Connect, delegate, stake warmup \(approximately 24 hours\)
+### 24 hour onboarding period: Connect, delegate, stake warmup \(approximately 24 hours\)
 
 When the cluster boots, validators will have over 24 hours to connect and delegate 1 SOL of stake to themselves
 
-### Epoch 100+: Ramp TPS rounds begin! \(approx. 1-2 hours per round\)
+### Ramp TPS rounds begin! \(approx. 1-2 hours per round\)
 
-Now that all validator stake is active, the Ramp TPS program will begin running the rounds of increasing transactions-per-second until the cluster dies. Each round starts with of 20 minutes of solid transactions. After 20 minutes all validators that remain with the cluster will receive an additional stake delegation. This new stake will also take 3-4 epochs to warm up, and once warm up is complete the next round commences with an increased transaction rate.
+Now that all validator stake is active, the Ramp TPS program will begin running the rounds of increasing transactions-per-second until the cluster fails to maintain consesus or TPS cannot be pushed any higher. Each round starts with of 20 minutes of solid transactions. After 20 minutes all validators that remain with the cluster will receive an additional stake delegation. This new stake will also take 3-4 epochs to warm up, and once warm up is complete the next round commences with an increased transaction rate.
 
 ## References
 
