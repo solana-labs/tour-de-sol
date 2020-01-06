@@ -4,6 +4,9 @@
 # stake of 1 SOL
 #
 
+# destaking disabled as of DR6
+exit 0
+
 netdir=$1
 
 if [[ -z $netdir ]]; then
