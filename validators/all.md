@@ -68,7 +68,7 @@
 1. [nodeateam](https://keybase.io/nodeateam): `94eWgQm2k8BXKEWbJP2eScHZeKopXpqkuoVrCofQWBhW`
 1. [p2p_org_](https://keybase.io/p2p_org_): `D52Q6Ap8RVMw1EvJYTdEABP6M5SPg98aToMcqw7KVLD9`
 1. [pasha61](https://keybase.io/pasha61): `5PLDu8auwqtMkHW9zdPsfUcvyESZ45umFc4r8cWUw3Zp`
-1. [pkrasam](https://keybase.io/pkrasam): `9RCwtdmqJ5gCR67DmgEyJxQn8c24uoTQdurY8dXvvjNH`
+1. [pkrasam](https://keybase.io/pkrasam): `GVthNzmh8UUJjnVqZNDKEjn43hPmHm7WRFw32GBoX6Qy`
 1. [ponchik69](https://keybase.io/ponchik69): `DJvMQcb3ZtXC49LsaMvAo4x1rzCxjNfBfZtvkUeR4mAx`
 1. [pos_bakerz](https://keybase.io/pos_bakerz): `A1voPbfnmCq8UBNQTBKnZ3Xbhs2x4cS2Gx2b2wJtqCh1`
 1. [proofofjk](https://keybase.io/proofofjk): `3Z5XVczCTXeYeFABoeFm1LngC9657kZMVGNFzqFXviHb`
