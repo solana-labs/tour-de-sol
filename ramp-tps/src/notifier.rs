@@ -36,7 +36,7 @@ impl Notifier {
 
     fn send(&self, msg: &str) {
         if let Some(webhook) = &self.discord_webhook {
-            for line in msg.split("\n") {
+            for line in msg.split('\n') {
                 // Discord rate limiting is aggressive, limit to 1 message a second to keep
                 // it from getting mad at us...
                 sleep(Duration::from_millis(1000));
