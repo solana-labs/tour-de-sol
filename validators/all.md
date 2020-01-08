@@ -75,7 +75,7 @@
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 1. [rockxrocks](https://keybase.io/rockxrocks): `5KZRD6hDCZd1dgM9rJLweFFRkHu3qAgBhHgQ96Wz1VSn`
 1. [rosewu](https://keybase.io/rosewu): `GkNQ9hQM1DoTQy9i4HVzhCjtKh9A6uSx7Z5XTAkqRGhu`
-1. [rudylu](https://keybase.io/rudylu): `EJ7cCyW3BtLutGikzakNCJL2vCMWfLnts1XaKbxY6vVK`
+1. [rudylu](https://keybase.io/rudylu): `BMZY98zbjg2ey4XNfhBQXhEuvVqzaJ1T3AKD2quL3wnK`
 1. [ruru](https://keybase.io/ruru): `B5FNFrfrrfpBggFBp9h6Js93mrz1Tham1z1GgP3bDgNc`
 1. [samzeb](https://keybase.io/samzeb): `3pzTi41c6NAbZyTiyPEAQtmi2K5MyWZJMxx6nDvWPgnQ`
 1. [sebler](https://keybase.io/sebler): `2YLPihCDxqztR5be69jhoNDPMxV6KeTJ2X2LtVBXDgp4`
