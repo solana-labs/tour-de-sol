@@ -1,7 +1,7 @@
 use log::*;
-use reqwest::Client;
+use reqwest::{Client, StatusCode};
 use serde_json::json;
-use std::env;
+use std::{env, thread::sleep, time::Duration};
 
 /// For each notification
 ///   1) Log an info level message
@@ -36,9 +36,31 @@ impl Notifier {
 
     fn send(&self, msg: &str) {
         if let Some(webhook) = &self.discord_webhook {
-            let data = json!({ "content": msg });
-            if let Err(err) = self.client.post(webhook).json(&data).send() {
-                warn!("Failed to send Discord message: {:?}", err);
+            for line in msg.split("\n") {
+                // Discord rate limiting is aggressive, limit to 2 messages a second to keep
+                // it from getting mad at us...
+                sleep(Duration::from_millis(500));
+
+                info!("Sending {}", line);
+                let data = json!({ "content": line });
+
+                loop {
+                    let response = self.client.post(webhook).json(&data).send();
+
+                    if let Err(err) = response {
+                        warn!("Failed to send Discord message: \"{}\": {:?}", line, err);
+                        break;
+                    } else if let Ok(mut response) = response {
+                        info!("response status: {}", response.status());
+                        if response.status() == StatusCode::TOO_MANY_REQUESTS {
+                            warn!("rate limited!...");
+                            warn!("response text: {:?}", response.text());
+                            std::thread::sleep(Duration::from_secs(2));
+                        } else {
+                            break;
+                        }
+                    }
+                }
             }
         }
 
