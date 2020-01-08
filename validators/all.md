@@ -46,7 +46,7 @@
 1. [hma_cope](https://keybase.io/hma_cope): `HM2hzFLTd5TAhejGFjaXAm8LLjdmnj7bqQrzpRTaawdo`
 1. [ionuts](https://keybase.io/ionuts): `AkkJv1meyo2Ax2XTXEXWpvHTh4F8a68Lja5dx3TaX47K`
 1. [iqlusion](https://keybase.io/iqlusion): `8FaFEcUFgvJns6RAU4dso3aTm2qfzZMt2xXtSgCh3kn9`
-1. [irishub](https://keybase.io/irishub): `G9nU3uDUXkH5opUt4niAxv3qh5ojFAZLLfvQEMv4EFVJ`
+1. [irishub](https://keybase.io/irishub): `BrFqUxNY4HstYdiYYZiyDa5KiTrdcfqoBBEky3kqKFgQ`
 1. [iscr34ms](https://keybase.io/iscr34ms): `7yzVecfpWupdJwVQby3inMggGSotFSnSrhvPGPp6JGdU`
 1. [joesixpack](https://keybase.io/joesixpack): `4vgoKb76Z2vj9V9z7hoQpZkkwJrkL1z35LWNd9EXSi2o`
 1. [justinsolana](https://keybase.io/justinsolana): `55ofKaF1xdfgC9mB4zUhrffdx7CVoxTbNo7GeQLyj3YL`
