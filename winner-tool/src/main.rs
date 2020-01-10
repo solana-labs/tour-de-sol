@@ -23,7 +23,11 @@ use solana_ledger::{
     blocktree_processor::{process_blocktree, ProcessOptions},
 };
 use solana_runtime::bank::Bank;
-use solana_sdk::{genesis_config::GenesisConfig, native_token::sol_to_lamports, pubkey::Pubkey};
+use solana_sdk::{
+    genesis_config::GenesisConfig,
+    native_token::{lamports_to_sol, sol_to_lamports},
+    pubkey::Pubkey,
+};
 use std::{
     collections::{HashMap, HashSet},
     fs,
@@ -193,8 +197,31 @@ fn main() {
     match process_blocktree(&genesis_config, &blocktree, vec![], opts) {
         Ok((bank_forks, _bank_forks_info, leader_schedule_cache)) => {
             let bank = bank_forks.working_bank();
-            let starting_balance = sol_to_lamports(starting_balance_sol);
 
+            let mut total_stake = 0;
+            let mut stakes = vec![];
+            for (stake, vote_account) in bank.vote_accounts().values() {
+                let vote_state = solana_vote_program::vote_state::VoteState::from(&vote_account)
+                    .unwrap_or_default();
+                if !excluded_set.contains(&vote_state.node_pubkey) {
+                    stakes.push(format!(
+                        "* {:<44}: {:.5} SOL ({} lamports) in stake",
+                        pubkey_to_keybase(&vote_state.node_pubkey),
+                        lamports_to_sol(*stake),
+                        stake,
+                    ));
+                    total_stake += stake;
+                }
+            }
+            stakes.sort();
+            println!(
+                "\nTotal stake: {:.5} SOL ({} lamports)\n{}",
+                lamports_to_sol(total_stake),
+                total_stake,
+                stakes.join("\n"),
+            );
+
+            let starting_balance = sol_to_lamports(starting_balance_sol);
             let rewards_earned_winners =
                 rewards_earned::compute_winners(&bank, &excluded_set, starting_balance);
             print_winners(rewards_earned_winners);
