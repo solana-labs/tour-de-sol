@@ -7,7 +7,7 @@
 
 use crate::utils;
 use crate::winner::{self, Winner, Winners};
-use solana_ledger::blocktree::Blocktree;
+use solana_ledger::blockstore::Blockstore;
 use solana_ledger::leader_schedule_cache::LeaderScheduleCache;
 use solana_runtime::bank::Bank;
 use solana_sdk::account::Account;
@@ -126,12 +126,12 @@ fn validator_leader_stats(
 
 pub fn compute_winners(
     bank: &Bank,
-    blocktree: &Blocktree,
+    blockstore: &Blockstore,
     baseline_id: &Pubkey,
     excluded_set: &HashSet<Pubkey>,
     leader_schedule_cache: &LeaderScheduleCache,
 ) -> Winners {
-    let block_chain = utils::block_chain(0, bank.slot(), blocktree);
+    let block_chain = utils::block_chain(0, bank.slot(), blockstore);
     let mut validator_credits = validator_credits(bank.vote_accounts());
     let baseline_credits = validator_credits.remove(baseline_id).unwrap_or_else(|| {
         panic!(

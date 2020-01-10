@@ -19,8 +19,8 @@ use solana_clap_utils::{
     input_validators::{is_pubkey, is_pubkey_or_keypair},
 };
 use solana_ledger::{
-    blocktree::Blocktree,
-    blocktree_processor::{process_blocktree, ProcessOptions},
+    blockstore::Blockstore,
+    blockstore_processor::{process_blockstore, ProcessOptions},
 };
 use solana_runtime::bank::Bank;
 use solana_sdk::{
@@ -139,7 +139,7 @@ fn main() {
         exit(1);
     });
 
-    let blocktree = Blocktree::open(&ledger_path).unwrap_or_else(|err| {
+    let blockstore = Blockstore::open(&ledger_path).unwrap_or_else(|err| {
         eprintln!("Failed to open ledger at {:?}: {:?}", ledger_path, err);
         exit(1);
     });
@@ -194,7 +194,7 @@ fn main() {
     };
 
     println!("Processing ledger...");
-    match process_blocktree(&genesis_config, &blocktree, vec![], opts) {
+    match process_blockstore(&genesis_config, &blockstore, vec![], opts) {
         Ok((bank_forks, _bank_forks_info, leader_schedule_cache)) => {
             let bank = bank_forks.working_bank();
 
@@ -228,7 +228,7 @@ fn main() {
 
             let availability_winners = availability::compute_winners(
                 &bank,
-                &blocktree,
+                &blockstore,
                 &baseline_validator,
                 &excluded_set,
                 &leader_schedule_cache,

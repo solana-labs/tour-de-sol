@@ -1,11 +1,11 @@
 use crate::winner::Winner;
-use solana_ledger::blocktree::Blocktree;
+use solana_ledger::blockstore::Blockstore;
 use solana_sdk::clock::Slot;
 use solana_sdk::pubkey::Pubkey;
 
 /// Returns an ordered list of slots for the blockchain ending with `last_block` and starting with
 /// `first_block`
-pub fn block_chain(first_block: Slot, last_block: Slot, blocktree: &Blocktree) -> Vec<Slot> {
+pub fn block_chain(first_block: Slot, last_block: Slot, blockstore: &Blockstore) -> Vec<Slot> {
     let mut block_chain = Vec::new();
     let mut block_slot = last_block;
     loop {
@@ -13,7 +13,7 @@ pub fn block_chain(first_block: Slot, last_block: Slot, blocktree: &Blocktree) -
         if block_slot == first_block {
             break;
         }
-        block_slot = blocktree.meta(block_slot).unwrap().unwrap().parent_slot;
+        block_slot = blockstore.meta(block_slot).unwrap().unwrap().parent_slot;
     }
     block_chain.into_iter().rev().collect()
 }
