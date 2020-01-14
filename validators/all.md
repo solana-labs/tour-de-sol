@@ -93,7 +93,6 @@
 1. [ubikcosmos](https://keybase.io/ubikcosmos): `ErbvzZx2Ss9GxizKyDviybhZPu8noHv4AM5vuzTh1ij6`
 1. [udon_crypto](https://keybase.io/udon_crypto): `7yiFPLeyH2B2p3xGrr2Y5nmk8B52nEaa6j55Nk3u6648`
 1. [vagrant1991](https://keybase.io/vagrant1991): `Bf6JtoLAg9zxAksgZ9gUsa6zZum1UuPWuirY6qKLXXoW`
-1. [vali_the_thor](https://keybase.io/vali_the_thor): `3iDGcRPE2NzEGP8DocdYxES9FkcNEVjnBnexBXS4YydD`
 1. [viduka](https://keybase.io/viduka): `3ckQZncmgmS1aZCC7Eot659hoBQ8k85ExddD7fu9qJ2c`
 1. [viktor0766](https://keybase.io/viktor0766): `5NH47Zk9NAzfbtqNpUtn8CQgNZeZE88aa2NRpfe7DyTD`
 1. [y3v63n](https://keybase.io/y3v63n): `9J8WcnXxo3ArgEwktfk9tsrf4Rp8h5uPUgnQbQHLvtkd`
