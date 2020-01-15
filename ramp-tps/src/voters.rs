@@ -186,20 +186,23 @@ pub fn announce_results(
 ) {
     let buffer_records = |keys: Vec<&Pubkey>, notifier: &mut Notifier| {
         if keys.is_empty() {
-            notifier.buffer("* NA".to_string());
+            notifier.buffer("* None".to_string());
             return;
         }
 
+        let mut validators = vec![];
         for pubkey in keys {
             let name = pubkey_to_keybase(pubkey);
             if let Some(record) = leader_records.get(pubkey) {
-                notifier.buffer(format!(
+                validators.push(format!(
                     "* {} ({:.1}% leader efficiency)",
                     name,
                     record.completed_slot_pct()
                 ));
             }
         }
+        validators.sort();
+        notifier.buffer_vec(validators);
     };
 
     let healthy: Vec<_> = remaining_validators

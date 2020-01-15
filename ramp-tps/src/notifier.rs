@@ -76,6 +76,10 @@ impl Notifier {
         self.buffer.push(msg);
     }
 
+    pub fn buffer_vec(&mut self, mut msgs: Vec<String>) {
+        self.buffer.append(&mut msgs);
+    }
+
     pub fn flush(&mut self) {
         self.notify(&self.buffer.join("\n"));
         self.buffer.clear();
