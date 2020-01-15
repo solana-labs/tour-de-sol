@@ -332,9 +332,13 @@ fn main() {
             "There are {} validators present:",
             starting_validators.len()
         ));
-        for node_pubkey in starting_validators.keys() {
-            notifier.buffer(format!("* {}", pubkey_to_keybase(&node_pubkey)));
-        }
+
+        let mut validators: Vec<_> = starting_validators
+            .keys()
+            .map(|node_pubkey| format!("* {}", pubkey_to_keybase(&node_pubkey)))
+            .collect();
+        validators.sort();
+        notifier.buffer_vec(validators);
         notifier.flush();
 
         let client_tx_count = tx_count / NUM_BENCH_CLIENTS as u64;
