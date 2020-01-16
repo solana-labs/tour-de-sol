@@ -1,6 +1,6 @@
 use crate::{notifier, utils};
 use log::*;
-use solana_client::{rpc_client::RpcClient, rpc_request::RpcEpochInfo};
+use solana_client::{rpc_client::RpcClient, rpc_response::RpcEpochInfo};
 use solana_sdk::{
     clock::Epoch,
     genesis_config::GenesisConfig,
