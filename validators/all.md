@@ -71,7 +71,7 @@
 1. [pkrasam](https://keybase.io/pkrasam): `GVthNzmh8UUJjnVqZNDKEjn43hPmHm7WRFw32GBoX6Qy`
 1. [ponchik69](https://keybase.io/ponchik69): `DJvMQcb3ZtXC49LsaMvAo4x1rzCxjNfBfZtvkUeR4mAx`
 1. [pos_bakerz](https://keybase.io/pos_bakerz): `A1voPbfnmCq8UBNQTBKnZ3Xbhs2x4cS2Gx2b2wJtqCh1`
-1. [proofofjk](https://keybase.io/proofofjk): `3Z5XVczCTXeYeFABoeFm1LngC9657kZMVGNFzqFXviHb`
+1. [proofofjk](https://keybase.io/proofofjk): `fish2tcDFRiAM1cNKqF7b96WzQmmDRjsf5XD214MhpV`
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 1. [rockxrocks](https://keybase.io/rockxrocks): `5KZRD6hDCZd1dgM9rJLweFFRkHu3qAgBhHgQ96Wz1VSn`
 1. [rosewu](https://keybase.io/rosewu): `GkNQ9hQM1DoTQy9i4HVzhCjtKh9A6uSx7Z5XTAkqRGhu`
