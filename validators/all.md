@@ -101,6 +101,7 @@
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF`
 1. [melea](https://keybase.io/melea): `BSF2yD9mqzaixDaLEraF1en82EWaXx7wbaCqSuKppqG5`
 1. [vali_the_thor](https://keybase.io/vali_the_thor): `C8VJytJbZM7KFMXHNUdoF4V7V2QbhkxNs1qYybRoqUEK`
+1. [speedyray](https://keybase.io/speedyray): `4pH9KWHdT3jHt8b9PwNihdbqZSBCVJfBUrcJVsnWAZ78`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
