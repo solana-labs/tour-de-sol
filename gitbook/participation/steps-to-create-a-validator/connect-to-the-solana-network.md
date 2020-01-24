@@ -21,7 +21,7 @@ solana create-vote-account ~/validator-vote-keypair.json ~/validator-keypair.jso
 Connect to the Tour de SOL cluster by running:
 
 ```bash
-export SOLANA_METRICS_CONFIG="host=https://tds-metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
+export SOLANA_METRICS_CONFIG="host=https://metrics.solana.com:8086,db=tds,u=tds_writer,p=dry_run"
 ```
 
 ```bash
