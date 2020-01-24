@@ -77,6 +77,7 @@ $ ./bench-tps.sh
 ## Attaching to the TdS cluster
 Fetching the TdS cluster configuration can be accomplished with:
 ```bash
+$ export CLOUDSDK_CORE_PROJECT=tour-de-sol
 $ net/gce.sh config -p tds-solana-com -z us-west1-a -z us-central1-a -z europe-west4-a
 ```
 at which point all the normal `net/` functionality becomes available (such as `net/ssh.sh`).   Also `net/net.sh logs` can be used to collect logs off the nodes
