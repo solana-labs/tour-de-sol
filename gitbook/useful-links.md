@@ -6,7 +6,7 @@ description: Where to go after you've read this guide
 
 * [Solana Book](https://docs.solana.com/book/)
 * [Network Explorer](http://explorer.solana.com/)
-* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet-edge/testnet-monitor-edge?refresh=1m&from=now-15m&to=now&var-testnet=tds&orgId=2&var-datasource=TdS%20Metrics%20%28read-only%29)
+* [TdS metrics dashboard](https://metrics.solana.com:3000/d/testnet/testnet-monitor?refresh=1m&from=now-15m&to=now&orgId=2&var-datasource=Solana%20Metrics%20(read-only)&var-testnet=tds&var-hostid=All9)
 * Validator chat channels
   * [\#validator-support](https://discord.gg/rZsenD) General support channel for any Validator related queries that don’t fall under Tour de SOL.
   * [\#tourdesol](https://discord.gg/BdujK2) Discussion and support channel for Tour de SOL participants.
