@@ -83,8 +83,16 @@ for keybase_file in validators/keybase-usernames.*; do
   touch $username_yml
   for username in $(cat "$keybase_file"); do
     echo "Processing $username..."
-    declare pubkeyDir=/keybase/public/"$username"/solana/
-    if [[ ! -d "$pubkeyDir" ]]; then
+
+    declare pubkeyDir=
+    for dir in /keybase/public/"$username"/[Ss]olana/; do
+      if [[ -d $dir ]]; then
+        pubkeyDir=$dir
+        break;
+      fi
+    done
+
+    if [[ -z $pubkeyDir ]]; then
       echo "Warn: $username: $pubkeyDir does not exist"
       continue
     fi

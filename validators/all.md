@@ -33,6 +33,7 @@
 1. [dkuwh](https://keybase.io/dkuwh): `7FnrBgjPb1y8PNjzRLihQWUvky37F7wkvRb7MUL89Q8P`
 1. [dxiri](https://keybase.io/dxiri): `HS9Kg3kHiyNCgDLHLv62DThvqaqQUiptWkbW3PmTXxLk`
 1. [eduardoagut](https://keybase.io/eduardoagut): `5dLMRyPWx6rdPGZpZ7uuZiqry96dUT5yz48u62Gzugi6`
+1. [easy2stake](https://keybase.io/easy2stake): `4Nh8T1d4YBZHEuQNRmFbLXPT5HbWicqPxGeKZ5SdAr4i`
 1. [everstake](https://keybase.io/everstake): `4Bx5bzjmPrU1g74AHfYpTMXvspBt8GnvZVQW3ba9z4Af`
 1. [fitchsl](https://keybase.io/fitchsl): `URnkWZGiuB7jXbfCSuNSwir1qkn7sXjiSPeLPaXys7b`
 1. [fly8761](https://keybase.io/fly8761): `FzAv1TFpCyR65GrxeqBwnEzNVXEeUMPV5rKZGQhPR7mq`
