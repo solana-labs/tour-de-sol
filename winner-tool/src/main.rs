@@ -166,6 +166,7 @@ fn main() {
         full_leader_cache: true,
         entry_callback: Some(entry_callback),
         override_num_threads: Some(1),
+        ..ProcessOptions::default()
     };
 
     let print_winners = |winners: winner::Winners| {
