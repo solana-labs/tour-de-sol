@@ -12,7 +12,7 @@
 1. [andreianisimov](https://keybase.io/andreianisimov): `27SB7d27xvtBJjgsAV8JBDjQroySmZepiNSepeRbRhe9`
 1. [anoane](https://keybase.io/anoane): `FRgKM5ZXu9e3U7RrPqKiksm4v7MWcy14EixGQKufd8oG`
 1. [apower](https://keybase.io/apower): `6qJPxxgZHCQKBvbGC9zCsuuPtHMMLszVCoiCvEhVULyJ`
-1. [aurel](https://keybase.io/aurel): `7ZdRx2EBYoRuPfyeoNbuHodMUXcAQRcC37MUw3kP6akn`
+1. [aurel](https://keybase.io/aurel): `8diJdQj3y4QbkjfnXr95SXoktiJ1ad965ZkeFsmutfyz`
 1. [avaluo](https://keybase.io/avaluo): `7mmRxJNttYcJVNsJmiLjTHYmNDt32EpzUSgLDoBsTKKK`
 1. [bharvest](https://keybase.io/bharvest): `2RYnM1C5XuzWzZu4sD7TyJTgxQTKzFVHG6jNtbK65q2y`
 1. [bitcat365](https://keybase.io/bitcat365): `74U9LiSPv2gb8bBZSh5uVNf89W4wZ8zs9B8EvRVVwr87`
