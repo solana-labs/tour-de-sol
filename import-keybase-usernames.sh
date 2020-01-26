@@ -29,7 +29,6 @@ slp_pubkeys="
     7v5DXDvYzkgTdFYXYB12ZLKD6z8QfzR53N9hg6XgEQJE
     8LSwP5qYbmuUfKLGwi8XaKJnai9HyZAJTnBovyWebRfd
     8UPb8LMWyoJJC9Aeq9QmTzKZKV2ssov739bTJ14M4ws1
-    8oRw7qpj6XgLGXYCDuNoTMCqoJnDd6A8LTpNyqApSfkA
     8wFK4fCAuDoAH1fsgou9yKZPqDMFtJUVoDdkZAAMuhyA
     94eWgQm2k8BXKEWbJP2eScHZeKopXpqkuoVrCofQWBhW
     9J8WcnXxo3ArgEwktfk9tsrf4Rp8h5uPUgnQbQHLvtkd
