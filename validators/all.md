@@ -93,7 +93,6 @@
 1. [yongjoo](https://keybase.io/yongjoo): `2XAHomUvH3LFjYSxzSfcbwS73JgynpQHfapMNMJ8isL9`
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [melea](https://keybase.io/melea): `BSF2yD9mqzaixDaLEraF1en82EWaXx7wbaCqSuKppqG5`
-1. [speedyray](https://keybase.io/speedyray): `8uJR7fEaTiriYLe4YMFkeeADdRkexxm8jkFCGRjPBvJD`
 1. [stakewolf](https://keybase.io/stakewolf): `A5hMwgm8QfooAuCMw9Rw2S9vXbBwCknFMhhUwKKHvYeJ`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
