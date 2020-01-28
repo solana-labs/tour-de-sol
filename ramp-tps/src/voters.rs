@@ -125,6 +125,10 @@ fn delegate_stake(
     sol_gift: u64,
 ) {
     let stake_account_keypair = Keypair::new();
+    info!(
+        "delegate_stake: stake pubkey: {}",
+        stake_account_keypair.pubkey()
+    );
     let mut retry_count = 0;
     loop {
         let recent_blockhash = loop {
