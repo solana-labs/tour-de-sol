@@ -135,7 +135,7 @@ pub fn wait_for_warm_up(
         if current_slot == latest_slot {
             utils::bail(
                 notifier,
-                &format!("Slot did not advance from {}", current_slot),
+                &format!("Error: Slot did not advance from {}", current_slot),
             );
         }
     }

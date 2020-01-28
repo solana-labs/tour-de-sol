@@ -65,7 +65,7 @@ pub fn sleep_until_epoch(
             break;
         }
 
-        sleep_n_slots(sleep_slots.max(5), genesis_config);
+        sleep_n_slots(sleep_slots.max(50), genesis_config);
         let latest_slot = rpc_client.get_slot().unwrap_or_else(|err| {
             bail(
                 notifier,
@@ -76,7 +76,7 @@ pub fn sleep_until_epoch(
         if current_slot == latest_slot {
             bail(
                 notifier,
-                &format!("Slot did not advance from {}", current_slot),
+                &format!("Error: Slot did not advance from {}", current_slot),
             );
         } else {
             current_slot = latest_slot;
