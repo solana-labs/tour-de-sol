@@ -54,6 +54,7 @@
 1. [kellyolson](https://keybase.io/kellyolson): `9uEazQxpRTyYX1hHMMySDBWad7zb54K9PkHKeZemK2m7`
 1. [kevloui](https://keybase.io/kevloui): `AKqueA5Vfmf6BWTXuPdWxrYCDNPGi5gDLrNpdc1CSEzy`
 1. [kysenpool](https://keybase.io/kysenpool): `8XvoJswfYCxWf2WkUmNBjtDWwonmKugYhxBruNpSfS4a`
+1. [kytzu](https://keybase.io/kytzu): `EWg9NTC5s7Pa9FktUk6dX8xRYkvJ952peH1z1iznd4nV`
 1. [lmb123](https://keybase.io/lmb123): `CcorN3BoG1XMZehZ9Xib9YLo4mcvo7pzeVurC28gYYqX`
 1. [lmblmb](https://keybase.io/lmblmb): `CtxU5HwVbgspJVtWxwjuP8wXUMdkjYJ4EJwJ3jvZh4zu`
 1. [lucasbc](https://keybase.io/lucasbc): `DV78gathrorcpWsWrUkWrWNowLXpizKsPBupStzeAJnL`
@@ -94,6 +95,9 @@
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [melea](https://keybase.io/melea): `BSF2yD9mqzaixDaLEraF1en82EWaXx7wbaCqSuKppqG5`
 1. [stakewolf](https://keybase.io/stakewolf): `A5hMwgm8QfooAuCMw9Rw2S9vXbBwCknFMhhUwKKHvYeJ`
+1. [rawrmaan](https://keybase.io/rawrmaan): `6zCt5z72rfN9sRk2hTgc1LeFDbEBfXYmW6xtSNmgyama`
+1. [kytzu](https://keybase.io/kytzu): `EWg9NTC5s7Pa9FktUk6dX8xRYkvJ952peH1z1iznd4nV`
+1. [maxx420](https://keybase.io/maxx420): `6PwxMMGLFnAf9sjMHfVr15z9fntjYTNPxJ7gFhkFxkXi`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`

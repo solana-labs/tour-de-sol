@@ -28,7 +28,7 @@ solana delegate-stake ~/validator-stake-keypair.json ~/validator-vote-keypair.js
 ```
 
 {% hint style="warning" %}
-Don’t delegate your remaining 1 SOL, your validator will use those tokens to vote.
+Don’t delegate all your SOL as your validator identity account requires some to submit votes.
 {% endhint %}
 
 At the end of each slot, a validator is expected to send a vote transaction. These vote transactions are paid for by lamports from a validator's identity account.
