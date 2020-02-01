@@ -7,14 +7,14 @@ The validator identity keypair [you created](validator-public-key-registration.m
 Configure solana for your validator identity and Tour de SOL:
 
 ```bash
-solana set --url http://tds.solana.com:8899 --keypair ~/validator-keypair.json
+solana set --url http://tds.solana.com --keypair ~/validator-keypair.json
 ```
 
 You should see the following output:
 
 ```text
 Wallet Config Updated: /home/solana/.config/solana/wallet/config.yml
-* url: http://tds.solana.com:8899
+* url: http://tds.solana.com
 * keypair: /home/solana/validator-keypair.json
 ```
 
