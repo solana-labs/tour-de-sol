@@ -7,7 +7,7 @@ The validator identity keypair [you created](validator-public-key-registration.m
 Configure solana for your validator identity and Tour de SOL:
 
 ```bash
-solana set --url http://tds.solana.com --keypair ~/validator-keypair.json
+solana config set --url http://tds.solana.com --keypair ~/validator-keypair.json
 ```
 
 You should see the following output:
@@ -21,7 +21,7 @@ Wallet Config Updated: /home/solana/.config/solana/wallet/config.yml
 You can see the wallet configuration at any time by running:
 
 ```text
-solana get
+solana config get
 ```
 
 ## Check Validator Balance
