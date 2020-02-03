@@ -98,9 +98,9 @@ for keybase_file in validators/keybase-usernames.*; do
 
     declare validatorPubkey=
     for file in "$pubkeyDir"validator-*; do
-      validatorPubkey=$file
+      validatorPubkey="$(basename "$file" .json)"
 
-      if [[ $validatorPubkey =~ .*validator-([1-9A-HJ-NP-Za-km-z]+)$ ]]; then
+      if [[ $validatorPubkey =~ .*validator-\ *([1-9A-HJ-NP-Za-km-z]+)$ ]]; then
         declare pubkey="${BASH_REMATCH[1]}"
 
         if [[ $slp_pubkeys =~ $pubkey ]]; then

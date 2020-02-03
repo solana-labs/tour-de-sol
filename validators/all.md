@@ -91,6 +91,7 @@
 1. [udon_crypto](https://keybase.io/udon_crypto): `7yiFPLeyH2B2p3xGrr2Y5nmk8B52nEaa6j55Nk3u6648`
 1. [viduka](https://keybase.io/viduka): `3ckQZncmgmS1aZCC7Eot659hoBQ8k85ExddD7fu9qJ2c`
 1. [viktor0766](https://keybase.io/viktor0766): `5NH47Zk9NAzfbtqNpUtn8CQgNZeZE88aa2NRpfe7DyTD`
+1. [winnerclubs](https://keybase.io/winnerclubs): `2Lrj5xDCHDmqwCgGwjVqAUUM84vLpj5dReYeoXL9vSXV`
 1. [yongjoo](https://keybase.io/yongjoo): `2XAHomUvH3LFjYSxzSfcbwS73JgynpQHfapMNMJ8isL9`
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [melea](https://keybase.io/melea): `BSF2yD9mqzaixDaLEraF1en82EWaXx7wbaCqSuKppqG5`
@@ -99,6 +100,9 @@
 1. [kytzu](https://keybase.io/kytzu): `EWg9NTC5s7Pa9FktUk6dX8xRYkvJ952peH1z1iznd4nV`
 1. [maxx420](https://keybase.io/maxx420): `6PwxMMGLFnAf9sjMHfVr15z9fntjYTNPxJ7gFhkFxkXi`
 1. [zen_master](https://keybase.io/zen_master): `CZWpCTN4rCWer8fm5ZqFdx82CDiCJjZLKZ5Ti2gdmchQ`
+1. [alexandruast](https://keybase.io/alexandruast): `2Pik6jn6yLQVi8jmwvZCibTygPWvhh3pXoGJrGT3eVGf`
+1. [steefan](https://keybase.io/steefan): `CsaAGRau3ZvyMQvJ9CWSqbqeVv9zw2Am8FhnL9sr6jTk`
+1. [elw](https://keybase.io/elw): `e1oveNykEMqgPwU5yUc3tSkyxAdtBPbyMQSnEkZNboq`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
