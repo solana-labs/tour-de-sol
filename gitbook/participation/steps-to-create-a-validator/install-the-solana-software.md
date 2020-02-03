@@ -12,10 +12,10 @@ Note the version number
 
 ## Install Software
 
-Install the Solana release [v0.23.1](https://github.com/solana-labs/solana/releases/tag/v0.23.1) on your machine by running:
+Install the Solana release [v0.23.2](https://github.com/solana-labs/solana/releases/tag/v0.23.2) on your machine by running:
 
 ```bash
-curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.22.2/install/solana-install-init.sh | sh -s - 0.23.1
+curl -sSf https://raw.githubusercontent.com/solana-labs/solana/v0.22.2/install/solana-install-init.sh | sh -s - 0.23.2
 ```
 
 then run `solana --version` to confirm the expected version number.
