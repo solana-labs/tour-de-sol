@@ -98,6 +98,7 @@
 1. [rawrmaan](https://keybase.io/rawrmaan): `6zCt5z72rfN9sRk2hTgc1LeFDbEBfXYmW6xtSNmgyama`
 1. [kytzu](https://keybase.io/kytzu): `EWg9NTC5s7Pa9FktUk6dX8xRYkvJ952peH1z1iznd4nV`
 1. [maxx420](https://keybase.io/maxx420): `6PwxMMGLFnAf9sjMHfVr15z9fntjYTNPxJ7gFhkFxkXi`
+1. [zen_master](https://keybase.io/zen_master): `CZWpCTN4rCWer8fm5ZqFdx82CDiCJjZLKZ5Ti2gdmchQ`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
