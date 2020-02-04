@@ -12,12 +12,22 @@ cd "$(dirname "$0")"
   solana balance
 )
 
-for vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\)      .*/\2/p"); do
+for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .*/\1=\2/p"); do
+  declare id=${id_vote%%=*}
+  declare vote=${id_vote##*=}
+
   stake=stake-$vote.json
   if [[ -f $stake ]]; then
-    echo "$vote is already staked"
+    echo "$vote (id: $id) is already staked"
     continue
   fi
+
+  if ! grep --quiet $id ../validators/all-username.yml; then
+    echo "Ignoring unknown validator $id"
+    continue
+  fi
+
+  echo "Staking $vote (id: $id)"
 
   (
     set -x
