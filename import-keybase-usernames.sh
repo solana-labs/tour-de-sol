@@ -19,7 +19,6 @@ slp_pubkeys="
     4vPqTnfH2ud6hp1yFSFRy9t9xhm8sGDwU4amcZGr2gT7
     4ydifDThiWuVtzV92eNGiznuQAnTZtGkb9b2XQoMGAUn
     54g6LdVubwthdfMKwPqLraDEDAVWNDpN6a3ZGZm2Sbjz
-    592eDka2qrXWcszC3NNvViKfEyxvuoAbBgohVt75dWq1
     5JuyDi5HR2CZS39nF43Ws6nhqYWM2fgnZbtf9zRNy52a
     5jTcJaq6gLEao1R5rscvfnUhNt6RXg4JFDCegyEhsJG2
     5n8KCdzqtvTnhkvCrFR7errH6ZUp11kL97r2awXkfzFe
@@ -43,7 +42,6 @@ slp_pubkeys="
     Ccq6zHdtv3DWCP4AccTi4Ya2xPGsEVHSfoPmQ1qffb8H
     ChorusXqjLC2NbiStKR6k9WoD7wu6TVTtFG8qCL5XBVa
     DaqUBvjHtKYiZ6exUhqrcpDqu5ffYB6QWKwXSwdvDVBj
-    Daxixc1dFxxLDj85t1CWAsvNXdYq51tDAE51nhPqK9yF
     Dh1DRj5mLYMeJVGvaPZN7F4XjpX6u2dCDXVnUXrE8rwW
     DxLtXrLUrqja3EFjkR4PXNYCuyVtaQnozonCdf3iZk8X
     ETVHRnFkZi7PihPDYibp9fmjfR8P5o7pEs92czku62VV
@@ -56,7 +54,6 @@ slp_pubkeys="
     G47WACh32JUcxyiCna7UYw45tyYSFKQ58yFpUmhmMybm
     GRi3H2M3HxYGAKhz5VrUQipUrAhWj6jTbtjhxiKXHhRj
     GeZ5PrJi9muVCJiJAaFBNGoCEdxGEqTp7L2BmT2WTTy1
-    GkNQ9hQM1DoTQy9i4HVzhCjtKh9A6uSx7Z5XTAkqRGhu
     GsEofbB3rzUK78Ee4NRL6AmcPs6FKRCb7JA8tX6LZjHc
     H279DmgqTkTYnEucPdKbvT8wMTGBAuVh787FX2gRT5Bg
     Hac7hGYwbve747fGefaFoank1K1rNmvr5MjtsYvzZ37i
