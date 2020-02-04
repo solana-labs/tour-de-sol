@@ -110,6 +110,7 @@
 1. [thomaswoo](https://keybase.io/thomaswoo): `87VQhN7dUfS9wacre7vqRm561bNUk5PwUB8xmroc2yEw`
 1. [vkomenda](https://keybase.io/vkomenda): `GuKn8nEJwUPjBfxpwyq2MXU2JNrSpj7gqnKptCZeEk7j`
 1. [alexdcrypto](https://keybase.io/alexdcrypto): `2ZZkgKcBfp4tW8qCLj2yjxRYh9CuvEVJWb6e2KKS91Mj`
+1. [auditone](https://keybase.io/auditone): `DciwdVV1DXimdsgRGQuQ45zYVjZNaof6a6EZ1JjaCsvx`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
