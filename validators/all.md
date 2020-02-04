@@ -106,6 +106,10 @@
 1. [alexandruast](https://keybase.io/alexandruast): `2Pik6jn6yLQVi8jmwvZCibTygPWvhh3pXoGJrGT3eVGf`
 1. [steefan](https://keybase.io/steefan): `CsaAGRau3ZvyMQvJ9CWSqbqeVv9zw2Am8FhnL9sr6jTk`
 1. [elw](https://keybase.io/elw): `e1oveNykEMqgPwU5yUc3tSkyxAdtBPbyMQSnEkZNboq`
+1. [qigrey](https://keybase.io/qigrey): `DzxNmWD99qvkPdDR94ojXhUrpzT8VdqB5ktYX7fZr4gc`
+1. [thomaswoo](https://keybase.io/thomaswoo): `87VQhN7dUfS9wacre7vqRm561bNUk5PwUB8xmroc2yEw`
+1. [vkomenda](https://keybase.io/vkomenda): `GuKn8nEJwUPjBfxpwyq2MXU2JNrSpj7gqnKptCZeEk7j`
+1. [alexdcrypto](https://keybase.io/alexdcrypto): `2ZZkgKcBfp4tW8qCLj2yjxRYh9CuvEVJWb6e2KKS91Mj`
 ## internal
 1. [mvines](https://keybase.io/mvines): `vines1vzrYbzLMRdu58ou5XTby4qAqVRLmqo36NKPTg`
 1. [jackcmay](https://keybase.io/jackcmay): `jackmWDbQxBnXpHHRW3L2vxFX9Mp93v8vD2pqnkRFsx`
