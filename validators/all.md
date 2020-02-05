@@ -5,6 +5,7 @@
 1. [Utahraptor](https://keybase.io/Utahraptor): `k4wTUPNkKM6b3LDSh3KbXsMCj64LoGmMB4W4iw2shXE`
 1. [aaur](https://keybase.io/aaur): `9dCMmPpfNuWKyZ2D1iRstMCc1rhr2DbHVFrZ9wFncQjp`
 1. [adrian_i](https://keybase.io/adrian_i): `H4Dgb3KyCuYWKT8yKtp8qbY49cvaqZcisa2GDnroFsv6`
+1. [adrianbrink](https://keybase.io/adrianbrink): `VzZqDXSDF8KbfAQUvizj52NTjRg9cfXCAZ1cUJt5614`
 1. [alexticea](https://keybase.io/alexticea): `B4xFUYq2TDmz6PsiCj29vFyvmYvqTRAtnhQ3uSmxQVFd`
 1. [allancarroll](https://keybase.io/allancarroll): `Csrv9JCbebTKu1uBWqkfwuPHwVCXsYDrQmeXf19onbsY`
 1. [amran](https://keybase.io/amran): `D23NCAVxinE53BTemguZCheAqCdMGfNTUzWdoWvq4Xj`
