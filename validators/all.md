@@ -65,6 +65,7 @@
 1. [mcalavera](https://keybase.io/mcalavera): `5MGfrpdVsyifhn2x62j6PnBWQk2c5xTUK1o8KFrwPLWG`
 1. [mintonium](https://keybase.io/mintonium): `2yDwZer11v2TTj86WeHzRDpE4HJVbyJ3fJ8H4AkUtWTc`
 1. [mishawagon](https://keybase.io/mishawagon): `ES5G93qiEu5hCyMZMpFUhnbK4YZKhrZMN86Xfkub9YJL`
+1. [nodeateam](https://keybase.io/nodeateam): `D5JqF3qkLkeJKKEi145oMseEGc1ym9cWKtBKtg4ZBBnN`
 1. [p2p_org_](https://keybase.io/p2p_org_): `D52Q6Ap8RVMw1EvJYTdEABP6M5SPg98aToMcqw7KVLD9`
 1. [pasha61](https://keybase.io/pasha61): `5PLDu8auwqtMkHW9zdPsfUcvyESZ45umFc4r8cWUw3Zp`
 1. [pkrasam](https://keybase.io/pkrasam): `Drkj3wbHHmE2iCnqXHKFTmwPkuSc4bsFdgAmqv6eXuWi`

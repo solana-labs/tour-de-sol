@@ -26,7 +26,7 @@ for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .
     echo "Ignoring unknown validator $id"
     continue
   fi
-
+  continue
   echo "Staking $vote (id: $id)"
 
   (
