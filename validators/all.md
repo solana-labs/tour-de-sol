@@ -73,7 +73,7 @@
 1. [pos_bakerz](https://keybase.io/pos_bakerz): `A1voPbfnmCq8UBNQTBKnZ3Xbhs2x4cS2Gx2b2wJtqCh1`
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 1. [rockxrocks](https://keybase.io/rockxrocks): `5KZRD6hDCZd1dgM9rJLweFFRkHu3qAgBhHgQ96Wz1VSn`
-1. [rosewu](https://keybase.io/rosewu): `GkNQ9hQM1DoTQy9i4HVzhCjtKh9A6uSx7Z5XTAkqRGhu`
+1. [rosewu](https://keybase.io/rosewu): `836riBS2E6qfxjnrTkQdzD1JkFAoQDyUjTmzi38Gg84w`
 1. [rudylu](https://keybase.io/rudylu): `BMZY98zbjg2ey4XNfhBQXhEuvVqzaJ1T3AKD2quL3wnK`
 1. [ruru](https://keybase.io/ruru): `B5FNFrfrrfpBggFBp9h6Js93mrz1Tham1z1GgP3bDgNc`
 1. [samzeb](https://keybase.io/samzeb): `3pzTi41c6NAbZyTiyPEAQtmi2K5MyWZJMxx6nDvWPgnQ`
@@ -86,6 +86,7 @@
 1. [stakedinc](https://keybase.io/stakedinc): `77uXenX1Y9T2D1pcnHnYsYiwTTHbnzkyrKX5fQFMGVCR`
 1. [staken](https://keybase.io/staken): `CjhKCjNC1WUgBjAGst3D2XmSsWHvt3zGasasmogPTY6J`
 1. [stakingfund](https://keybase.io/stakingfund): `123vij84ecQEKUvQ7gYMKxKwKF6PbYSzCzzURYA4xULY`
+1. [sunnya97](https://keybase.io/sunnya97): `Ag51oCkwGy5rkbGEYrcP9GDjvFGMJrEdLxvedLSTSR15`
 1. [syamkumar66](https://keybase.io/syamkumar66): `4WufhXsUhPc7cdHXYxxDrYZVVLKa9jCDGC4ccfmuBvu2`
 1. [syncnode](https://keybase.io/syncnode): `8oRw7qpj6XgLGXYCDuNoTMCqoJnDd6A8LTpNyqApSfkA`
 1. [tlinton](https://keybase.io/tlinton): `2X5JSTLN9m2wm3ejCxfWRNMieuC2VMtaMWSoqLPbC4Pq`
@@ -114,7 +115,6 @@
 1. [sunxmldapp](https://keybase.io/sunxmldapp): `HoMBSLMokd6BUVDT4iGw21Tnxvp2G49MApewzGJr4rfe`
 1. [chainlayer](https://keybase.io/chainlayer): `5NorYZBbtgbouD3toX3761ZGbaYTWrNSDNci4G4zV8eo`
 1. [onenode_inc](https://keybase.io/onenode_inc): `4gEKnFpiJ8XC6DdFw4D65uYQeMF8x7KDqMrBPrDVjMPb`
-1. [huglester](https://keybase.io/huglester): `FYbyeGqsx8G5mW4p3MfnNEsHaCQQSAmxESf7ct36moGZ`
 1. [itastakerscom](https://keybase.io/itastakerscom): `F48fyuAYvfJgY4eTXkxmJwwXP6jFVFmQkzt4N4TSiGGF`
 ## internal
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
