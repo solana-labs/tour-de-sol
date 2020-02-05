@@ -114,6 +114,7 @@
 1. [chainlayer](https://keybase.io/chainlayer): `5NorYZBbtgbouD3toX3761ZGbaYTWrNSDNci4G4zV8eo`
 1. [onenode_inc](https://keybase.io/onenode_inc): `4gEKnFpiJ8XC6DdFw4D65uYQeMF8x7KDqMrBPrDVjMPb`
 1. [huglester](https://keybase.io/huglester): `FYbyeGqsx8G5mW4p3MfnNEsHaCQQSAmxESf7ct36moGZ`
+1. [itastakerscom](https://keybase.io/itastakerscom): `F48fyuAYvfJgY4eTXkxmJwwXP6jFVFmQkzt4N4TSiGGF`
 ## internal
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [elw](https://keybase.io/elw): `e1oveNykEMqgPwU5yUc3tSkyxAdtBPbyMQSnEkZNboq`
