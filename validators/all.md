@@ -19,6 +19,7 @@
 1. [booyoun](https://keybase.io/booyoun): `FzMsVyZXVuMRCwirhnb12MS64JPdtVY5R3jCwQ6C5JpX`
 1. [brianlong](https://keybase.io/brianlong): `71bhKKL89U3dNHzuZVZ7KarqV6XtHEgjXjvJTsguD11B`
 1. [caddilackness](https://keybase.io/caddilackness): `86hxQGfre1vvVsYP7jPBka8ySrECZQewjG3MfxoCoBYf`
+1. [certusone](https://keybase.io/certusone): `Ft5fbkqNa76vnsjYNwjDZUXoTWpP7VYm3mtsaQckQADN`
 1. [chorusoneinc](https://keybase.io/chorusoneinc): `ChorusM5BVgnAKbg9PF15285LkqeCoZWK2p9s35T7J2A`
 1. [chrisremus](https://keybase.io/chrisremus): `2jrM8c8ZhpX9CovseJ2sRsrU9yzsFrP7d3gCi5ESU5Rs`
 1. [coinseeker](https://keybase.io/coinseeker): `58J9ucd9Qc6gMD8QHh2sHTyJyD8kdjHRQZkEAyAZ72YA`
@@ -72,6 +73,7 @@
 1. [pkrasam](https://keybase.io/pkrasam): `Drkj3wbHHmE2iCnqXHKFTmwPkuSc4bsFdgAmqv6eXuWi`
 1. [ponchik69](https://keybase.io/ponchik69): `DJvMQcb3ZtXC49LsaMvAo4x1rzCxjNfBfZtvkUeR4mAx`
 1. [pos_bakerz](https://keybase.io/pos_bakerz): `A1voPbfnmCq8UBNQTBKnZ3Xbhs2x4cS2Gx2b2wJtqCh1`
+1. [proofofjk](https://keybase.io/proofofjk): `fish2tcDFRiAM1cNKqF7b96WzQmmDRjsf5XD214MhpV`
 1. [rewse](https://keybase.io/rewse): `HrKX44KVBJByNgaMBkgweKipFvQchGGkhixY6kNtKLDD`
 1. [rockxrocks](https://keybase.io/rockxrocks): `5KZRD6hDCZd1dgM9rJLweFFRkHu3qAgBhHgQ96Wz1VSn`
 1. [rosewu](https://keybase.io/rosewu): `836riBS2E6qfxjnrTkQdzD1JkFAoQDyUjTmzi38Gg84w`
