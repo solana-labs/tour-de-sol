@@ -16,7 +16,7 @@ for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .
   declare id=${id_vote%%=*}
   declare vote=${id_vote##*=}
 
-  stake=stake-$vote.json
+  stake=stake-$id.json
   if [[ -f $stake ]]; then
     echo "$vote (id: $id) is already staked"
     continue
@@ -27,7 +27,7 @@ for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .
     continue
   fi
 
-  echo "Staking $vote (id: $id)"
+  echo "Staking $id (vote account: $vote)"
 
   (
     set -x
