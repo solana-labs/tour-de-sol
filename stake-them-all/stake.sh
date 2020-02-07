@@ -12,13 +12,16 @@ cd "$(dirname "$0")"
   solana balance
 )
 
+who=()
 for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .*/\1=\2/p"); do
   declare id=${id_vote%%=*}
   declare vote=${id_vote##*=}
+  declare name=$(grep "$id" ../validators/all-username.yml | head -n1 | cut -d: -f2)
 
   stake=stake-$id.json
   if [[ -f $stake ]]; then
-    echo "$vote (id: $id) is already staked"
+    who+=($name)
+    echo "$name ($id) is already staked"
     continue
   fi
 
@@ -26,8 +29,8 @@ for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .
     echo "Ignoring unknown validator $id"
     continue
   fi
-
-  echo "Staking $id (vote account: $vote)"
+  echo "Staking $name ($id) (vote account: $vote)"
+  who+=($name)
 
   (
     set -x
@@ -39,3 +42,8 @@ for id_vote in $(solana show-validators | sed -ne "s/^  \([^ ]*\)   *\([^ ]*\) .
   mv stake.json $stake
 done
 
+echo
+echo "Staked users: ${#who[@]}"
+for user in ${who[@]}; do
+  echo "- $user"
+done
