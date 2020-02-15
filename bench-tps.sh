@@ -40,7 +40,7 @@ if [[ ! -f bench-tps.json ]]; then
 fi
 
 solana -u http://$host:8899 -k faucet-keypair.json \
-  pay "$(solana-keygen pubkey bench-tps.json)" 5000000 SOL
+  pay "$(solana-keygen pubkey bench-tps.json)" 5000000
 solana -u http://$host:8899 -k bench-tps.json balance
 
 export RUST_LOG=solana=info
