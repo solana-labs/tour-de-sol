@@ -18,7 +18,7 @@ solana-keygen new -o ~/validator-stake-keypair.json
 Now delegate 1 SOL to your validator by first creating your stake account:
 
 ```bash
-solana create-stake-account ~/validator-stake-keypair.json 1 SOL
+solana create-stake-account ~/validator-stake-keypair.json 1
 ```
 
 and then delegating that stake to your validator:
@@ -80,8 +80,3 @@ solana deactivate-stake ~/validator-stake-keypair.json
 ```
 
 Stake is not deactivated immediately and instead cools down in a similar fashion as stake warm up.  Your validator should remain attached to the cluster while the stake is cooling down. More information about the stake cool down can be found at [https://docs.solana.com/book/running-validator/validator-stake](https://docs.solana.com/book/running-validator/validator-stake)
-
-
-
-
-

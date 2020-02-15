@@ -56,7 +56,7 @@ for i in $(seq 0 $((NET_NUM_VALIDATORS - 1))); do
       set -x
       solana-keygen new --no-passphrase -f-o $i-tds-stake-keypair.json
       $solana --keypair $i-identity-keypair.json deactivate-stake $i-stake-keypair.json
-      $solana --keypair faucet-keypair.json create-stake-account $i-tds-stake-keypair.json 1 SOL
+      $solana --keypair faucet-keypair.json create-stake-account $i-tds-stake-keypair.json 1
       $solana --keypair faucet-keypair.json delegate-stake --keypair faucet-keypair.json $i-tds-stake-keypair.json $i-vote-keypair.json
       $scp $i-tds-stake-keypair.json solana@"${!v}":~/solana/config/tds-stake-keypair.json
     )
