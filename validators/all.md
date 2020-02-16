@@ -114,6 +114,7 @@
 1. [thomaswoo](https://keybase.io/thomaswoo): `87VQhN7dUfS9wacre7vqRm561bNUk5PwUB8xmroc2yEw`
 1. [vkomenda](https://keybase.io/vkomenda): `GuKn8nEJwUPjBfxpwyq2MXU2JNrSpj7gqnKptCZeEk7j`
 1. [alexdcrypto](https://keybase.io/alexdcrypto): `2ZZkgKcBfp4tW8qCLj2yjxRYh9CuvEVJWb6e2KKS91Mj`
+1. [soukai](https://keybase.io/soukai): `6nrkRvzUpTst8teZJawMFFHrmixJ2sxAUxPKrqoGwCB8`
 1. [auditone](https://keybase.io/auditone): `DciwdVV1DXimdsgRGQuQ45zYVjZNaof6a6EZ1JjaCsvx`
 1. [sunxmldapp](https://keybase.io/sunxmldapp): `HoMBSLMokd6BUVDT4iGw21Tnxvp2G49MApewzGJr4rfe`
 1. [chainlayer](https://keybase.io/chainlayer): `5NorYZBbtgbouD3toX3761ZGbaYTWrNSDNci4G4zV8eo`
