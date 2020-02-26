@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Tour de SOL](README.md)
+* [Introduction](README.md)
 * [Useful Links & Discussion](useful-links.md)
 * [Registration](registration/README.md)
   * [How To Register](registration/how-to-register.md)

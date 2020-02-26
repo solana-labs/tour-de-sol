@@ -1,4 +1,4 @@
-# Tour de SOL
+# Introduction
 
 ## Welcome!
 
