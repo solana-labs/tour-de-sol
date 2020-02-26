@@ -2,8 +2,6 @@
 
 ## Welcome!
 
-![](.gitbook/assets/solana.png)
-
 This guide contains information about how to participate in Solana's Tour de SOL. Questions? Comments? Email ryan@solana.com
 
 ### [Learn more about Tour de SOL](https://solana.com/tds/)
