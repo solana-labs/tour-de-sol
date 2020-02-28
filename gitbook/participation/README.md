@@ -1,6 +1,0 @@
----
-description: Setup configuration
----
-
-# Participation
-
