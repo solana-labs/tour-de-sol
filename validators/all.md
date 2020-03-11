@@ -97,7 +97,6 @@
 1. [udon_crypto](https://keybase.io/udon_crypto): `7yiFPLeyH2B2p3xGrr2Y5nmk8B52nEaa6j55Nk3u6648`
 1. [viduka](https://keybase.io/viduka): `3ckQZncmgmS1aZCC7Eot659hoBQ8k85ExddD7fu9qJ2c`
 1. [viktor0766](https://keybase.io/viktor0766): `5NH47Zk9NAzfbtqNpUtn8CQgNZeZE88aa2NRpfe7DyTD`
-1. [winnerclubs](https://keybase.io/winnerclubs): `2Lrj5xDCHDmqwCgGwjVqAUUM84vLpj5dReYeoXL9vSXV`
 1. [yongjoo](https://keybase.io/yongjoo): `2XAHomUvH3LFjYSxzSfcbwS73JgynpQHfapMNMJ8isL9`
 1. [zemlyanin](https://keybase.io/zemlyanin): `2DvsPbbKrBaJm7SbdVvRjZL1NGCU3MwciGCoCw42fTMu`
 1. [zhanglianghui](https://keybase.io/zhanglianghui): `234u57PuEif5LkTBwS7rHzu1XF5VWg79ddLLDkYBh44Q`
@@ -121,6 +120,17 @@
 1. [onenode_inc](https://keybase.io/onenode_inc): `4gEKnFpiJ8XC6DdFw4D65uYQeMF8x7KDqMrBPrDVjMPb`
 1. [huglester](https://keybase.io/huglester): `AbF88hkkpZ28VaT3vYn4xu5CeNC8G6Dq9cc8ciRR4fY5`
 1. [itastakerscom](https://keybase.io/itastakerscom): `F48fyuAYvfJgY4eTXkxmJwwXP6jFVFmQkzt4N4TSiGGF`
+1. [sergchernata](https://keybase.io/sergchernata): `FiEEzxMnedqDnDRStwshHNQTrD9DykkCSmbMcreqQuCW`
+1. [iliadrigo](https://keybase.io/iliadrigo): `6t8zWy766tsHBVNxhMwsTGiEYkGtjaZncRU3vcSEYtHU`
+1. [joesatri](https://keybase.io/joesatri): `9oKrJ9iiEnCC7bewcRFbcdo4LKL2PhUEqcu8gH2eDbVM`
+1. [spdd](https://keybase.io/spdd): `HGHMEEHCfbVFjqB69Hu9oNW6SviukB8jUheEhYVZJKe2`
+1. [say26](https://keybase.io/say26): `4FZSiJpGgprsVxkzc2F8v3bgnRpk8Ez1Dq7ohXwY1q9V`
+1. [almazzz](https://keybase.io/almazzz): `EU7Kd1fhYgUP21nSkev4DfYJQc2PmFGRXBDXRL1pMyGK`
+1. [cryptodzh](https://keybase.io/cryptodzh): `3w6hQh7Ndx93eqbaEMLyR3BwqtRxT2XVumavvU93mcRk`
+1. [nbolam](https://keybase.io/nbolam): `B52Da5MCyTcyVJEsR9RUnbf715YuBAJMxCEEPzyZXgvY`
+1. [creee](https://keybase.io/creee): `31cud34DHkL5zM4ZiHXgsrkAu13Jeck7ahvkPU9i4Jze`
+1. [dineshraju](https://keybase.io/dineshraju): `2jYzt9Ly7dNzNpMV9sbHBNuwMEvVdSi9L8yJCTJT21ki`
+1. [joesatri](https://keybase.io/joesatri): `9oKrJ9iiEnCC7bewcRFbcdo4LKL2PhUEqcu8gH2eDbVM`
 ## internal
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [elw](https://keybase.io/elw): `e1oveNykEMqgPwU5yUc3tSkyxAdtBPbyMQSnEkZNboq`
