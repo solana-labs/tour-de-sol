@@ -131,6 +131,7 @@
 1. [creee](https://keybase.io/creee): `31cud34DHkL5zM4ZiHXgsrkAu13Jeck7ahvkPU9i4Jze`
 1. [dineshraju](https://keybase.io/dineshraju): `2jYzt9Ly7dNzNpMV9sbHBNuwMEvVdSi9L8yJCTJT21ki`
 1. [joesatri](https://keybase.io/joesatri): `9oKrJ9iiEnCC7bewcRFbcdo4LKL2PhUEqcu8gH2eDbVM`
+1. [stakinghub](https://keybase.io/stakinghub): `4fBQr617DmhjekLFckh2JkGWNboKQbpRchNrXwDQdjSv`
 ## internal
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [elw](https://keybase.io/elw): `e1oveNykEMqgPwU5yUc3tSkyxAdtBPbyMQSnEkZNboq`
