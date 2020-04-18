@@ -1,2 +1,2 @@
 [workspace]
-members = ["winner-tool", "ramp-tps"]
+members = ["winner-tool"]
