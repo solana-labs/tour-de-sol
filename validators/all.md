@@ -159,7 +159,7 @@
 1. [wanderer_s](https://keybase.io/wanderer_s): `A9XUvhm5yKVs9Z3tYdyiAYRx9mNr2rqnv2VkY8D1N4uZ`
 1. [huva](https://keybase.io/huva): `5sjXEuFCerACmhdyhSmxGLD7TfvmXcg2XnPQP2o25kYT`
 1. [haizhitiantang](https://keybase.io/haizhitiantang): `Co7UqfqzXzTjhBwvam3zhNi4p8dKtdSrfh6rQykoNMy7`
-1. [tnso](https://keybase.io/tnso): `AadavpGYg46Hp6ZZM47ZUXimZYbG4abH7PnMDDc6qEEG`
+1. [tnso](https://keybase.io/tnso): `7arfejY2YxX9QrmzHrhu3rG3HofjMqKtfBzQLf8s3Wop`
 1. [vipnamai](https://keybase.io/vipnamai): `4dWYFeMhh2Q6bqXdV7CCd4mJC81im2k6CXCBKVPShXjT`
 1. [wstotti](https://keybase.io/wstotti): `8aZ5CJf9qYnQtT2XYuDKASj2pCiPwhWoNsc2rBqc9s1n`
 1. [spaceman116](https://keybase.io/spaceman116): `EBxhSfAWW2Cfouvj1k242W6U8krZVAxJS47SG8UKb4ch`
