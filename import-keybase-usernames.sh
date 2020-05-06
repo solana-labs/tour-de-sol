@@ -81,7 +81,7 @@ for keybase_file in validators/keybase-usernames.*; do
     echo "Processing $username..."
 
     declare pubkeyDir=
-    for dir in /keybase/public/"$username"/[Ss]olana/; do
+    for dir in /Volumes/Keybase/public/"$username"/[Ss]olana/; do
       if [[ -d $dir ]]; then
         pubkeyDir=$dir
         break;
