@@ -199,7 +199,10 @@
 1. [Hesp](https://keybase.io/Hesp): `DKnZytVA5wKbNPYW1pvPpoE5YeSsxu12KJFa95gBAGm7`
 1. [haarman](https://keybase.io/haarman): `2tZoLFgcbeW8Howq8QMRnExvuwHFUeEnx9ZhHq2qX77E`
 1. [amani1104](https://keybase.io/amani1104): `Dq5r3zG6XGBcXNDRSWPSc7DiWwjqcGoiVcEhZ9mXEAaV`
+1. [cp287](https://keybase.io/cp287): `5vxoRv2P12q4K4cWPCJkvPjg6jYnuCYxzF3juJZJiwba`
 1. [GRom81](https://keybase.io/GRom81): `B6ZramCQhQWcq4Vxo3H5y1MYvo37wRZiAwKk88qaYNiF`
+1. [0y](https://keybase.io/0y): `4vXPjSaZfydRqhnM85uFqDWqYcFyA744R2tjZQN8Nff4`
+1. [not2day](https://keybase.io/not2day): `4ZtE2XX6oQThPpdjwKXVMphTTZctbWwYxmcCV6xR11RT`
 ## internal
 1. [aey](https://keybase.io/aey): `Cn3ngDNLFiDGD6RfLNxRMK7NmSpYmofh3G81EijmFpKM`
 1. [elw](https://keybase.io/elw): `e1oveNykEMqgPwU5yUc3tSkyxAdtBPbyMQSnEkZNboq`
